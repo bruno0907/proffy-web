@@ -1,0 +1,192 @@
+#register-page{
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-background);
+}
+
+#register-page .register-page-content{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#register-page .register-page-content .logo-container{  
+  width: 100vw;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#register-page .register-page-content .logo-container div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#register-page .register-page-content .logo-container img{
+  height: 6rem;
+}
+
+#register-page .register-page-content .logo-container h1{
+  width: 20rem;
+  font-size: 1.2rem;
+  color: var(--color-text-in-primary);
+}
+
+#register-page .register-page-content .form-container{
+  width: 100vw;
+  height: 80vh;
+  background: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+
+#register-page .register-page-content .form-container .form-header{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 2rem 5rem;
+}
+
+
+#register-page .register-page-content .form-container form{
+  margin: auto 0;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;  
+  align-items: center;
+  justify-content: center;
+}
+
+
+#register-page-content form legend{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+#register-page-content form legend h2{
+  font-size: 3.4rem;
+  color: var(--color-text-title);
+}
+
+#register-page-content form legend p{
+  font-size: 1.6rem;
+  color: var(--color-text-base);
+  width: 24rem; 
+  margin-top: 2rem;
+}
+
+#register-page-content form fieldset div{
+  position: relative;
+}
+
+#register-page-content form fieldset div img{
+  position: absolute;
+  right: 2rem;
+  top: calc(100% - 2.8em);
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+#register-page-content form fieldset div img:hover{
+  filter: brightness(70%);
+}
+
+#register-page-content form fieldset label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.4rem;
+  color: var(--color-text-complement);
+  transform: translate(2rem, 2.2rem);
+  transition: transform .2s;
+}
+
+#register-page-content form fieldset input{
+  padding: 3rem 2rem 1rem 2rem;  
+  border: solid 1px var(--color-line-in-white);
+  background: var(--color-input-background);
+  position: relative;
+}
+
+#register-page-content form fieldset input.first-input{
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+#register-page-content form fieldset input.last-input{
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+#register-page-content form fieldset div:focus-within::after {
+  position: absolute;
+  content: '';
+  height: calc(100% - 2rem);
+  width: 0.3rem;
+  border-radius: 0.8rem;
+  background: var(--color-primary);
+  top: calc(100% - 5.5rem);
+  left: 0;
+}
+
+#register-page-content form fieldset input:focus + label{
+  transform: translate(2rem, 0.9rem);
+  font-size: 1.2rem;
+}
+
+#register-page-content form fieldset input:hover + label{
+  filter: brightness(70%);
+}
+
+#register-page-content form button[type="submit"]{
+  width: 100%;
+  background: var(--color-secundary);
+  color: var(--color-title-in-primary);
+  font-weight: 700;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  transition: background 0.2s;
+  margin: 4rem auto;
+}
+
+#register-page-content form button[type="submit"]:hover{
+  background: var(--color-secundary-dark);
+
+}
+
+#register-page-content form button.button-disabled{
+  background: var(--color-button-disabled);
+  color: var(--color-text-complement);
+  pointer-events: none;
+}
+
+
+@media(min-width: 960px){
+  #register-page-content{
+    flex-direction: row;
+  }
+
+  #register-page .logo-container{  
+    display: flex;
+    width: 50%;
+    height: 100vh;
+    background: var(--color-primary) url('../../assets/images/background.svg');      
+    background-position: center 10rem;
+    background-repeat: no-repeat;
+  }  
+
+  #register .form-container{
+    width: 50%;
+    height: 100vh;
+  }
+
+}

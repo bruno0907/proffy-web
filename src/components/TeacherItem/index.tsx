@@ -45,7 +45,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
                         <a 
                             href={whatsAppMessage} 
                             target="_blank" 
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             onClick={createNewConnection}
                         >
                             

@@ -1,10 +1,10 @@
-#login-page{
+#login-page {
   width: 100vw;
   height: 100vh;
   background: var(--color-background);
 }
 
-#login-page-content{
+#login-page .login-page-content{
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -13,36 +13,36 @@
   justify-content: center;
 }
 
-#logo-container{  
+#login-page .logo-container{  
   width: 100vw;
-  height: 50%;
+  height: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: var(--color-primary) url('../../assets/images/background-mobile.svg') no-repeat;
-  background-size: 40rem;
+  background-size: 30rem;
   background-position: center;
 
 }
-#logo-container div{
+#login-page .logo-container div{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-#logo-container img{
+#login-page .logo-container img{
   height: 8rem;
 }
 
-#logo-container h1{
+#login-page .logo-container h1{
   width: 20rem;
   font-size: 2rem;
   color: var(--color-text-in-primary);
 }
 
-#form-container{
+#login-page .form-container{
   width: 100vw;
-  height: 50%;
+  height: 60%;
   background: var(--color-background);
   display: flex;
   flex-direction: column;
@@ -50,46 +50,44 @@
   justify-content: center;
 }
 
-form{
-  margin-top: auto;
-  padding: 4rem;
+#login-page .login-page-content form{  
   display: flex;
   flex-direction: column;
 }
 
-form legend{
-  display: flex;
+#login-page .login-page-content form legend{
+display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
 
-form legend h2{
+#login-page .login-page-content form legend h2{
   font-size: 2.4rem;
   color: var(--color-text-title);
 }
 
-form legend a{
+#login-page .login-page-content form legend a{
   font-size: 1.2rem;
   color: var(--color-primary);
   text-decoration: none;
   transition: filter 2s;
 }
 
-form legend a:hover{
+#login-page .login-page-content form legend a:hover{
   filter: brightness(70%)
 }
 
-form fieldset{
+#login-page .login-page-content form fieldset{
   display: flex;
   flex-direction: column;
 }
 
-form fieldset div{
+#login-page .login-page-content form fieldset div{
   position: relative;
 }
 
-form fieldset div img{
+#login-page .login-page-content form fieldset div img{
   position: absolute;
   right: 2rem;
   top: calc(100% - 2.8em);
@@ -97,11 +95,11 @@ form fieldset div img{
   transition: filter 0.2s;
 }
 
-form fieldset div img:hover{
+#login-page .login-page-content form fieldset div img:hover{
   filter: brightness(70%);
 }
 
-form fieldset label{
+#login-page .login-page-content form fieldset label{
   position: absolute;
   top: 0;
   left: 0;
@@ -111,15 +109,21 @@ form fieldset label{
   transition: transform .2s;
 }
 
-form fieldset input{
-  padding: 3rem 2rem 1rem 2rem;
-  border-radius: 0.8rem 0.8rem 0 0;
+#login-page .login-page-content form fieldset input{
+  padding: 3rem 2rem 1rem 2rem;  
   border: solid 1px var(--color-line-in-white);
   background: var(--color-input-background);
   position: relative;
 }
 
-form fieldset div:focus-within::after {
+#login-page .login-page-content form fieldset input.first-input{
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+#login-page .login-page-content form fieldset input.last-input{
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+#login-page .login-page-content form fieldset div:focus-within::after {
   position: absolute;
   content: '';
   height: calc(100% - 2rem);
@@ -130,32 +134,27 @@ form fieldset div:focus-within::after {
   left: 0;
 }
 
-form fieldset input:focus + label{
+#login-page .login-page-content form fieldset input:focus + label{
   transform: translate(2rem, 0.9rem);
   font-size: 1.2rem;
 }
 
-form fieldset input:hover + label{
+#login-page .login-page-content form fieldset input:hover + label{
   filter: brightness(70%);
 }
 
-form fieldset input[type="password"]{
-  border-radius: 0 0 0.8rem 0.8rem;
-  border-top: var(--color-line-in-white);
-}
-
-form .save-password{
+#login-page .login-page-content form .save-password{
   display: flex;
   align-items: center;  
   margin: 2rem 0;
 }
 
-form .save-password label{
+#login-page .login-page-content form .save-password label{
   font-size: 1.2rem;
   color: var(--color-text-complement);
 }
 
-form .save-password a{
+#login-page .login-page-content form .save-password a{
   margin-left: auto;
   font-size: 1.2rem;
   color: var(--color-text-complement);
@@ -163,11 +162,11 @@ form .save-password a{
   transition: filter 0.2s;  
 }
 
-form .save-password a:hover{
+#login-page .login-page-content form .save-password a:hover{
   filter: brightness(70%);
 }
 
-form .save-password .checkbox{
+#login-page .login-page-content form .save-password .checkbox{
   position: relative;
   cursor: pointer;
   font-size: 2rem;
@@ -177,7 +176,7 @@ form .save-password .checkbox{
   margin-right: 1rem;
 }
 
-form .save-password .checkbox input{
+#login-page .login-page-content form .save-password .checkbox input{
   position: absolute;
   width: 100%;
   height: 100%;
@@ -186,17 +185,17 @@ form .save-password .checkbox input{
   cursor: pointer;
 }
 
-form .save-password .checkbox input:checked ~ span{
+#login-page .login-page-content form .save-password .checkbox input:checked ~ span{
   background: var(--color-secundary);
 }
 
-form .save-password span:after{
+#login-page .login-page-content form .save-password span:after{
   content: '';
   position: absolute;
   display: none;
 }
 
-form .save-password input:checked ~ span:after{
+#login-page .login-page-content form .save-password input:checked ~ span:after{
   display: block;
   left: 0.7rem;
   top: 0.3rem;
@@ -209,7 +208,7 @@ form .save-password input:checked ~ span:after{
   transform: rotate(45deg);
 }
 
-form .save-password .checkbox span{
+#login-page .login-page-content form .save-password .checkbox span{
   position: absolute;
   top: 0rem;
   left: 0;
@@ -221,7 +220,7 @@ form .save-password .checkbox span{
   transition: background 0.2s;
 }
 
-form button[type="submit"]{
+#login-page .login-page-content form button[type="submit"]{
   width: 100%;
   background: var(--color-secundary);
   color: var(--color-title-in-primary);
@@ -231,12 +230,12 @@ form button[type="submit"]{
   transition: background 0.2s;
 }
 
-form button[type="submit"]:hover{
+#login-page .login-page-content form button[type="submit"]:hover{
   background: var(--color-secundary-dark);
 
 }
 
-form button.button-disabled{
+#login-page .login-page-content form button.button-disabled{
   background: var(--color-button-disabled);
   color: var(--color-text-complement);
   pointer-events: none;
@@ -274,11 +273,11 @@ form button.button-disabled{
 
 
 @media(min-width: 960px){
-  #login-page-content{
+  #login-page .login-page-content{
     flex-direction: row;
   }
 
-  #logo-container{  
+  #login-page .logo-container{  
     width: 50%;
     height: 100vh;
     background: var(--color-primary) url('../../assets/images/background.svg');      
@@ -286,16 +285,21 @@ form button.button-disabled{
     background-repeat: no-repeat;
   }  
 
-  #form-container{
+  #login-page .form-container{
     width: 50%;
     height: 100vh;
   }
 
-  form legend a{
+  #login-page .login-page .login-page-content form{
+    margin: auto;
+    padding-top: 4rem;
+  }
+
+  #login-page .login-page .login-page-content form legend a{
     display: none;
   }
 
-  .signup{
+  #login-page .signup{
     display: flex;
   }
 
