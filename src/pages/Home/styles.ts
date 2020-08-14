@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom'
+
 export const LoginWrapper = styled.div`
     width: 100vw;
     height: 100vh;
@@ -86,7 +88,8 @@ export const Connections = styled.span`
   margin-right: 1.5rem;
   align-items: center;
   justify-content: center;
-  & img{
+
+  &img{
     margin-left: 0.8rem;
   }
 
@@ -142,7 +145,7 @@ export const Buttons = styled.div`
     }
 `
 
-export const Study = styled.a`
+export const Study = styled(Link)`
   background: var(--color-primary-lighter);
 
     &:hover{
@@ -151,7 +154,7 @@ export const Study = styled.a`
 
 
 `
-export const GiveClass = styled.a`
+export const GiveClass = styled(Link)`
   background: var(--color-secundary);
 
 
@@ -159,7 +162,7 @@ export const GiveClass = styled.a`
       background: var(--color-secundary-dark);
     }
 
-    & img{
+    &img{
       width: 4rem;
     }
 

@@ -43,11 +43,11 @@ const Landing: React.FC = () => {
                     Seja bem vindo.<br /><b>O que deseja fazer?</b>
                 </Welcome>
                 <Buttons>
-                    <Study>
+                    <Study to="/study">
                         <img src={studyIcon} alt="Study-button" />
                         Estudar
                     </Study>
-                    <GiveClass>
+                    <GiveClass to="/give-classes">
                         <img src={giveClassesIcon} alt="GiveClass-button"/>
                         Dar Aulas
                     </GiveClass>
