@@ -168,7 +168,7 @@
     background: var(--color-secundary-dark);
 }
 
-@media(min-width: 970px){
+@media(min-width: 62rem){
     #page-landing-content{
         justify-content: flex-start;
     }

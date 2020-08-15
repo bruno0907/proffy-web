@@ -5,7 +5,7 @@ export const LogoWrapper = styled.div`
   display: none;
   color: var(--color-text-in-primary);
 
-  @media(min-width: 970px){
+  @media(min-width: 62rem){
       display: block;
       justify-self: center;
       align-self: center;

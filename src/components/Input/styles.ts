@@ -5,11 +5,12 @@ import { InputHTMLAttributes } from 'react'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     first?: boolean;
     last?:boolean;    
+    only?: boolean;
 
 }
 
 export const InputBlock = styled.div`
-    position: relative;
+    position: relative;    
     &:focus-within::after {
         position: absolute;
         content: '';
@@ -52,13 +53,19 @@ export const InputField = styled.input<InputProps>`
     padding: 3rem 2rem 1rem 2rem;  
     border: solid 1px var(--color-line-in-white);
     background: var(--color-input-background);
-    position: relative;
+    position: relative;    
+    width: 100%;
 
     ${ (props: InputProps) => props.first && css`
         border-radius: 0.8rem 0.8rem 0 0;
     `}
+
     ${ (props: InputProps) => props.last && css`
-        border-radius: 0 0 0.8rem 0.8rem;
+        border-radius: 0 0 0.8rem 0.8rem;        
+    `}
+
+    ${ (props: InputProps) => props.only && css`
+        border-radius: 0.8rem;
     `}
     
     &::placeholder{

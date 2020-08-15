@@ -14,6 +14,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     password?: boolean;
     first?: boolean;
     last?:boolean;
+    only?:boolean;
 
 }
 

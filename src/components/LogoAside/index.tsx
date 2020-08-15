@@ -11,7 +11,7 @@ const LogoAside: React.FC = () => {
         <img src={logo} alt="Proffy"/>
         <h1>Sua plataforma de estudos online.</h1>        
       </Content>
-    </Container>
+    </Container> 
   )
 }
 

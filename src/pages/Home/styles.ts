@@ -26,7 +26,7 @@ export const LoginWrapper = styled.div`
         z-index: -1
       }
     
-    @media(min-width: 970px){
+    @media(min-width: 62rem){
       flex-direction: flex-start;
 
       &::before{
@@ -43,7 +43,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 5rem;
 
-  @media(min-width: 970px){
+  @media(min-width: 62rem){
     max-width: 1100px;
     display: grid;
     grid-template-rows: 70px 1fr 160px;
@@ -61,7 +61,7 @@ export const HeroSide = styled.img`
   max-height: 24rem;
   min-height: 25rem;
 
-  @media(min-width: 970px){
+  @media(min-width: 62rem){
     justify-self: center;
     align-self: center;
     margin: 0;
@@ -74,7 +74,7 @@ export const Welcome = styled.span`
   text-align: left;
   margin-top: 7rem;
 
-  @media(min-width: 970px){
+  @media(min-width: 62rem){
     align-self: center;
     justify-self: center;
     margin-top: 0;
@@ -93,7 +93,7 @@ export const Connections = styled.span`
     margin-left: 0.8rem;
   }
 
-  @media(min-width: 970px){    
+  @media(min-width: 62rem){    
     justify-content: flex-end;
   }
 `
@@ -129,7 +129,7 @@ export const Buttons = styled.div`
         width: 4rem;
       }
 
-      @media(min-width: 970px){
+      @media(min-width: 62rem){
         width: 30rem;
         height: 8rem;
         font-size: 2rem;
@@ -139,7 +139,7 @@ export const Buttons = styled.div`
       }
     }
 
-    @media(min-width: 970px){
+    @media(min-width: 62rem){
       justify-content: center; 
       align-self: center;
     }

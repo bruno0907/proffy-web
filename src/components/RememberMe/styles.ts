@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export const RememberWrapper = styled.div`
   display: flex;
   align-items: center;  
-  margin: 2rem 0;
+  margin-top: 2rem;
 
     > label{
       font-size: 1.2rem;
