@@ -10,6 +10,8 @@ import { PageWrapper } from './styles'
 function PasswordRecoveryPage() {  
   const [ email, setEmail ] = useState('')
 
+  const hasValue = Boolean(email.length <= 0)
+
   return (    
     <PageWrapper>
         <LogoAside />        
@@ -24,10 +26,15 @@ function PasswordRecoveryPage() {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            autoComplete={'off'}
             required
             only                        
           />        
-          <FormButton disabled type="submit">Enviar</FormButton>          
+          <FormButton 
+            disabled={hasValue}             
+            type="submit"
+            onClick={() => {console.log('Enviou')}}
+          >Enviar</FormButton>          
         </FormAside> 
     </PageWrapper>
   )

@@ -14,6 +14,7 @@ function LoginPage() {
   const [ name, setName ] = useState('')
   const [ password, setPassword ] = useState('')
 
+  const hasValue = Boolean(password.length <= 0)
 
   return (    
     <PageWrapper>      
@@ -28,6 +29,7 @@ function LoginPage() {
           name="email"
           type="email"
           value={name}
+          autoComplete={'off'}
           onChange={(event) => setName(event.target.value)}
           required
           first                       
@@ -36,6 +38,7 @@ function LoginPage() {
           label="Senha"
           name="password"
           type="password"
+          autoComplete={'off'}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           required
@@ -43,7 +46,11 @@ function LoginPage() {
           last
         />
         <RememberMe />          
-        <FormButton primary type="submit">Enviar</FormButton>      
+        <FormButton 
+          disabled={hasValue} 
+          type="submit"
+          onClick={() => {console.log('Entrou')}}
+        >Enviar</FormButton>      
       </FormAside> 
     </PageWrapper>
   )
