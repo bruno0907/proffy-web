@@ -17,6 +17,15 @@ export const BackButton = styled.div`
   grid-area: navigation;
   justify-items: center;
   align-self: center;
+  
+    >img{
+      cursor: pointer;
+      transition: brightness 0.2s;
+
+        &:hover{
+          filter: brightness(90%)
+        }
+    }
 `
 
 export const Form = styled.div`    

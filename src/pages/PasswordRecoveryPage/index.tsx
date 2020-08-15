@@ -16,6 +16,7 @@ function PasswordRecoveryPage() {
         <FormAside 
           label="Eita, esqueceu sua senha?"            
           description="Não esquenta, vamos dar um jeito nisso."
+          goBack
         >          
           <Input 
             label="E-mail"            

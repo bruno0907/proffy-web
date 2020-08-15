@@ -21,8 +21,7 @@ function RegisterPage() {
       <FormAside 
         label="Cadastro"            
         description="Preencha os dados abaixo para começar."
-        goBack
-        signUp
+        goBack        
       >          
         <Input 
           label="Nome"            
@@ -57,8 +56,7 @@ function RegisterPage() {
           required
           password
           last
-        />
-        <RememberMe />          
+        />        
         <FormButton primary type="submit">Enviar</FormButton>        
       </FormAside>
       <LogoAside />

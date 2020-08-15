@@ -10,7 +10,7 @@ const RememberMe: React.FC = () => {
         <span></span>
       </Checkbox>
     <label>Lembrar-me</label>
-    <ForgotPassword to="/">Esqueci minha senha</ForgotPassword>
+    <ForgotPassword to="/password-recovery">Esqueci minha senha</ForgotPassword>
     </RememberWrapper>
   );
 }
