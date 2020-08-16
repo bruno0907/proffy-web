@@ -4,31 +4,29 @@ import background from '../../assets/images/background-half.svg'
 import backgroundMobile from '../../assets/images/background-mobile-half.svg'
 
 export const Container = styled.div`  
-  width: 60rem;  
+  width: 55vw;  
   height: 100vh;
-  min-height: 76rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.2rem;
   background: var(--color-primary) url(${background}) center no-repeat;      
   background-size: 45rem;
   
-  
-    @media(max-width: 62rem){
+    @media(max-width: 62rem){      
       background: var(--color-primary) url(${backgroundMobile}) center no-repeat;
-      background-size: 20rem;
-      width: 100%;     
-      height: 22.5rem; 
+      background-size: 19rem;
+      width: 100vw;     
+      height: 22.5vh; 
       min-height: auto;      
       order: 0;
     }
+
 `
 
 export const Content = styled.div`      
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   >img{        

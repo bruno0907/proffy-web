@@ -22,21 +22,32 @@ import {
 import api from '../../services/api'
 
 const Landing: React.FC = () => {
-    const avatar = 'https://avatars3.githubusercontent.com/u/54812906?s=400&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4'
-
     const [ totalConnections, setTotalConnections] = useState(0)
+    const [ user, setUser ] = useState('')
+    const [ avatar, setAvatar ] = useState('')
 
     useEffect(() => {
         api.get('/connections').then(response => {
             const { total } = response.data
             setTotalConnections(total)
-        })        
-    }, []);
+        }) 
+        
+        const data = localStorage.getItem('@proffy') 
 
+        if(data){
+            const { name, avatar } = JSON.parse(data)
+            setUser(name)
+            setAvatar(avatar || 'https://avatars3.githubusercontent.com/u/54812906?s=400&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4')
+        }
+        
+    }, [])    
+    
     return (     
         <LoginWrapper>
             <Container>
-                <ProfileHeader avatar={avatar} username="Bruno Mariani" />
+                {user &&
+                    <ProfileHeader avatar={avatar} username={user} />
+                }
                 <LogoLanding title="Sua plataforma de estudos online." />
                 <HeroSide src={landingImg} />
                 <Welcome>

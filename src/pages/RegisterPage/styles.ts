@@ -11,3 +11,10 @@ export const PageWrapper = styled.div`
       flex-direction: column;
     }
 `
+
+export const FormWrapper = styled.div`  
+  grid-area: form;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
