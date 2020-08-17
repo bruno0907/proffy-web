@@ -2,16 +2,22 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom'
 
-export const LoginWrapper = styled.div`
+export const HomeWrapper = styled.div`
     width: 100vw;
+    min-width: 40rem;
     height: 100vh;
-
-    display: flex;  
-
     color: var(--color-text-base);
     background: var(--color-background);
     position: relative;
     z-index: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center; 
+    overflow-x: hidden;   
+
+    @media(max-width: 40rem){
+      overflow-x: auto;
+    }
 
       &::before{
         content: "";
@@ -19,53 +25,82 @@ export const LoginWrapper = styled.div`
         top: 0;
         left: 0;
         right: 0;
-        height: 380px;
+        height: 55rem;        
         width: 100%;
         color: var(--color-text-in-primary);
         background: var(--color-primary);
         z-index: -1
+        
       }
     
-    @media(min-width: 62rem){
-      flex-direction: flex-start;
+    @media(max-width: 62rem){
+      align-items: flex-start;
+      justify-content: flex-start;
 
-      &::before{
-        height: 70vh;
-        min-height: 400px;
+      &::before{        
+        height: 25rem;        
     }
   }
 `
 
-export const Container = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 5rem;
+export const HomeGrid = styled.div`   
+  width: 100%;  
+  max-width: 110rem;
+  min-height: 75rem;
+  display: grid;      
+  grid-template-rows: 10rem 1fr 25rem;
+  grid-template-columns: repeat(6, 1fr);    
+  grid-template-areas:
+    'profile-header profile-header profile-header profile-header profile-header profile-header '
+    'logo logo logo hero hero hero'
+    'welcome connections connections buttons buttons buttons';  
 
-  @media(min-width: 62rem){
-    max-width: 1100px;
-    display: grid;
-    grid-template-rows: 70px 1fr 160px;
-    grid-template-columns: repeat(6, 1fr);    
-    grid-template-areas:
-      'profile-header profile-header profile-header profile-header profile-header profile-header '
-      'logo logo logo hero hero hero'
-      'welcome connections connections buttons buttons buttons'
+  @media(max-width: 62rem){
+    margin: 0 auto;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem;
   }
 `
 
-export const HeroSide = styled.img`
-  grid-area: hero;
-  width: 100%;
-  max-height: 24rem;
-  min-height: 25rem;
+export const LogoAside = styled.div`
+  grid-area: logo;
+  display: block;
+  justify-self: center;
+  align-self: flex-end;  
+  margin-bottom: 2rem;
 
-  @media(min-width: 62rem){
-    justify-self: center;
+    & img{
+      height: 12rem;
+    }
+
+    & h1{
+    width: 350px;
+    text-align: initial;
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: var(--color-text-in-primary);    
+  }
+
+  @media(max-width: 62rem){
+    display: none;
+    color: var(--color-text-in-primary);      
+  }
+`
+
+export const HeroAside = styled.img`
+  grid-area: hero;    
+  justify-self: center;
+  align-self: flex-end;
+  height: 30rem;           
+  
+
+  @media(max-width: 62rem){
+    height: 20rem;
     align-self: center;
-    margin: 0;
-    margin-bottom: 6rem;
   }
 `
 
@@ -88,25 +123,27 @@ export const Connections = styled.span`
   margin-right: 1.5rem;
   align-items: center;
   justify-content: center;
+  justify-content: flex-end;
 
-  &img{
+  >img{
     margin-left: 0.8rem;
   }
 
-  @media(min-width: 62rem){    
-    justify-content: flex-end;
+  @media(max-width: 62rem){    
   }
 `
 
 export const Buttons = styled.div`
   grid-area: buttons;
   width: 100%;
+  padding: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2.5rem 0;
+  margin: 3.5rem 0;
 
   & a{
+      flex-shrink: 0;
       width: 15rem;    
       height: 16.5rem;      
       border-radius: 0.8rem;
@@ -114,7 +151,7 @@ export const Buttons = styled.div`
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: space-between;
+      justify-content: space-evenly;
       padding: 2rem;
       text-decoration: none;
       color: var(--color-button-text);
@@ -129,12 +166,12 @@ export const Buttons = styled.div`
         width: 4rem;
       }
 
-      @media(min-width: 62rem){
+      @media(min-width: 42rem){
         width: 30rem;
         height: 8rem;
         font-size: 2rem;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
       }
     }
@@ -154,6 +191,7 @@ export const Study = styled(Link)`
 
 
 `
+
 export const GiveClass = styled(Link)`
   background: var(--color-secundary);
 

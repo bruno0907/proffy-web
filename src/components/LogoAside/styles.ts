@@ -5,7 +5,7 @@ import backgroundMobile from '../../assets/images/background-mobile-half.svg'
 
 export const Container = styled.div`  
   width: 55vw;  
-  height: 100vh;
+  height: 100vh;  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,8 +16,7 @@ export const Container = styled.div`
       background: var(--color-primary) url(${backgroundMobile}) center no-repeat;
       background-size: 19rem;
       width: 100vw;     
-      height: 22.5vh; 
-      min-height: auto;      
+      height: 30%;        
       order: 0;
     }
 

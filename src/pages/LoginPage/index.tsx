@@ -53,7 +53,10 @@ function LoginPage() {
 
   const handleChecked = () => setRememberMe(!rememberMe)
 
-  const hasValue = Boolean(password.length <= 0)
+  // const hasValue = Boolean(password.length <= 0)
+
+  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const hasValue = !Boolean( email.match(emailRegex) )
 
   return (    
     <PageWrapper>      

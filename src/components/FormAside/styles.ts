@@ -5,11 +5,13 @@ export const Container = styled.div`
   height: 100vh;  
   padding: 2rem;
   background: var(--color-background);  
+  overflow-y: auto;
 
     @media(max-width: 62rem){
       width: 100vw;  
-      height: auto;    
+      height: 70%;    
       order: 1;
+      overflow-y: inherit;
     }
 `
 

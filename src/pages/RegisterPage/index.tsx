@@ -22,17 +22,21 @@ function RegisterPage() {
   const [ password, setPassword ] = useState('')
   const [ passwordCheck, setPasswordCheck ] = useState('') 
   
+  // const hasValue = Boolean(passwordCheck.length <= 0)
+  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const hasValue = !Boolean( email.match(emailRegex) )
+
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()      
 
       if( password !== passwordCheck ){
         alert('As senhas não conferem champs!!!! Acerta aí mongolóide!')
+        return
       }
- 
+
       history.push('/login')
   }
   
-  const hasValue = Boolean(passwordCheck.length <= 0)
 
   return (    
     <PageWrapper>

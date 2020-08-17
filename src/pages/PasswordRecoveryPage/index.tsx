@@ -19,7 +19,10 @@ function PasswordRecoveryPage() {
   const [ email, setEmail ] = useState('')  
   const [ loading, setLoading ] = useState(false)
 
-  const hasValue = Boolean( email.length <= 0)
+  // const hasValue = Boolean( email.length <= 0)
+
+  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const hasValue = Boolean( email.match(emailRegex) )
 
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -45,7 +48,7 @@ function PasswordRecoveryPage() {
               required
               only                        
             />   
-            <FormButton disabled={hasValue} type="submit">{ loading ? loading : 'Enviar'}</FormButton>      
+            <FormButton disabled={!hasValue} type="submit">{ loading ? loading : 'Enviar'}</FormButton>      
           </Form>
         </FormWrapper>        
       </FormAside>
