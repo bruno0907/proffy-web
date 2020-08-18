@@ -23,7 +23,7 @@ function RegisterPage() {
   const [ passwordCheck, setPasswordCheck ] = useState('') 
   
   // const hasValue = Boolean(passwordCheck.length <= 0)
-  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
   const hasValue = !Boolean( email.match(emailRegex) )
 
   const handleForm = (event: FormEvent<HTMLFormElement>) => {

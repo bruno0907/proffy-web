@@ -2,12 +2,13 @@ import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
-import TeacherList from './pages/TeacherList'
-import TeacherForm from './pages/TeacherForm'
+import TeacherList from './pages/TeacherListPage'
+import TeacherForm from './pages/TeacherFormPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ActionPage from './pages/ActionPage'
 import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
+import TeacherProfilePage from './pages/TeacherProfilePage'
 
 function Routes(){
     return(
@@ -20,6 +21,7 @@ function Routes(){
             <Route exact path="/register/success" component={ActionPage} />
             <Route exact path="/password-recovery/" component={PasswordRecoveryPage} />
             <Route exact path="/password-recovery/email-sent" component={ActionPage} />
+            <Route exact path="/teacher/profile/" component={TeacherProfilePage} />
         </BrowserRouter>
     )
 }

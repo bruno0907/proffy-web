@@ -24,7 +24,7 @@ function LoginPage() {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ rememberMe, setRememberMe ] = useState(false)
-  const [ loading, setLoading ] = useState(false)  
+  const [ loading, /*setLoading*/ ] = useState(false)  
 
   useState(() => {
     const data = localStorage.getItem('@proffy')
@@ -55,7 +55,7 @@ function LoginPage() {
 
   // const hasValue = Boolean(password.length <= 0)
 
-  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
   const hasValue = !Boolean( email.match(emailRegex) )
 
   return (    

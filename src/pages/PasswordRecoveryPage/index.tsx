@@ -17,11 +17,11 @@ import {
 
 function PasswordRecoveryPage() {  
   const [ email, setEmail ] = useState('')  
-  const [ loading, setLoading ] = useState(false)
+  const [ loading, /*setLoading */] = useState(false)
 
   // const hasValue = Boolean( email.length <= 0)
 
-  const emailRegex = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
   const hasValue = Boolean( email.match(emailRegex) )
 
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
