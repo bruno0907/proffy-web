@@ -8,13 +8,13 @@ interface ButtonProps{
 }
 
 export const Button = styled.button<ButtonProps>`
-  width: 100%;
+  width: 100%;  
   height: 5.6rem;
   border-radius: 0.8rem;
   font-size: 1.6rem;
   font-family: Archivo;
   font-weight: 700;
-  margin-top: 2rem;
+  margin: 2rem 0;
   transition: background 0.2s;
 
   ${ (props) => props.disabled ? css`

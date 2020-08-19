@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`  
   width: 100%;
-  
-  margin: 2rem 0;
 
     >legend{
       width: 100%;
@@ -17,9 +15,10 @@ export const FormContainer = styled.form`
         
         >h2{
           width: 32rem;
-          font-size: 3.6rem;
-          font-weight: 600;          
-          color: var(--color-text-title);
+          font-size: 3.5rem;
+          font-weight: 600; 
+          line-height: 150%;         
+          color: var(--color-text-title);          
 
           @media(max-width: 62rem){
             font-size: 2.4rem;
@@ -38,6 +37,7 @@ export const FormContainer = styled.form`
       font-size: 1.6rem;
       color: var(--color-text-base);      
       text-align: left;
+      margin: 2rem 0;
     }
   }
 

@@ -6,20 +6,21 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     first?: boolean;
     last?:boolean;    
     only?: boolean;
+
 }
 
 export const InputBlock = styled.div`
-    position: relative; 
     width: 100%;
+    position: relative; 
     
     &:focus-within::after {
         position: absolute;
         content: '';
-        height: calc(100% - 2rem);
+        height: calc(100% - 2.5rem);
         width: 0.3rem;
         border-radius: 0.8rem;
         background: var(--color-primary);
-        top: calc(100% - 5.5rem);
+        top: calc(100% - 24.6rem);
         left: 0;
     }
 
@@ -31,7 +32,6 @@ export const InputBlock = styled.div`
         color: var(--color-text-complement);
         transform: translate(2rem, 2.2rem);
         transition: transform .2s;
-        pointer-events: none;
     }
 
     >img{
@@ -51,24 +51,15 @@ export const InputBlock = styled.div`
     }
 `
  
-export const InputField = styled.input<InputProps>`
+export const TextAreaField = styled.textarea<InputProps>`
     padding: 3rem 2rem 1rem 2rem;  
     border: solid 1px var(--color-line-in-white);
     background: var(--color-input-background);
     position: relative;    
     width: 100%;
-
-    ${ (props: InputProps) => props.first && css`
-        border-radius: 0.8rem 0.8rem 0 0;
-    `}
-
-    ${ (props: InputProps) => props.last && css`
-        border-radius: 0 0 0.8rem 0.8rem;        
-    `}
-
-    ${ (props: InputProps) => props.only && css`
-        border-radius: 0.8rem;
-    `}
+    height: 25rem;
+    border-radius: 0.8rem;
+    resize: vertical;
     
     &::placeholder{
         opacity: 0;
@@ -86,12 +77,5 @@ export const InputField = styled.input<InputProps>`
 
     &:hover + label{
         filter: brightness(70%);
-    }
-
-    &::-webkit-calendar-picker-indicator{
-        position: absolute;
-        visibility: visible;
-        top: 2.5rem;
-        right: 1.5rem;
     }
 `

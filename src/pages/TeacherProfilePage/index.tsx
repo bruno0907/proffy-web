@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import warningIcon from '../../assets/images/icons/warning.svg'
 
 import NavBar from '../../components/NavBar'
+import Input from '../../components/Input'
+import Textarea from '../../components/Textarea'
+import FormButton from '../../components/FormButton';
 
 import { 
   TeacherProfilePageWrapper,   
@@ -9,9 +14,28 @@ import {
   Teacher,
   Subject, 
   CameraIcon,
-  TeacherProfile } from './styles';
+  TeacherProfile,
+  Container,
+  Form,
+  SectionTitle,
+  AddClass,
+  Divider,
+  InputRow,
+  AvailabilityList,
+  Footer,
+  Warning,
+ } from './styles';
 
-const TeacherProfilePage: React.FC = () => {
+const TeacherProfilePage: React.FC = () => {  
+
+  const teste = [
+    {value: '1'},
+    {value: '2'},
+    {value: '3'},
+    {value: '4'},
+    {value: '5'},
+  ]  
+    
   return (
     <TeacherProfilePageWrapper>
       <NavBar>
@@ -30,7 +54,91 @@ const TeacherProfilePage: React.FC = () => {
         <Teacher>Bruno Mariani</Teacher>
         <Subject>Inglês</Subject>
       </Header>
-      <TeacherProfile />
+      <TeacherProfile>
+        <Form onSubmit={() => {}}>
+          <Container>
+            <SectionTitle>Seus dados</SectionTitle>
+            <Divider />         
+            <InputRow>
+              <Input
+                label="Nome"
+                name="name"          
+                only
+              />
+              <Input
+                label="Sobrenome"
+                name="surname"          
+                only
+              />
+            </InputRow>
+            <InputRow>
+              <Input
+                type="email"
+                label="Email"
+                name="email"          
+                only                
+              />
+              <Input
+                type="text"
+                label="Whatsapp"
+                name="whatsapp"                      
+                only                 
+                style={{width: '40rem'}}     
+              />
+            </InputRow>
+            <InputRow>
+              <Textarea                  
+                label="Biografia"
+                subLabel="(Máximo 300 caracteres)"            
+                name="bio"
+              /> 
+            </InputRow>
+            <SectionTitle>Sobre a aula</SectionTitle>
+            <Divider />
+            <InputRow>
+              <Input 
+                type="datalist"
+                label="Matéria"
+                name="subject"                
+                only
+              />
+              <Input
+                type="text"
+                label="Custo da hora/aula"
+                name="cost"          
+                style={{width: '40rem'}}     
+                only                    
+              />
+            </InputRow>
+            <SectionTitle>Horários disponíveis <AddClass>+ Novo horário</AddClass></SectionTitle>
+            <Divider />
+            <AvailabilityList>
+              <Input
+                type="email"
+                label="Email"
+                name="email"          
+                only                
+              />
+              <Input
+                type="text"
+                label="Whatsapp"
+                name="whatsapp"                          
+                only                      
+              />
+            </AvailabilityList>
+          </Container>
+          <Footer>
+            <Warning>
+              <img src={warningIcon} alt="Atenção"/>
+              <div>
+                <p>Importante!</p>
+                <span>Preencha todos os dados corretamente.</span>
+              </div>
+            </Warning>
+            <FormButton disabled>Salvar cadastro</FormButton>
+          </Footer>
+        </Form>
+      </TeacherProfile>
     </TeacherProfilePageWrapper>
   );
 }

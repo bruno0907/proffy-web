@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FormContainer } from './styles';
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement>{
-  label: string;
+  label?: string;
   description?: string;
   register?: boolean;  
 }
@@ -13,15 +13,15 @@ const Form: React.FC<FormProps> = ({ label, description, register, children, ...
   return (
     
       <FormContainer {...rest}>
-        <legend>
-          <div>
-            <h2>  
-              {label}                
-            </h2>
-            { register && <Link to="/register">Criar uma conta</Link> }
-          </div>
-          <p>{description}</p>
-        </legend>
+        {label &&
+          <legend>
+            <div>
+              <h2> {label} </h2>            
+              { register && <Link to="/register">Criar uma conta</Link> }
+            </div>
+            <p>{description}</p>
+          </legend>        
+        }
         <fieldset>
           {children}
         </fieldset>   

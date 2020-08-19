@@ -5,16 +5,18 @@ import profileBackground from '../../assets/images/background-profile.svg'
 import { Camera } from 'styled-icons/bootstrap'
 
 export const TeacherProfilePageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 `
+
 export const Header = styled.div`
   width: 100%;
   height: 95rem;
+  padding: 5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,9 +83,91 @@ export const Subject = styled.span`
 
 export const TeacherProfile = styled.div`
   width: 100%;
-  max-width: 65rem;
-  height: 100rem;
+  max-width: 75rem;    
   background: var(--color-box-base);
   border-radius: 0.8rem;
   margin-top: -6rem;
+  margin-bottom: 6rem;  
+`
+
+export const Form = styled.form`
+  width: 100%;
+`
+
+export const Container = styled.div`
+  width: 100%;
+  padding: 0 5rem;
+`
+
+export const SectionTitle = styled.h2`
+  width: 100%;
+  margin-top: 5rem;
+  font-size: 2.5rem;
+  color: var(--color-text-in-title);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const AddClass = styled.span`
+  
+  font-family: Archivo;
+  color: var(--color-primary-dark);
+  font-size: 1.6rem;
+  cursor: pointer;
+
+    :hover{
+      color: var(--color-primary-darker);
+    }
+`
+
+export const Divider = styled.hr`
+  margin: 3rem 0;
+  width: 100%; 
+  height: 1px; 
+  background: var(--color-line-in-white);  
+`
+
+export const InputRow = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 0 0 3rem;
+
+    >div + div{
+      margin-left: 3rem;      
+    }
+`
+
+export const AvailabilityList = styled.ul`
+
+`
+
+export const Footer = styled.div`
+  width: 100%;  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5rem;
+  padding: 3rem 5rem;
+  background: var(--color-box-footer);
+  border-top: solid 1px var(--color-line-in-white);
+  border-radius: 0 0 0.8rem 0.8rem;
+`
+
+export const Warning = styled.div`  
+  display: flex;
+  width: 95rem;
+    
+  > div {
+    margin-left: 2rem;
+    /* margin-right: 3rem; */
+    >p{
+      font-size: 1.2rem;
+      color: var(--color-primary);
+    }
+
+    >span{
+      font-size: 1.2rem;
+    }
+  }
 `

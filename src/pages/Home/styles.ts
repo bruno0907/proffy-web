@@ -167,7 +167,7 @@ export const Buttons = styled.div`
       }
 
       @media(min-width: 42rem){
-        width: 30rem;
+        width: 25rem;
         height: 8rem;
         font-size: 2rem;
         flex-direction: row;

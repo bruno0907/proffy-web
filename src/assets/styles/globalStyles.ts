@@ -33,12 +33,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body{
+  body, #root, html{
     background-color: var(--color-background);
-  }
-
-  #root{
-      height: 100vh;
+    max-height: 100vh;
+    max-width: 100vw;
+    height: 100%;
+    width: 100%;
   }
 
   body, input, button, textarea{

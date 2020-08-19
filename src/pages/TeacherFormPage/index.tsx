@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom'
 
 import PageHeader from '../../components/PageHeader'
 import Input from '../../components/Input'
-import Textarea from '../../components/Textarea'
-import Select from '../../components/Select'
+import Textarea from '../../components/Textarea/'
+import Select from '../../components/Select/'
 
 import warningIcon from '../../assets/images/icons/warning.svg'
 
