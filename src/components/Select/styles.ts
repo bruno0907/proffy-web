@@ -16,10 +16,10 @@ export const SelectBlock = styled.div`
         position: absolute;
         content: '';
         height: calc(100% - 2rem);
-        width: 0.3rem;
+        width: 0.4rem;
         border-radius: 0.8rem;
         background: var(--color-primary);
-        top: calc(100% - 5.5rem);
+        top: calc(100% - 6.2rem);
         left: 0;
     }
 
@@ -54,7 +54,7 @@ export const SelectField = styled.select<SelectProps>`
     `}
     
     &::placeholder{
-        opacity: 0;
+        opacity: 1;
     }         
 
     &:focus + label{

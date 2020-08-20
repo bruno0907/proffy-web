@@ -94,80 +94,62 @@ export const Form = styled.form`
   width: 100%;
 `
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
   width: 100%;
   padding: 0 5rem;
-`
-
-export const SectionTitle = styled.h2`
-  width: 100%;
-  margin-top: 5rem;
-  font-size: 2.5rem;
-  color: var(--color-text-in-title);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-export const AddClass = styled.span`
-  
-  font-family: Archivo;
-  color: var(--color-primary-dark);
-  font-size: 1.6rem;
-  cursor: pointer;
-
-    :hover{
-      color: var(--color-primary-darker);
-    }
-`
-
-export const Divider = styled.hr`
-  margin: 3rem 0;
-  width: 100%; 
-  height: 1px; 
-  background: var(--color-line-in-white);  
 `
 
 export const InputRow = styled.div`
   width: 100%;
   display: flex;
-  margin: 0 0 3rem;
+  margin: 0 0 4rem;
 
     >div + div{
       margin-left: 3rem;      
     }
 `
 
-export const AvailabilityList = styled.ul`
-
+export const ScheduleList = styled.ul`
+ list-style: none;
 `
 
-export const Footer = styled.div`
-  width: 100%;  
+export const ScheduleItem = styled.li`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 5rem;
-  padding: 3rem 5rem;
-  background: var(--color-box-footer);
-  border-top: solid 1px var(--color-line-in-white);
-  border-radius: 0 0 0.8rem 0.8rem;
-`
+  justify-content: Center;
 
-export const Warning = styled.div`  
-  display: flex;
-  width: 95rem;
-    
   > div {
-    margin-left: 2rem;
-    /* margin-right: 3rem; */
-    >p{
-      font-size: 1.2rem;
-      color: var(--color-primary);
-    }
-
-    >span{
-      font-size: 1.2rem;
-    }
+    margin: 2rem 0;
   }
 `
+
+export const ScheduleItemRemoveButton = styled.span`
+  color: red;
+  font-family: Archivo;
+  font-size: 1.4rem;
+  font-weight: 600;
+  position: relative;
+  cursor: pointer;
+
+    ::before{
+      content: '';
+      position: absolute;
+      width: 25rem;
+      height: 0.2rem;
+      background: var(--color-line-in-white);
+      top: calc(100% - 60%);
+      left: 8rem;
+    }
+
+    ::after{
+      content: '';
+      position: absolute;
+      width: 25rem;
+      height: 0.2rem;
+      background: var(--color-line-in-white);
+      top: calc(100% - 60%);
+      right: 8rem;
+    }
+`
+

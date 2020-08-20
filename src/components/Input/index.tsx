@@ -15,7 +15,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     first?: boolean;
     last?: boolean;
     only?: boolean;    
-    
 }
 
 const Input: React.FC<InputProps> = ({ 
@@ -24,26 +23,21 @@ const Input: React.FC<InputProps> = ({
     name, 
     type,
     style,
-    password,        
+    password,         
     ...rest 
 }) => {
-
-    // console.log(toList)
-
+    
     const [ inputType, setInputType ] = useState( type )
     const [ toggleVisibility, setToggleVisibility ] = useState(password)
-
+    
     const inputId = `id_${name}`    
     const isTextArea = type === 'textarea'
-    const tagType = isTextArea ? 'textarea' : 'input'
-
+    const tagType = isTextArea ? 'textarea' : 'input'    
     
     const handleTogglePassword = () => {
         setToggleVisibility(!toggleVisibility)
         setInputType( toggleVisibility ? 'text' : 'password' )
-    }
-    
-    const hasToList = () => false    
+    }        
 
     return(
         <InputBlock style={style}>            
@@ -52,9 +46,7 @@ const Input: React.FC<InputProps> = ({
                 type={ inputType || 'text' }
                 id={inputId}  
                 name={name}              
-                placeholder={name}
-                // autoComplete={hasToList ? 'off' : 'on'}
-                // list={hasToList ? name : 'on'}
+                placeholder={name}                
                 {...rest}                                              
             />
             <label 
@@ -64,13 +56,6 @@ const Input: React.FC<InputProps> = ({
                 { password &&  
                     <img src={ toggleVisibility ? showPassword : hidePassword } alt="Show password" onClick={handleTogglePassword}/>
                 }
-            {/* { hasToList &&
-                <datalist id={name}>
-                    {hasToList.map((option: any) => (
-                        <option key={`optionFor_${inputId}${Math.random()}`} value={option}>{option}</option>
-                    ))}
-                </datalist>
-            } */}
         </InputBlock>
     )
 }
