@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     --color-button-disabled: #DCDCE5;
     --color-box-base: #FFFFFF;
     --color-box-footer: #FAFAFC;
+    --color-button-delete: #E33D3D;
   
     font-size: 60%;
   }
@@ -41,7 +42,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
-  body, input, button, textarea{
+  body, 
+  input, 
+  button, 
+  textarea,
+  select{
     font: 500 1.6rem Poppins;
     color: var(--color-text-base)
   }

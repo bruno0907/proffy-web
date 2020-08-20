@@ -83,7 +83,7 @@ export const Subject = styled.span`
 
 export const TeacherProfile = styled.div`
   width: 100%;
-  max-width: 75rem;    
+  max-width: 80rem;    
   background: var(--color-box-base);
   border-radius: 0.8rem;
   margin-top: -6rem;
@@ -118,25 +118,33 @@ export const ScheduleItem = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: Center;
+  border-bottom: solid 0.1rem var(--color-line-in-white);
+  position: relative;
 
   > div {
-    margin: 2rem 0;
+    margin: 2rem 0 3rem;
   }
 `
 
-export const ScheduleItemRemoveButton = styled.span`
-  color: red;
+export const ScheduleItemRemoveButton = styled.button`
+  padding: 0.2rem 2rem;
+  background: var(--color-title-in-primary);
+  color: var(--color-button-delete);
   font-family: Archivo;
   font-size: 1.4rem;
   font-weight: 600;
   position: relative;
-  cursor: pointer;
+  cursor: pointer;  
+  position: absolute;
+  left: calc(100% - 36.9rem);
+  bottom: -10px;
 
-    ::before{
+
+    /* ::before{
       content: '';
       position: absolute;
       width: 25rem;
-      height: 0.2rem;
+      height: 0.1rem;
       background: var(--color-line-in-white);
       top: calc(100% - 60%);
       left: 8rem;
@@ -146,10 +154,10 @@ export const ScheduleItemRemoveButton = styled.span`
       content: '';
       position: absolute;
       width: 25rem;
-      height: 0.2rem;
+      height: 0.1rem;
       background: var(--color-line-in-white);
       top: calc(100% - 60%);
       right: 8rem;
-    }
+    } */
 `
 

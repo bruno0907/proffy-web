@@ -25,6 +25,8 @@ import {
   ScheduleItemRemoveButton,
  } from './styles';
 
+ import options from '../../utils/options'
+
 const TeacherProfilePage: React.FC = () => {  
     
   const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
@@ -100,7 +102,7 @@ const TeacherProfilePage: React.FC = () => {
                 type="text"
                 label="Whatsapp"
                 name="whatsapp"                                                       
-                style={{width: '40rem'}}     
+                style={{ width: '35rem'}}
               />
             </InputRow>
             <InputRow>
@@ -113,24 +115,17 @@ const TeacherProfilePage: React.FC = () => {
             </FormSection>
             <FormSection title="Sobre a aula">
               <InputRow>
-                <Input 
-                  type="datalist"
+                <Select                   
                   label="Matéria"
-                  name="subject"                                  
-                  list="subject_list"                                
+                  name="subject"    
+                  options={options.subjects}                                                                                
                 />              
                 <Input
                   type="text"
                   label="Custo da hora/aula"
                   name="cost"          
-                  style={{width: '40rem'}}                                           
+                  style={{width: '30rem'}}                                           
                 />
-                <datalist id="subject_list">
-                  <option key="0" value="Português"/>
-                  <option key="1" value="Inglês"/>
-                  <option key="2" value="Matemática"/>
-                  <option key="3" value="Química"/>
-                </datalist>
               </InputRow>
             </FormSection>
             <FormSection 
@@ -148,41 +143,24 @@ const TeacherProfilePage: React.FC = () => {
                           name="week_day"                                                          
                           value={scheduleItem.week_day}                         
                           onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}  
-                          options={[                          
-                            { value: "0", label: "Domingo" },
-                            { value: "1", label: "Segunda-feira" },
-                            { value: "2", label: "Terça-feira" },
-                            { value: "3", label: "Quarta-feira" },
-                            { value: "4", label: "Quinta-feira" },
-                            { value: "5", label: "Sexta-feira" },
-                            { value: "6", label: "Sábado" },
-                          ]}                      
+                          options={options.weekDay}                                           
                         />
                         <Input
-                          type="time"
-                          label="De"
-                          name="from"                                                            
-                          style={{ width: '20rem'}}       
+                          type="time"                          
+                          label="Das"
+                          name="from"                                                                                                                                                                                                               
                           value={scheduleItem.from}                         
-                          onChange={event => setScheduleItemValue(index, 'from', event.target.value)}               
+                          onChange={event => setScheduleItemValue(index, 'from', event.target.value)}                                         
+                          style={{width: '16rem'}}                                       
                         />
                         <Input
-                          type="time"
+                          type="time"                          
                           label="Até"
-                          name="to"                                                                          
-                          style={{ width: '20rem'}} 
+                          name="to"                                                                                                                             
                           value={scheduleItem.to}                         
-                          onChange={event => setScheduleItemValue(index, 'to', event.target.value)}       
-                        />
-                        <datalist id="week_day_list">
-                          <option key="0" value="Domingo"/>
-                          <option key="1" value="Segunda-feira"/>
-                          <option key="2" value="Terça-feira"/>
-                          <option key="3" value="Quarta-feira"/>
-                          <option key="4" value="Quinta-feira"/>
-                          <option key="5" value="Sexta-feira"/>
-                          <option key="6" value="Sábado"/> 
-                        </datalist>
+                          onChange={event => setScheduleItemValue(index, 'to', event.target.value)}                                 
+                          style={{width: '16rem'}}                                           
+                        />                        
                         </InputRow>
                         <ScheduleItemRemoveButton 
                           onClick={() => 

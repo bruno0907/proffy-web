@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const InputBlock = styled.div`
     position: relative; 
-    width: 100%;
+    width: 100%;    
     
     &:focus-within::after {
         position: absolute;

@@ -1,0 +1,21 @@
+const subjects = [
+  { value: '0', label: 'Selecione qual matéria você quer ensinar'},
+  { value: 'matematica', label: 'Matemática'},
+  { value: 'ingles', label: 'Inglês'},
+  { value: 'quimica', label: 'Química'},
+  { value: 'fisica', label: 'Física'},
+];
+
+
+const weekDay = [                          
+    { value: '', label: 'Selecione um dia' },
+    { value: '0', label: 'Domingo' },
+    { value: '1', label: 'Segunda-feira' },
+    { value: '2', label: 'Terça-feira' },
+    { value: '3', label: 'Quarta-feira' },
+    { value: '4', label: 'Quinta-feira' },
+    { value: '5', label: 'Sexta-feira' },
+    { value: '6', label: 'Sábado' },
+];
+
+export default { subjects, weekDay }
