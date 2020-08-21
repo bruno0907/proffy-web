@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
 export const NavWrapper = styled.nav`
-  width: 100%;  
-  padding: 1.2rem 16rem;
+  width: 100%;    
   background: var(--color-primary-dark);
+`
+
+export const Container = styled.div`
+  margin: auto;
+  width: 100%;  
+  max-width: 80rem;
+  padding: 1.2rem 5rem;  
   display: flex;
   align-items: center;
   justify-content: space-between;

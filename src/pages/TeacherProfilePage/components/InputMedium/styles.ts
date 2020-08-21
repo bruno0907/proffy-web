@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 
 export const InputBlock = styled.div`
-position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;  
+  width: 45%;  
+  
+  @media(max-width: 790px){
+    width: 100%;
+  }
 
   &:focus-within::after {
     position: absolute;
@@ -29,5 +33,10 @@ position: relative;
     background: var(--color-input-background);
     position: relative;
     border-radius: 0.8rem;
+
+    
+    -webkit-inner-spin-button: none;
+    -webkit-outer-spin-button: none
+
   }
-`;
+`

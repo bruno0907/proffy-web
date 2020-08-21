@@ -1,5 +1,5 @@
 const subjects = [
-  { value: '0', label: 'Selecione qual matéria você quer ensinar'},
+  { value: '0', label: 'Selecione aqui...'},
   { value: 'matematica', label: 'Matemática'},
   { value: 'ingles', label: 'Inglês'},
   { value: 'quimica', label: 'Química'},
@@ -8,7 +8,7 @@ const subjects = [
 
 
 const weekDay = [                          
-    { value: '', label: 'Selecione um dia' },
+    { value: '', label: 'Selecione aqui...' },
     { value: '0', label: 'Domingo' },
     { value: '1', label: 'Segunda-feira' },
     { value: '2', label: 'Terça-feira' },

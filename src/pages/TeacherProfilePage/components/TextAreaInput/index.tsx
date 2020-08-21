@@ -1,15 +1,14 @@
 import React, { TextareaHTMLAttributes } from 'react'
 
-import { InputBlock, TextAreaField } from './styles'
+import { InputBlock } from './styles'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label: string;
     subLabel?: string;
-    name: string;
-    style?: object;
+    name: string;    
 }
 
-const Input: React.FC<TextareaProps> = ({ 
+const TextAreaInput: React.FC<TextareaProps> = ({ 
     label, 
     subLabel, 
     name,     
@@ -22,12 +21,9 @@ const Input: React.FC<TextareaProps> = ({
                 htmlFor={name}>{label}
                 { subLabel && <span>{subLabel}</span> }
             </label>      
-            <TextAreaField                                           
-                name={name}
-                style={style}                                                                               
-            />
+            <textarea name={name} />
         </InputBlock>
     )
 }
 
-export default Input;
+export default TextAreaInput;

@@ -5,15 +5,15 @@ import { InputBlock } from './styles'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     subLabel?: string;
-    name: string;
-    type?: string;
+    name: string;  
+    type?: string;  
 }
 
-const Input: React.FC<InputProps> = ({ 
+const InputMedium: React.FC<InputProps> = ({ 
     label, 
     subLabel, 
-    name, 
-    type,       
+    name,   
+    type,     
     ...rest 
 }) => {
     
@@ -24,7 +24,7 @@ const Input: React.FC<InputProps> = ({
                 { subLabel && <span>{subLabel}</span> }
             </label>     
             <input                         
-                type={ type || 'text' }                
+                type={type || "number"}               
                 name={name}                                           
                 {...rest}                                              
             />
@@ -32,4 +32,4 @@ const Input: React.FC<InputProps> = ({
     )
 }
 
-export default Input;
+export default InputMedium;

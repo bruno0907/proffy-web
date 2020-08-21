@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 import NavBar from '../../components/NavBar'
 
+import Header from './components/Header'
 import FormSection from './components/FormSection'
-
-import Input from './components/Input'
-import TextArea from './components/Textarea'
-import Select from './components/Select'
 import Footer from './components/Footer'
 
+import Input from './components/Input'
+import InputNumber from './components/InputMedium'
+import TextAreaInput from './components/TextAreaInput'
+import Select from './components/Select'
+import InputSM from './components/InputSmall'
+
 import { 
-  TeacherProfilePageWrapper,   
-  Header, 
-  Avatar, 
-  Teacher,
-  Subject, 
-  CameraIcon,
-  TeacherProfile,
+  ProfilePageWrapper,  
+  Profile,
   Form,
   FormContainer,
-  InputRow,
+  InputRow,        
   ScheduleList,
   ScheduleItem,
-  ScheduleItemRemoveButton,
+  // ScheduleItemRemoveButton,
  } from './styles';
 
  import options from '../../utils/options'
@@ -56,118 +54,117 @@ const TeacherProfilePage: React.FC = () => {
           }
           return scheduleItem
       })      
-      setScheduleItems(updatedScheduleItems)      
 
+      setScheduleItems(updatedScheduleItems)  
+  }
+
+  function handleSubmit(event: FormEvent){
+    event.preventDefault()
+
+    console.log('aeHOOOOOOO !!!!!!!!!')
   }
 
   return (
-    <TeacherProfilePageWrapper>
-      <NavBar>
-        <img src="" alt=""/>
-        <span></span>
-        <img src="" alt=""/>
-      </NavBar>
-      <Header>
-        <Avatar>
-          <img src="https://avatars3.githubusercontent.com/u/54812906?s=460&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4" alt=""/>
-          <div>
-            <input type="file" />
-            <CameraIcon />
-          </div>
-        </Avatar>
-        <Teacher>Bruno Mariani</Teacher>
-        <Subject>Inglês</Subject>
-      </Header>
-      <TeacherProfile>
-        <Form onSubmit={() => console.log('aeHOOOOOOOOOoo caraio')}>
+    <ProfilePageWrapper>
+      <NavBar title="Meu Perfil" />
+      <Header        
+        avatar="https://avatars3.githubusercontent.com/u/54812906?s=460&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4"
+        name="Bruno Mariani"
+        subject="Inglês"
+      />
+      <Profile as="main">
+        <Form onSubmit={handleSubmit}>
           <FormContainer>
             <FormSection title="Seus dados">
               <InputRow>
                 <Input
                   label="Nome"
-                  name="name"                            
+                  type="text" 
+                  name="name"
                 />
                 <Input
                   label="Sobrenome"
-                  name="surname"                            
+                  type="text" 
+                  name="surname"
                 />
               </InputRow>
               <InputRow>
-              <Input
-                type="email"
-                label="Email"
-                name="email"                                          
-              />
-              <Input
-                type="text"
-                label="Whatsapp"
-                name="whatsapp"                                                       
-                style={{ width: '35rem'}}
-              />
-            </InputRow>
+                <Input 
+                  label="Email"
+                  name="email"
+                />
+                <InputNumber 
+                  label="Whatsapp"
+                  name="whatsapp"
+                  type="number"
+                />
+              </InputRow>
+
             <InputRow>
-              <TextArea                  
+              <TextAreaInput 
                 label="Biografia"
-                subLabel="(Máximo 300 caracteres)"            
+                subLabel="(Máximo de 300 caracteres)"
                 name="bio"
-              /> 
+              />
             </InputRow>
+
             </FormSection>
-            <FormSection title="Sobre a aula">
+
+            <FormSection title="Sobre a aula">              
+
               <InputRow>
-                <Select                   
+                <Select
                   label="Matéria"
-                  name="subject"    
-                  options={options.subjects}                                                                                
-                />              
-                <Input
-                  type="text"
+                  name="subject"                  
+                  options={options.subjects}                  
+                />
+                <InputNumber
                   label="Custo da hora/aula"
-                  name="cost"          
-                  style={{width: '30rem'}}                                           
+                  name="cost"
+                  type="number"
                 />
               </InputRow>
+
             </FormSection>
+
             <FormSection 
               title="Horários Disponíveis" 
               addSchedule 
               onClick={addNewScheduleItem}
             >
+
               <ScheduleList>
                 { scheduleItems.map((scheduleItem, index) => {                
                   return (
-                    <ScheduleItem key={scheduleItem.id}>                    
+                    <ScheduleItem key={scheduleItem.id}>   
+
                       <InputRow>
-                        <Select                                           
+                        <Select
                           label="Dia da semana"
-                          name="week_day"                                                          
-                          value={scheduleItem.week_day}                         
-                          onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}  
-                          options={options.weekDay}                                           
+                          name="week_day"
+                          options={options.weekDay}
                         />
-                        <Input
-                          type="time"                          
-                          label="Das"
-                          name="from"                                                                                                                                                                                                               
-                          value={scheduleItem.from}                         
-                          onChange={event => setScheduleItemValue(index, 'from', event.target.value)}                                         
-                          style={{width: '16rem'}}                                       
+                      </InputRow>
+
+                      <InputRow>                      
+                        <InputSM
+                          type="time"
+                          label="De"
+                          name="from"
                         />
-                        <Input
-                          type="time"                          
+                        <InputSM
+                          type="time"
                           label="Até"
-                          name="to"                                                                                                                             
-                          value={scheduleItem.to}                         
-                          onChange={event => setScheduleItemValue(index, 'to', event.target.value)}                                 
-                          style={{width: '16rem'}}                                           
+                          name="to"
                         />                        
-                        </InputRow>
-                        <ScheduleItemRemoveButton 
+                      </InputRow>
+
+                        {/* <ScheduleItemRemoveButton 
                           onClick={() => 
                           removeScheduleItem(scheduleItem.id)}
                         >
                           Remover
-                        </ScheduleItemRemoveButton>
+                        </ScheduleItemRemoveButton> */}
                       </ScheduleItem>
                     )  
                   })}
@@ -176,8 +173,8 @@ const TeacherProfilePage: React.FC = () => {
           </FormContainer>
         <Footer />
         </Form>
-      </TeacherProfile>
-    </TeacherProfilePageWrapper>
+      </Profile>
+    </ProfilePageWrapper>
   );
 }
 

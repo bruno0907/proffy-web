@@ -1,10 +1,14 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const InputBlock = styled.div`
-position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;  
+  width: 17rem;
+
+  @media (max-width: 790px) {
+    width: 100%;
+  }
 
   &:focus-within::after {
     position: absolute;

@@ -6,30 +6,31 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     subLabel?: string;
     name: string;
-    type?: string;
+    type?: string
 }
 
-const Input: React.FC<InputProps> = ({ 
+const InputSmall: React.FC<InputProps> = ({ 
     label, 
     subLabel, 
-    name, 
-    type,       
+    name,       
+    type,  
     ...rest 
 }) => {
     
         return(
-        <InputBlock >            
+        <InputBlock>            
             <label 
                 htmlFor={name}>{label}
                 { subLabel && <span>{subLabel}</span> }
-            </label>     
+            </label>           
+                
             <input                         
-                type={ type || 'text' }                
-                name={name}                                           
+                type={type || "time"}
+                name={name}                                            
                 {...rest}                                              
             />
         </InputBlock>
     )
 }
 
-export default Input;
+export default InputSmall;

@@ -5,16 +5,22 @@ import { Link, useHistory } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 import back from '../../assets/images/icons/back.svg'
 
-import { NavWrapper, GoBackArrow, PageTitle, NavLogo } from './styles';
+import { NavWrapper, Container, GoBackArrow, PageTitle, NavLogo } from './styles';
 
-const NavBar: React.FC = () => {
+interface NavBarProps{
+  title: string;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ title }) => {
   const { goBack } = useHistory()
 
   return (
-    <NavWrapper>      
-      <GoBackArrow src={back} alt="Go-back" onClick={goBack}/>
-      <PageTitle>Meu Perfil</PageTitle>
-      <Link to="/"><NavLogo src={logo} alt="Proffy" /></Link>
+    <NavWrapper>
+      <Container>
+        <GoBackArrow src={back} alt="Go-back" onClick={goBack}/>
+        <PageTitle>{title}</PageTitle>
+        <Link to="/"><NavLogo src={logo} alt="Proffy" /></Link>
+      </Container>
     </NavWrapper>
   );
 }
