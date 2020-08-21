@@ -9,10 +9,14 @@ export const Container = styled.div`
   margin: auto;
   width: 100%;  
   max-width: 80rem;
-  padding: 1.2rem 5rem;  
+  padding: 1.2rem 0;  
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+    @media(max-width: 65rem){
+      padding: 1.2rem 2rem;
+    }
 `
 
 export const GoBackArrow = styled.img`

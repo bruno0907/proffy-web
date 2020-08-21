@@ -21,10 +21,8 @@ const Form: React.FC<FormProps> = ({ label, description, register, children, ...
             </div>
             <p>{description}</p>
           </legend>        
-        }
-        <fieldset>
-          {children}
-        </fieldset>   
+        }        
+        {children}        
       </FormContainer>
     
   );  

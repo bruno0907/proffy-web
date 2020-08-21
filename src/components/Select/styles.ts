@@ -1,73 +1,54 @@
-import styled, { css } from 'styled-components'
-
-import { SelectHTMLAttributes } from 'react'
-
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-    first?: boolean;
-    last?:boolean;    
-    only?: boolean;
-}
+import styled from 'styled-components'
 
 export const SelectBlock = styled.div`
-    position: relative; 
-    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;    
+    width: 100%;    
     
     &:focus-within::after {
         position: absolute;
         content: '';
-        height: calc(100% - 2rem);
-        width: 0.4rem;
-        border-radius: 0.8rem;
+        height: 0.4rem;
+        width: calc(100% - 4rem);        
         background: var(--color-primary);
-        top: calc(100% - 6.2rem);
-        left: 0;
+        bottom: calc(100% - 10rem);
+        left: 18px;
     }
+
+        &::before {
+            position: absolute;
+            content: '';
+            width: 10px;
+            height: 10px;
+            border: solid 2px var(--color-text-complement);
+            border-radius: 2px;
+            border-left: none;
+            border-bottom: none;
+            top: 58px;
+            right: 20px;
+            -webkit-transform: rotate(50deg);
+            -ms-transform: rotate(50deg);
+            transform: rotate(135deg);
+            z-index: 1;
+            transition: transform 0.1s;
+        }
 
     >label{
-        position: absolute;
-        top: 0.3rem;
-        left: 0;
         font-size: 1.4rem;
         color: var(--color-text-complement);
-        transform: translate(2rem, 2.2rem);
-        transition: transform .2s;
     }    
-`
- 
-export const SelectField = styled.select<SelectProps>`
-    padding: 3rem 2rem 1rem 2rem;  
-    border: solid 1px var(--color-line-in-white);
-    background: var(--color-input-background);
-    position: relative;    
-    width: 100%;
+    >select{    
+        width: 100%;
+        margin-top: 1rem;
+        padding: 2rem 3rem;  
+        border: solid 1px var(--color-line-in-white);
+        background: var(--color-input-background);
+        position: relative;        
+        border-radius: 0.8rem;  
 
-    ${ (props: SelectProps) => props.first && css`
-        border-radius: 0.8rem 0.8rem 0 0;
-    `}
-
-    ${ (props: SelectProps) => props.last && css`
-        border-radius: 0 0 0.8rem 0.8rem;        
-    `}
-
-    ${ (props: SelectProps) => props.only && css`
-        border-radius: 0.8rem;
-    `}
-    
-    &::placeholder{
-        opacity: 1;
-    }         
-
-    &:focus + label{
-        transform: translate(2rem, 0.9rem);
-        font-size: 1.2rem;
-    }
-    
-    &:not(:placeholder-shown) + label {
-        transform: translate(2rem, 0.9rem);
-        font-size: 1.2rem;
-    }
-
-    &:hover + label{
-        filter: brightness(70%);
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;     
     }
 `

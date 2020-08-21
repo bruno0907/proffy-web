@@ -23,7 +23,7 @@ export const SignUpWrapper = styled.div`
       }
   }
 
-  @media(max-width: 62rem){
+  @media(max-width: 65rem){
     display: none;
   }
 `

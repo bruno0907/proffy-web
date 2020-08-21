@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`  
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
     >legend{
       width: 100%;
@@ -20,7 +22,8 @@ export const FormContainer = styled.form`
           line-height: 150%;         
           color: var(--color-text-title);          
 
-          @media(max-width: 62rem){
+          @media(max-width: 65rem){
+            width: 20rem;
             font-size: 2.4rem;
             line-height: 3.4rem;
             margin: 1rem 0 2rem 0;          
@@ -28,7 +31,19 @@ export const FormContainer = styled.form`
         }
 
         >a{
-            display: none;        
+            display: none;  
+
+            @media(max-width: 65rem){
+              display: block;
+              font-size: 1.2rem;              
+              color: var(--color-primary);
+              text-decoration: none;
+              transition: color 0.2s;
+
+              &:hover{
+                color: var(--color-primary-darker)
+              }
+          }      
         }
       }   
 

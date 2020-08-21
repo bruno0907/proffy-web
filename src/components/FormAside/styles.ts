@@ -7,7 +7,7 @@ export const Container = styled.div`
   background: var(--color-background);  
   overflow-y: auto;
 
-    @media(max-width: 62rem){
+    @media(max-width: 65rem){
       width: 100vw;  
       height: 70%;    
       order: 1;

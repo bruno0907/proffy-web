@@ -1,40 +1,27 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React from 'react';
 
-import power from '../../assets/images/icons/power.svg'
+import { HeaderWrapper, Avatar, CameraIcon, Name, Subject } from './styles';
 
-import { 
-  Wrapper,
-  Avatar,
-  Username,
-  SignOutButton
-} from './styles'
-
-interface ProfileHeaderProps{
+interface HeaderProps{
+  name: string;
   avatar: string;
-  username: string;
-  id?: number;
+  subject: string;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ avatar, username, id }) => {
-  const history = useHistory()
-
-  function handleLogout(){
-    localStorage.clear()    
-    return history.push('/login')
-  }
-
+const Header: React.FC<HeaderProps> = ({ avatar, name, subject }) => {
   return (
-    <Wrapper>
-    <Link to={`/user/profile?=${id}`}>
-        <Avatar src={avatar} />
-        <Username>{username}</Username>
-    </Link>
-    <SignOutButton>
-        <img src={power} alt="Sign-out" onClick={handleLogout}/>
-    </SignOutButton>
-</Wrapper>
-  );
+    <HeaderWrapper>
+      <Avatar>
+          <img src={avatar} alt={`${name}_${avatar}`}/>
+          <div>
+            <input type="file" />
+            <CameraIcon />
+          </div>
+        </Avatar>
+        <Name>{name}</Name>
+      <Subject>{subject}</Subject>
+    </HeaderWrapper>
+    );
 }
 
-export default ProfileHeader;
+export default Header;

@@ -16,6 +16,11 @@ export const Profile = styled.div`
   border-radius: 0.8rem;
   margin-top: -6rem;
   margin-bottom: 6rem;
+
+
+  @media(max-width: 65rem){
+      width: 90%;
+    }
 `;
 
 export const Form = styled.form`
@@ -25,6 +30,10 @@ export const Form = styled.form`
 export const FormContainer = styled.div`
   width: 100%;
   padding: 0 5rem;
+
+    @media(max-width: 65rem){
+      padding: 0 2rem;      
+    }
 `;
 
 export const InputRow = styled.div`  
@@ -45,16 +54,6 @@ export const InputRow = styled.div`
     }
   }
 `;
-
-// export const InputTimeRow = styled.div`  
-//   width: 100%;
-//   display: flex;
-//   margin-top: 3rem;
-
-//   > div + div {
-//     margin-left: 3rem;
-//   }
-// `;
 
 export const ScheduleList = styled.ul`
   list-style: none;
@@ -82,17 +81,25 @@ export const ScheduleItem = styled.li`
   }
 `;
 
+export const ScheduleItemRemoveButton = styled.span`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: solid 1px var(--color-line-in-white);
+  border-radius: 0.8rem;
+  right: 0rem;
+  top: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-family: Archivo;
+  cursor: pointer;
+  color: var(--color-button-delete);
+  transition: opacity 0.2s;
 
-// export const ScheduleItemRemoveButton = styled.button`
-//   padding: 0.2rem 2rem;
-//   background: var(--color-title-in-primary);
-//   color: var(--color-button-delete);
-//   font-family: Archivo;
-//   font-size: 1.4rem;
-//   font-weight: 600;
-//   position: relative;
-//   cursor: pointer;
-//   position: absolute;
-//   left: calc(100% - 40rem);
-//   bottom: -10px;
-// `
+    &:hover{
+      opacity: 0.7;
+    }
+`

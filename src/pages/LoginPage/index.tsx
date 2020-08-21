@@ -7,7 +7,7 @@ import LogoAside from '../../components/LogoAside'
 import FormAside from '../../components/FormAside'
 
 import Form from '../../components/Form'
-import Input from '../../components/Input'
+import LoginInput from '../../components/LoginInput'
 
 import SignUp from '../../components/SignUp'
 
@@ -37,6 +37,7 @@ function LoginPage() {
     }
     return {}
   })
+  
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -50,13 +51,9 @@ function LoginPage() {
     
   }
 
-
   const handleChecked = () => setRememberMe(!rememberMe)
 
-  // const hasValue = Boolean(password.length <= 0)
-
-  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
-  const hasValue = !Boolean( email.match(emailRegex) )
+  const hasValue = Boolean(password.length <= 0)
 
   return (    
     <PageWrapper>      
@@ -65,8 +62,12 @@ function LoginPage() {
       <FormAside>
        
         <FormWrapper>
-          <Form label="Faça seu login" onSubmit={handleForm}>
-            <Input 
+          <Form 
+            label="Faça seu login" 
+            register
+            onSubmit={handleForm}
+          >
+            <LoginInput 
             label="E-mail"            
             name="email"
             type="email"
@@ -76,7 +77,7 @@ function LoginPage() {
             required
             first                       
             />
-            <Input 
+            <LoginInput 
               label="Senha"
               name="password"
               type="password"
@@ -98,42 +99,4 @@ function LoginPage() {
   )
 }
 
-
 export default LoginPage
-
-
-
-// <LogoAside />
-//       <FormAside 
-//         label="Fazer Login"
-//         register 
-//         signUp         
-//       >          
-        // <Input 
-        //   label="E-mail"            
-        //   name="email"
-        //   type="email"
-        //   value={name}
-        //   autoComplete={'off'}
-        //   onChange={(event) => setName(event.target.value)}
-        //   required
-        //   first                       
-        // />
-        // <Input 
-        //   label="Senha"
-        //   name="password"
-        //   type="password"
-        //   autoComplete={'off'}
-        //   value={password}
-        //   onChange={(event) => setPassword(event.target.value)}
-        //   required
-        //   password
-        //   last
-        // />
-        // <RememberMe />          
-        // <FormButton 
-        //   disabled={hasValue} 
-        //   type="submit"
-        //   onClick={() => {console.log('Entrou')}}
-        // >Enviar</FormButton>      
-//       </FormAside> 

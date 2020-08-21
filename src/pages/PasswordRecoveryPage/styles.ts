@@ -7,7 +7,7 @@ export const PageWrapper = styled.div`
   align-items: center;
   justify-content: center;    
 
-    @media(max-width: 62rem){
+    @media(max-width: 65rem){
       flex-direction: column;
     }
 `
@@ -19,7 +19,7 @@ export const LogoSide = styled.div`
   align-items: center;
   justify-content: center;
   
-    @media(max-width: 62rem){      
+    @media(max-width: 65rem){      
       width: 100vw;     
       height: 22.5vh; 
       min-height: auto;      

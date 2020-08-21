@@ -1,7 +1,7 @@
 import React from 'react';
 
-import warningIcon from '../../../../assets/images/icons/warning.svg'
-import FormButton from '../../../../components/FormButton'
+import warningIcon from '../../assets/images/icons/warning.svg'
+import FormButton from '../FormButton'
 
 import { FooterWrapper, Warning } from './styles'
 

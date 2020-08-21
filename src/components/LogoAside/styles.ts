@@ -12,7 +12,7 @@ export const Container = styled.div`
   background: var(--color-primary) url(${background}) center no-repeat;      
   background-size: 45rem;
   
-    @media(max-width: 62rem){      
+    @media(max-width: 65rem){      
       background: var(--color-primary) url(${backgroundMobile}) center no-repeat;
       background-size: 19rem;
       width: 100vw;     
@@ -39,7 +39,7 @@ export const Content = styled.div`
     color: var(--color-text-in-primary);
   }
 
-  @media(max-width: 62rem){    
+  @media(max-width: 65rem){    
     >img{
       height: 4.2rem;      
     }

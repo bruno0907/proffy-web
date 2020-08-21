@@ -7,7 +7,7 @@ export const PageWrapper = styled.div`
   align-items: center;
   justify-content: center;    
 
-    @media(max-width: 62rem){
+    @media(max-width: 65rem){
       flex-direction: column;
     }
 `

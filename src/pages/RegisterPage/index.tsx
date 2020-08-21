@@ -6,7 +6,7 @@ import LogoAside from '../../components/LogoAside'
 import FormAside from '../../components/FormAside'
 
 import Form from '../../components/Form'
-import Input from '../../components/Input'
+import LoginInput from '../../components/LoginInput'
 import FormButton from '../../components/FormButton'
 
 import FormBackButton from '../../components/FormBackButton'
@@ -48,9 +48,8 @@ function RegisterPage() {
             label="Cadastro" 
             description="Preencha os dados abaixo para começar" 
             onSubmit={handleForm}
-          >
-
-            <Input 
+          >            
+            <LoginInput 
               label="Nome"            
               name="nome"
               autoComplete={'off'}
@@ -59,7 +58,7 @@ function RegisterPage() {
               required
               first                       
             />
-            <Input 
+            <LoginInput 
               label="Sobrenome"            
               name="surname"
               autoComplete={'off'}            
@@ -67,7 +66,7 @@ function RegisterPage() {
               onChange={(event) => setSurname(event.target.value)}
               required                     
             />
-            <Input 
+            <LoginInput 
               label="E-mail"            
               name="email"
               type="email"
@@ -76,7 +75,7 @@ function RegisterPage() {
               onChange={(event) => setEmail(event.target.value)}
               required          
             />
-            <Input 
+            <LoginInput 
               label="Senha"
               name="password"
               type="password"
@@ -86,7 +85,7 @@ function RegisterPage() {
               required
               password          
             />        
-            <Input 
+            <LoginInput 
               label="Repita sua senha"
               name="password_check"
               type="password"
@@ -96,10 +95,12 @@ function RegisterPage() {
               required
               password
               last
-            />        
-
-            <FormButton type="submit" disabled={hasValue}>Concluir cadastro</FormButton>  
-
+            />     
+            <FormButton 
+              type="submit" 
+              style={{ marginTop: '4rem' }} 
+              disabled={hasValue}
+            >Concluir cadastro</FormButton> 
           </Form>
         </FormWrapper>
       </FormAside>

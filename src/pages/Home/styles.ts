@@ -15,10 +15,6 @@ export const HomeWrapper = styled.div`
     justify-content: center; 
     overflow-x: hidden;   
 
-    @media(max-width: 40rem){
-      overflow-x: auto;
-    }
-
       &::before{
         content: "";
         position: absolute;
@@ -33,20 +29,21 @@ export const HomeWrapper = styled.div`
         
       }
     
-    @media(max-width: 62rem){
+    @media(max-width: 65rem){
       align-items: flex-start;
       justify-content: flex-start;
 
       &::before{        
-        height: 25rem;        
+        height: 32rem;        
     }
   }
 `
 
 export const HomeGrid = styled.div`   
   width: 100%;  
-  max-width: 110rem;
+  max-width: 125rem;
   min-height: 75rem;
+  padding: 0 5rem;
   display: grid;      
   grid-template-rows: 10rem 1fr 25rem;
   grid-template-columns: repeat(6, 1fr);    
@@ -55,26 +52,26 @@ export const HomeGrid = styled.div`
     'logo logo logo hero hero hero'
     'welcome connections connections buttons buttons buttons';  
 
-  @media(max-width: 62rem){
+  @media(max-width: 65rem){
     margin: 0 auto;
-    width: 95%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 2rem;
+    padding: 1rem;
   }
 `
 
 export const LogoAside = styled.div`
   grid-area: logo;
   display: block;
-  justify-self: center;
+  justify-self: flex-start;
   align-self: flex-end;  
   margin-bottom: 2rem;
 
     & img{
-      height: 12rem;
+      height: 13rem;
     }
 
     & h1{
@@ -85,7 +82,7 @@ export const LogoAside = styled.div`
     color: var(--color-text-in-primary);    
   }
 
-  @media(max-width: 62rem){
+  @media(max-width: 65rem){
     display: none;
     color: var(--color-text-in-primary);      
   }
@@ -98,7 +95,7 @@ export const HeroAside = styled.img`
   height: 30rem;           
   
 
-  @media(max-width: 62rem){
+  @media(max-width: 65rem){
     height: 20rem;
     align-self: center;
   }
@@ -107,11 +104,11 @@ export const HeroAside = styled.img`
 export const Welcome = styled.span`
   grid-area: welcome;
   text-align: left;
-  margin-top: 7rem;
+  margin-top: 7rem;  
 
-  @media(min-width: 62rem){
+  @media(min-width: 65rem){
     align-self: center;
-    justify-self: center;
+    justify-self: flex-start;
     margin-top: 0;
   }
 `
@@ -129,7 +126,7 @@ export const Connections = styled.span`
     margin-left: 0.8rem;
   }
 
-  @media(max-width: 62rem){    
+  @media(max-width: 65rem){    
   }
 `
 
@@ -140,6 +137,7 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: flex-end;
   margin: 3.5rem 0;
 
   & a{
@@ -176,8 +174,9 @@ export const Buttons = styled.div`
       }
     }
 
-    @media(min-width: 62rem){
+    @media(min-width: 65rem){
       justify-content: center; 
+      align-items: center;
       align-self: center;
     }
 `

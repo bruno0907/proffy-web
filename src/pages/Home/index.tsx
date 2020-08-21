@@ -6,7 +6,7 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.svg'
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 import logoImg from '../../assets/images/logo.svg'
 
-import ProfileHeader from '../../components/ProfileHeader'
+import HomeHeader from '../../components/HomeHeader'
 
 import { 
     HomeWrapper,
@@ -36,8 +36,8 @@ const Landing: React.FC = () => {
         const data = localStorage.getItem('@proffy') 
 
         if(data){
-            const { name, avatar } = JSON.parse(data)
-            setUser(name)
+            const { email, avatar } = JSON.parse(data)
+            setUser(email)
             setAvatar(avatar || 'https://avatars3.githubusercontent.com/u/54812906?s=400&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4')
         }
         
@@ -47,7 +47,7 @@ const Landing: React.FC = () => {
         <HomeWrapper>
             <HomeGrid>
                 {user &&
-                    <ProfileHeader avatar={avatar} username={user} />
+                    <HomeHeader avatar={avatar} username={user} />
                 }
                 <LogoAside>
                     <div>

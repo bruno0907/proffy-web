@@ -5,7 +5,7 @@ import LogoAside from '../../components/LogoAside'
 import FormAside from '../../components/FormAside'
 
 import Form from '../../components/Form'
-import Input from '../../components/Input'
+import LoginInput from '../../components/LoginInput'
 
 import FormBackButton from '../../components/FormBackButton'
 
@@ -38,7 +38,7 @@ function PasswordRecoveryPage() {
         <FormBackButton />          
         <FormWrapper>
           <Form label="Eita! Esqueceu sua senha?" description="Não esquenta, vamos dar um jeito nisso." onSubmit={handleForm}>
-            <Input 
+            <LoginInput 
               label="E-mail"            
               name="email"
               type="email"
@@ -48,7 +48,11 @@ function PasswordRecoveryPage() {
               required
               only                        
             />   
-            <FormButton disabled={!hasValue} type="submit">{ loading ? loading : 'Enviar'}</FormButton>      
+            <FormButton 
+              disabled={!hasValue} 
+              type="submit"
+              style={{ marginTop: '4rem' }}
+            >{ loading ? loading : 'Enviar'}</FormButton>      
           </Form>
         </FormWrapper>        
       </FormAside>

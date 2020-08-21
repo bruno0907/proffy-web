@@ -2,25 +2,25 @@ import React, { useState, useEffect, FormEvent } from 'react';
 
 import NavBar from '../../components/NavBar'
 
-import Header from './components/Header'
-import FormSection from './components/FormSection'
-import Footer from './components/Footer'
+import ProfileHeader from '../../components/ProfileHeader'
+import FormSection from '../../components/FormSection'
+import Footer from '../../components/Footer'
 
-import Input from './components/Input'
-import InputNumber from './components/InputMedium'
-import TextAreaInput from './components/TextAreaInput'
-import Select from './components/Select'
-import InputSM from './components/InputSmall'
+import Form from '../../components/Form'
+import Input from '../../components/Input'
+import InputSM from '../../components/InputSmall'
+import InputMedium from '../../components/InputMedium'
+import Textarea from '../../components/Textarea'
+import Select from '../../components/Select'
 
 import { 
   ProfilePageWrapper,  
-  Profile,
-  Form,
+  Profile,  
   FormContainer,
   InputRow,        
   ScheduleList,
   ScheduleItem,
-  // ScheduleItemRemoveButton,
+  ScheduleItemRemoveButton,
  } from './styles';
 
  import options from '../../utils/options'
@@ -67,7 +67,7 @@ const TeacherProfilePage: React.FC = () => {
   return (
     <ProfilePageWrapper>
       <NavBar title="Meu Perfil" />
-      <Header        
+      <ProfileHeader        
         avatar="https://avatars3.githubusercontent.com/u/54812906?s=460&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4"
         name="Bruno Mariani"
         subject="Inglês"
@@ -93,7 +93,7 @@ const TeacherProfilePage: React.FC = () => {
                   label="Email"
                   name="email"
                 />
-                <InputNumber 
+                <InputMedium 
                   label="Whatsapp"
                   name="whatsapp"
                   type="number"
@@ -101,7 +101,7 @@ const TeacherProfilePage: React.FC = () => {
               </InputRow>
 
             <InputRow>
-              <TextAreaInput 
+              <Textarea 
                 label="Biografia"
                 subLabel="(Máximo de 300 caracteres)"
                 name="bio"
@@ -118,7 +118,7 @@ const TeacherProfilePage: React.FC = () => {
                   name="subject"                  
                   options={options.subjects}                  
                 />
-                <InputNumber
+                <InputMedium
                   label="Custo da hora/aula"
                   name="cost"
                   type="number"
@@ -134,10 +134,9 @@ const TeacherProfilePage: React.FC = () => {
             >
 
               <ScheduleList>
-                { scheduleItems.map((scheduleItem, index) => {                
+                { scheduleItems.map((scheduleItem, index) => {
                   return (
-                    <ScheduleItem key={scheduleItem.id}>   
-
+                    <ScheduleItem key={scheduleItem.id}> 
                       <InputRow>
                         <Select
                           label="Dia da semana"
@@ -145,7 +144,6 @@ const TeacherProfilePage: React.FC = () => {
                           options={options.weekDay}
                         />
                       </InputRow>
-
                       <InputRow>                      
                         <InputSM
                           type="time"
@@ -158,16 +156,14 @@ const TeacherProfilePage: React.FC = () => {
                           name="to"
                         />                        
                       </InputRow>
-
-                        {/* <ScheduleItemRemoveButton 
-                          onClick={() => 
-                          removeScheduleItem(scheduleItem.id)}
-                        >
-                          Remover
-                        </ScheduleItemRemoveButton> */}
-                      </ScheduleItem>
-                    )  
-                  })}
+                      <ScheduleItemRemoveButton                         
+                        onClick={() => 
+                        removeScheduleItem(scheduleItem.id)}
+                      >X</ScheduleItemRemoveButton>
+                    </ScheduleItem>
+                  )  
+                })}      
+                  
               </ScheduleList>
             </FormSection>
           </FormContainer>

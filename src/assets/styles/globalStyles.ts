@@ -55,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  @media(min-wdith: 62rem){
+  @media(min-wdith: 65rem){
     :root{
       font-size: 62.5%;
     }
