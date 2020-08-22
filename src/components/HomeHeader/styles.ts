@@ -11,6 +11,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;  
+  align-self: center;
+  padding: 0 2rem;
 
   > a{
     text-decoration: none;

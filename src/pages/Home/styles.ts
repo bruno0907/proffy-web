@@ -34,7 +34,7 @@ export const HomeWrapper = styled.div`
       justify-content: flex-start;
 
       &::before{        
-        height: 32rem;        
+        height: 38rem;        
     }
   }
 `
@@ -45,7 +45,7 @@ export const HomeGrid = styled.div`
   min-height: 75rem;
   padding: 0 5rem;
   display: grid;      
-  grid-template-rows: 10rem 1fr 25rem;
+  grid-template-rows: 20rem 1fr 25rem;
   grid-template-columns: repeat(6, 1fr);    
   grid-template-areas:
     'profile-header profile-header profile-header profile-header profile-header profile-header '
@@ -53,13 +53,15 @@ export const HomeGrid = styled.div`
     'welcome connections connections buttons buttons buttons';  
 
   @media(max-width: 65rem){
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 1rem;
+    padding: 2rem;
+    grid-template-rows: 7rem 27rem 17rem 1fr 17rem;
+    grid-template-columns: 1fr;    
+    grid-template-areas:
+      'profile-header'      
+      'hero'
+      'welcome'
+      'buttons'
+      'connections';  
   }
 `
 
@@ -67,8 +69,7 @@ export const LogoAside = styled.div`
   grid-area: logo;
   display: block;
   justify-self: flex-start;
-  align-self: flex-end;  
-  margin-bottom: 2rem;
+  align-self: center;  
 
     & img{
       height: 13rem;
@@ -90,14 +91,15 @@ export const LogoAside = styled.div`
 
 export const HeroAside = styled.img`
   grid-area: hero;    
-  justify-self: center;
-  align-self: flex-end;
-  height: 30rem;           
-  
+  justify-self: flex-end;
+  align-self: center;
+  width: 100%;
+  max-width: 55rem;
 
   @media(max-width: 65rem){
-    height: 25rem;
-    align-self: center;
+    width: 100%;
+    max-width: 40rem;
+    justify-self: center;
   }
 `
 
@@ -106,10 +108,11 @@ export const Welcome = styled.span`
   text-align: left;
   margin-top: 10rem;  
 
-  @media(min-width: 65rem){
+  @media(max-width: 65rem){
     align-self: center;
     justify-self: flex-start;
     margin-top: 0;
+    font-size: 2.2rem;
   }
 `
 
@@ -126,19 +129,18 @@ export const Connections = styled.span`
     margin-left: 0.8rem;
   }
 
-  @media(max-width: 65rem){    
+  @media(max-width: 65rem){   
+    justify-self: flex-start; 
   }
 `
 
 export const Buttons = styled.div`
   grid-area: buttons;
-  width: 100%;
-  padding: 0.8rem;
+  width: 100%;  
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-self: flex-end;
-  margin: 3.5rem 0;
+  justify-self: flex-end;  
 
   & a{
       flex-shrink: 0;

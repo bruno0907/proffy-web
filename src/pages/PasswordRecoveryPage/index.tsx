@@ -1,5 +1,7 @@
 import React, { useState, FormEvent } from 'react'
 
+import { useHistory } from 'react-router-dom'
+
 import LogoAside from '../../components/LogoAside'
 
 import FormAside from '../../components/FormAside'
@@ -16,6 +18,7 @@ import {
 } from './styles'
 
 function PasswordRecoveryPage() {  
+  const history = useHistory()
   const [ email, setEmail ] = useState('')  
   const [ loading, /*setLoading */] = useState(false)
 
@@ -26,8 +29,13 @@ function PasswordRecoveryPage() {
 
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    console.log('Email:', email)
+    
+    history.push('/password-recovery/email-sent', {            
+      title: 'Redefinição enviada!',
+      description: 'Boa, agora é só checar o e-mail que foi enviado para você, redefinir sua senha e aproveitar os estudos.' ,
+      buttonText: 'Voltar ao Login',
+      link: '/login',
+    })
   }
 
   return (    
