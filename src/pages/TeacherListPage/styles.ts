@@ -51,6 +51,4 @@ export const InputRow = styled.div`
   @media(max-width: 50rem){
     margin-bottom: 2rem;    
   }
-
-
 `

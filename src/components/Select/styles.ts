@@ -34,10 +34,24 @@ export const SelectBlock = styled.div`
             transition: transform 0.1s;
         }
 
-    >label{
+    > label {
         font-size: 1.4rem;
         color: var(--color-text-complement);
-    }    
+
+        >span{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        @media(max-width: 50rem){
+            font-size: 1.2rem;
+
+            >span{
+                font-size: 1.1rem;
+            }
+        }
+    }
+
     >select{    
         width: 100%;
         margin-top: 1rem;

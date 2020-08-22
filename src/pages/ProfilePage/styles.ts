@@ -9,7 +9,7 @@ export const Profile = styled.div`
   margin-bottom: 6rem;
 
   @media(max-width: 65rem){
-      width: 90%;
+      width: 95%;
     }
 `;
 
@@ -70,6 +70,20 @@ export const ScheduleItem = styled.li`
     }
   }
 `;
+
+export const ScheduleContentTimeRow = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 3rem;
+
+    > div + div {
+        margin-left: 2rem;
+      }
+
+  @media(max-width: 50rem){
+    margin-bottom: 2rem;    
+  }
+`
 
 export const ScheduleItemRemoveButton = styled.span`
   position: absolute;

@@ -19,6 +19,19 @@ export const InputBlock = styled.div`
   > label {
     font-size: 1.4rem;
     color: var(--color-text-complement);
+
+      >span{
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      @media(max-width: 50rem){
+          font-size: 1.2rem;
+
+          >span{
+            font-size: 1.1rem;
+          }
+      }
   }
 
   > textarea {

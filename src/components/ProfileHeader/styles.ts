@@ -13,6 +13,11 @@ export const HeaderWrapper = styled.div`
   justify-content: center;
   background: var(--color-primary) url(${profileBackground}) no-repeat center;
   background-size: 100rem;
+
+    @media(max-width: 50rem){
+      padding: 3rem 0;
+      background-size: 85rem;
+    }
 `
 
 export const Avatar = styled.div`
@@ -62,6 +67,10 @@ export const Name = styled.h1`
     font-family: Archivo;
     font-size: 3.6rem;
     color: var(--color-line-in-white);
+
+      @media(max-width: 50rem){
+        font-size: 2.4rem;
+      }
 `
 
 export const Subject = styled.span`
@@ -69,4 +78,8 @@ export const Subject = styled.span`
   color: var(--color-line-in-white);
   font-weight: 400;
   margin-bottom: 6rem;
+
+    @media(max-width: 50rem){
+      font-size: 1.6rem;
+    }
 `

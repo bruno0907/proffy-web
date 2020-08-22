@@ -14,6 +14,10 @@ export const Title = styled.legend`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+    @media(max-width: 50rem){
+      font-size: 2rem;
+    }
 `
 
 export const Divider = styled.hr`
@@ -31,5 +35,9 @@ export const AddSchedule = styled.span`
 
     :hover{
       color: var(--color-primary-darker);
+    }
+
+    @media(max-width: 50rem){
+      font-size: 1.4rem;
     }
 `

@@ -24,6 +24,7 @@ import {
     UserName,
     ScheduleList,
     ScheduleItem,
+    ScheduleContentTimeRow,
     ScheduleItemRemoveButton,
 } from './styles'
 
@@ -35,15 +36,23 @@ import options from '../../utils/options'
 function GiveClassesPage() {
     const history = useHistory()
 
-    const [ scheduleItems, setScheduleItems ] = useState([
-        { week_day: 0, from: '', to: ''},
-    ])
+    const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
+  
+    function addNewScheduleItem(){    
+        let a = scheduleItems.length
+        const nid = a++
 
-    function addNewScheduleItem(){
         setScheduleItems([
-            ...scheduleItems, 
-            { week_day: 0, from: '', to: '' }
-        ])
+            ...scheduleItems,
+            { id: nid, week_day: 0, from: '', to: '' }
+            
+        ])        
+    }
+
+    function removeScheduleItem(id: number) {        
+        setScheduleItems(
+        scheduleItems.filter( item => item.id !== id) 
+        )
     }
 
     // setScheduleItemValue(0, 'week_day', '2)
@@ -53,9 +62,9 @@ function GiveClassesPage() {
                 return { ...scheduleItem, [field]: value}
             }
             return scheduleItem
-        })  
-        
-        setScheduleItems(updatedScheduleItems)      
+        })      
+
+        setScheduleItems(updatedScheduleItems)  
     }
 
     async function handleCreateClass(event: FormEvent){
@@ -126,28 +135,43 @@ function GiveClassesPage() {
                                 />                                   
                             </InputRow>
                         </FormSection>
-                        <FormSection title="Horários disponíveis">
+                        <FormSection                         
+                            title="Horários disponíveis"                        
+                            addSchedule 
+                            onClick={addNewScheduleItem}
+                        >
                             <ScheduleList>
-                                <ScheduleItem>
-                                    <InputRow>
-                                        <Select 
-                                            name="week_day"
-                                            label="Dia da semana"
-                                            options={options.weekDay}
-                                        />
-                                        <InputSmall 
-                                            type="time"
-                                            label="De"
-                                            name="from"
-                                        />
-                                        <InputSmall 
-                                            type="time"
-                                            label="Até"
-                                            name="to"
-                                        />
-                                    </InputRow>
-                                    <ScheduleItemRemoveButton>X</ScheduleItemRemoveButton>
-                                </ScheduleItem>
+
+                                { scheduleItems.map((scheduleItem, index) => {
+                                    return (
+                                        <ScheduleItem key={scheduleItem.id}>                                             
+                                            <InputRow>
+                                                <Select                         
+                                                    name="week_day"
+                                                    label="Dia da semana"
+                                                    options={options.weekDay}
+                                                />                                        
+                                            </InputRow>
+                                            <ScheduleContentTimeRow>
+                                                <InputSmall 
+                                                    type="time"
+                                                    name="from"
+                                                    label="De"
+                                                />
+                                                <InputSmall 
+                                                    type="time"
+                                                    name="to"
+                                                    label="Até"
+                                                />
+                                            </ScheduleContentTimeRow>                                            
+                                            <ScheduleItemRemoveButton                         
+                                                onClick={() => 
+                                                removeScheduleItem(scheduleItem.id)}
+                                            >X</ScheduleItemRemoveButton>
+                                        </ScheduleItem>
+                                    )  
+                                })}      
+
                             </ScheduleList>
                         </FormSection>
                     </FormContainer>

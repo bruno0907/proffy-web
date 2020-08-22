@@ -7,7 +7,7 @@ import FormSection from '../../components/FormSection'
 import Footer from '../../components/Footer'
 import Form from '../../components/Form'
 import Input from '../../components/Input'
-import InputSM from '../../components/InputSmall'
+import InputSmall from '../../components/InputSmall'
 import InputMedium from '../../components/InputMedium'
 import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
@@ -17,7 +17,8 @@ import {
   FormContainer,
   InputRow,        
   ScheduleList,
-  ScheduleItem,
+  ScheduleItem,  
+  ScheduleContentTimeRow,
   ScheduleItemRemoveButton,
  } from './styles';
 
@@ -136,24 +137,24 @@ const TeacherProfilePage: React.FC = () => {
                   return (
                     <ScheduleItem key={scheduleItem.id}> 
                       <InputRow>
-                        <Select
-                          label="Dia da semana"
-                          name="week_day"
-                          options={options.weekDay}
-                        />
+                          <Select                         
+                            name="week_day"
+                            label="Dia da semana"
+                            options={options.weekDay}
+                          />                                        
                       </InputRow>
-                      <InputRow>                      
-                        <InputSM
-                          type="time"
-                          label="De"
-                          name="from"
-                        />
-                        <InputSM
-                          type="time"
-                          label="Até"
-                          name="to"
-                        />                        
-                      </InputRow>
+                      <ScheduleContentTimeRow>
+                          <InputSmall 
+                            type="time"
+                            name="from"
+                            label="De"
+                          />
+                          <InputSmall 
+                            type="time"
+                            name="to"
+                            label="Até"
+                          />
+                        </ScheduleContentTimeRow>
                       <ScheduleItemRemoveButton                         
                         onClick={() => 
                         removeScheduleItem(scheduleItem.id)}
