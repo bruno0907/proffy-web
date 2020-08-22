@@ -13,7 +13,7 @@ export const InputBlock = styled.div`
   &:focus-within::after {
     position: absolute;
     content: "";
-    height: 0.3rem;
+    height: 0.4rem;
     width: calc(100% - 4rem);
     background: var(--color-primary);
     bottom: 0;

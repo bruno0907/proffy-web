@@ -1,11 +1,10 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 
+import PageContainer from '../../components/PageContainer'
 import NavBar from '../../components/NavBar'
-
 import ProfileHeader from '../../components/ProfileHeader'
 import FormSection from '../../components/FormSection'
 import Footer from '../../components/Footer'
-
 import Form from '../../components/Form'
 import Input from '../../components/Input'
 import InputSM from '../../components/InputSmall'
@@ -13,8 +12,7 @@ import InputMedium from '../../components/InputMedium'
 import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
 
-import { 
-  ProfilePageWrapper,  
+import {   
   Profile,  
   FormContainer,
   InputRow,        
@@ -65,7 +63,7 @@ const TeacherProfilePage: React.FC = () => {
   }
 
   return (
-    <ProfilePageWrapper>
+    <PageContainer>
       <NavBar title="Meu Perfil" />
       <ProfileHeader        
         avatar="https://avatars3.githubusercontent.com/u/54812906?s=460&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4"
@@ -170,7 +168,7 @@ const TeacherProfilePage: React.FC = () => {
         <Footer />
         </Form>
       </Profile>
-    </ProfilePageWrapper>
+    </PageContainer>
   );
 }
 

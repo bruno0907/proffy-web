@@ -47,8 +47,18 @@ const GlobalStyle = createGlobalStyle`
   button, 
   textarea,
   select{
-    font: 500 1.6rem Poppins;
-    color: var(--color-text-base)
+    font-size: 1.6rem;
+    font-family: Poppins;
+    font-weight: 500;   
+    color: var(--color-text-base);
+  }
+
+  input,
+  select,
+  textarea{
+    @media(max-width: 50rem){
+        font-size: 1.4rem;
+      }
   }
 
   button{

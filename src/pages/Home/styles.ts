@@ -96,7 +96,7 @@ export const HeroAside = styled.img`
   
 
   @media(max-width: 65rem){
-    height: 20rem;
+    height: 25rem;
     align-self: center;
   }
 `
@@ -104,7 +104,7 @@ export const HeroAside = styled.img`
 export const Welcome = styled.span`
   grid-area: welcome;
   text-align: left;
-  margin-top: 7rem;  
+  margin-top: 10rem;  
 
   @media(min-width: 65rem){
     align-self: center;

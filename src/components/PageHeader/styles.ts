@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background: var(--color-primary);
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;  
-  margin: 6rem 0 14rem;
+  margin: 8rem 0 12rem;
 
     @media(max-width: 65rem){
       width: 90%;

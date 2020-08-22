@@ -9,24 +9,24 @@ export const SelectBlock = styled.div`
     &:focus-within::after {
         position: absolute;
         content: '';
-        height: 0.4rem;
+        height: 0.3rem;
         width: calc(100% - 4rem);        
         background: var(--color-primary);
-        bottom: calc(100% - 10rem);
+        bottom: calc(100% - 9.5rem);
         left: 18px;
     }
 
         &::before {
             position: absolute;
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 0.8rem;
+            height: 0.8rem;
             border: solid 2px var(--color-text-complement);
             border-radius: 2px;
             border-left: none;
             border-bottom: none;
-            top: 58px;
-            right: 20px;
+            top: 5.5rem;
+            right: 1.5rem;
             -webkit-transform: rotate(50deg);
             -ms-transform: rotate(50deg);
             transform: rotate(135deg);

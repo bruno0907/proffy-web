@@ -2,19 +2,20 @@ import React, { useState, FormEvent } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
+import PageContainer from '../../components/PageContainer'
 import PageHeader from '../../components/PageHeader'
 import NavBar from '../../components/NavBar'
 import Form from '../../components/Form'
 import FormSection from '../../components/FormSection'
 import InputMedium from '../../components/InputMedium'
+import InputSmall from '../../components/InputSmall'
 import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
 import Footer from '../../components/Footer'
 
 import rocketIcon from '../../assets/images/icons/rocket.svg'
 
-import {
-    GiveClassesPageWrapper,
+import {    
     Profile,
     FormContainer,
     InputRow,
@@ -27,7 +28,6 @@ import {
 } from './styles'
 
 import options from '../../utils/options'
-import InputSmall from '../../components/InputSmall'
 
 // import api from '../../services/api'
 
@@ -80,7 +80,7 @@ function GiveClassesPage() {
     }
 
     return (
-        <GiveClassesPageWrapper>
+        <PageContainer>
             <NavBar title="Dar aulas" />
             <PageHeader 
                 title="Que incrível que você quer dar aulas."
@@ -154,7 +154,7 @@ function GiveClassesPage() {
                     <Footer />
                 </Form>
             </Profile>            
-        </GiveClassesPageWrapper>
+        </PageContainer>
     )
 }
 
