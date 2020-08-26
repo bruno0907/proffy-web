@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
+import AuthContext from '../../contexts/auth'
+
 import power from '../../assets/images/icons/power.svg'
+import avatarPlaceholder from '../../assets/images/icons/user.svg'
 
 import { 
   Wrapper,
@@ -10,31 +13,46 @@ import {
   SignOutButton
 } from './styles'
 
-interface ProfileHeaderProps{
-  avatar: string;
-  username: string;
-  id?: number;
-}
-
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ avatar, username, id }) => {
+const HomeHeader: React.FC = () => {
   const history = useHistory()
+  const { signOut } = useContext(AuthContext)
 
-  function handleLogout(){
-    localStorage.clear()    
-    return history.push('/login')
+  const [ avatar, setAvatar ] = useState(avatarPlaceholder)
+  const [ name, setName ] = useState('')
+  const [ id, setId ] = useState('')
+
+  useEffect(() => {
+    async function loadStoragedUserData(){
+      const storagedUser = localStorage.getItem('@AuthProffy:user')  
+
+      if(storagedUser){
+        const userData = JSON.parse(storagedUser)
+
+        setId(userData.id)
+        setName(userData.name)  
+        setAvatar(userData.avatar)
+      }  
+    }
+
+    loadStoragedUserData()
+  },[])
+
+  function handleSignOut(){
+    signOut()
+    return history.push('/sign-in')
   }
 
   return (
     <Wrapper>
     <Link to={`/user/profile?=${id}`}>
         <Avatar src={avatar} />
-        <Username>{username}</Username>
+        <Username>{name}</Username>
     </Link>
-    <SignOutButton>
-        <img src={power} alt="Sign-out" onClick={handleLogout}/>
+    <SignOutButton onClick={handleSignOut}>
+        <img src={power} alt="Sign-out" />
     </SignOutButton>
 </Wrapper>
   );
 }
 
-export default ProfileHeader;
+export default HomeHeader;

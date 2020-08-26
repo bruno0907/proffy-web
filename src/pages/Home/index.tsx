@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import AuthContext from '../../contexts/auth'
 
 import landingImg from '../../assets/images/landing.svg'
 import studyIcon from '../../assets/images/icons/study.svg'
@@ -23,31 +25,23 @@ import {
 import api from '../../services/api'
 
 const Landing: React.FC = () => {
-    const [ totalConnections, setTotalConnections] = useState(0)
-    const [ user, setUser ] = useState('')
-    const [ avatar, setAvatar ] = useState('')
+    const [ totalConnections, setTotalConnections] = useState(0)        
+    const { signed } = useContext(AuthContext)
 
     useEffect(() => {
-        api.get('/connections').then(response => {
-            const { total } = response.data
+        async function getConnections(){
+            const response = await api.get('/connections')
+            const { total } = response.data            
             setTotalConnections(total)
-        }) 
-        
-        const data = localStorage.getItem('@proffy') 
-
-        if(data){
-            const { email, avatar } = JSON.parse(data)
-            setUser(email)
-            setAvatar(avatar || 'https://avatars3.githubusercontent.com/u/54812906?s=400&u=230c6ae207fa7fd5735456ef3011c8771549c8cb&v=4')
         }
-        
-    }, [])    
+        getConnections()
+    }, [])
     
     return (     
         <HomeWrapper>
             <HomeGrid>
-                {user &&
-                    <HomeHeader avatar={avatar} username={user} />
+                {signed &&
+                    <HomeHeader />
                 }
                 <LogoAside>
                     <div>

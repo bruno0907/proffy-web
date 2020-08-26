@@ -24,7 +24,7 @@ const InputMedium: React.FC<InputProps> = ({
                 { subLabel && <span>{subLabel}</span> }
             </label>     
             <input                         
-                type={type || "number"}               
+                type={type || "text"}               
                 name={name}                                           
                 {...rest}                                              
             />

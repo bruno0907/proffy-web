@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useContext } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -18,7 +18,10 @@ import {
   PageWrapper, FormWrapper 
 } from './styles'
 
-function LoginPage() {  
+import AuthContext from '../../contexts/auth'
+
+
+function SignInPage() {  
   const history = useHistory()
 
   const [ email, setEmail ] = useState('')
@@ -26,46 +29,49 @@ function LoginPage() {
   const [ rememberMe, setRememberMe ] = useState(false)
   const [ loading, /*setLoading*/ ] = useState(false)  
 
-  useState(() => {
-    const data = localStorage.getItem('@proffy')
-    
-    if(data){
-      const { email, password } = JSON.parse(data)
-      setEmail(email)
-      setPassword(password)
-      setRememberMe(!rememberMe)
-    }
-    return {}
-  })
-  
-  const handleForm = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    if(rememberMe){
-      localStorage.setItem('@proffy', JSON.stringify({        
-        email,
-        password
-      }))      
-    }
-    history.push('/')
-    
-  }
+  const { signed, user, signIn } = useContext(AuthContext)  
 
   const handleChecked = () => setRememberMe(!rememberMe)
-
   const hasValue = Boolean(password.length <= 0)
+  
+  console.log({signed, user})
+
+  async function handleSignIn(event: FormEvent){
+    event.preventDefault()
+
+    await signIn()  
+    history.push('/')  
+  }
+
+  // useEffect(() => {
+  //   remember && history.push('/')
+  // })
+  
+  // const handleSignIn = useCallback((event: FormEvent) => {
+  //   event.preventDefault()
+    
+  //     signIn(email, password, rememberMe)
+  //       .then(response => {
+  //         response.status ? history.push('/') : alert('Usuário ou senha incorretos')
+  //       })
+  //       .catch(error => {
+  //         console.log('Error: ', error)
+  //         alert('Houve um erro na sua solicitação.')
+  //       })
+
+  // }, [])
+
+  
 
   return (    
     <PageWrapper>      
       <LogoAside />
-
-      <FormAside>
-       
+      <FormAside>       
         <FormWrapper>
           <Form 
             label="Faça seu login" 
             register
-            onSubmit={handleForm}
+            onSubmit={handleSignIn}
           >
             <LoginInput 
             label="E-mail"            
@@ -88,8 +94,7 @@ function LoginPage() {
               password
               last
             />
-            <RememberMe checked={rememberMe} onChange={handleChecked} onClick={handleChecked} />    
-
+            <RememberMe checked={rememberMe} onChange={handleChecked} onClick={handleChecked} />  
             <FormButton disabled={hasValue} type="submit">{ loading ? loading : 'Entrar'}</FormButton>      
           </Form>
         </FormWrapper>
@@ -99,4 +104,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default SignInPage

@@ -12,7 +12,7 @@ const Textarea: React.FC<TextareaProps> = ({
     label, 
     subLabel, 
     name,     
-    style,         
+    ...rest   
 }) => {
 
     return(
@@ -21,7 +21,7 @@ const Textarea: React.FC<TextareaProps> = ({
                 htmlFor={name}>{label}
                 { subLabel && <span>{subLabel}</span> }
             </label>      
-            <textarea name={name} />
+            <textarea name={name} {...rest}/>
         </InputBlock>
     )
 }

@@ -25,7 +25,7 @@ const InputSmall: React.FC<InputProps> = ({
             </label>           
                 
             <input                         
-                type={type || "time"}
+                type={type || "text"}
                 name={name}                                            
                 {...rest}                                              
             />

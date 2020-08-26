@@ -7,7 +7,7 @@ import { SignUpWrapper, Cta, SignUpLink } from './styles';
 const SignUp: React.FC = () => {
   return (
     <SignUpWrapper>
-      <Cta>Não tem conta? <SignUpLink to="/register">Cadastre-se</SignUpLink></Cta>
+      <Cta>Não tem conta? <SignUpLink to="/sign-up">Cadastre-se</SignUpLink></Cta>
       <span>É de graça <img src={heart} alt="Love"/></span>
     </SignUpWrapper>
   );

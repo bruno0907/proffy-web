@@ -17,7 +17,7 @@ const Form: React.FC<FormProps> = ({ label, description, register, children, ...
           <legend>
             <div>
               <h2> {label} </h2>            
-              { register && <Link to="/register">Criar uma conta</Link> }
+              { register && <Link to="/sign-up">Criar uma conta</Link> }
             </div>
             <p>{description}</p>
           </legend>        
