@@ -37,15 +37,7 @@ function SignInPage() {
   useEffect(() => {
     const remember = localStorage.getItem('@ProffyAuth:remember')   
     remember === 'true' && history.push('/')  
-
-    const email = localStorage.getItem('@ProffyAuth:email')
-    const password = localStorage.getItem('@ProffyAuth:password')
-
-    if(email && password){
-      setEmail(JSON.parse(email))
-      setPassword(JSON.parse(password))
-    }
-  }, [])
+  })
 
   async function handleSignIn(event: FormEvent){
     event.preventDefault()

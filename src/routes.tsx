@@ -19,12 +19,14 @@ function Routes() {
         <Route exact path="/" component={Home} />
         <Route exact path="/study" component={TeacherList} />
         <Route exact path="/give-classes" component={GiveClassesPage} />
+        <Route exact path="/give-classes/success" component={ActionPage} />
         <Route exact path="/sign-in" component={SignInPage} />
         <Route exact path="/sign-up" component={SignUpPage} />
         <Route exact path="/sign-up/success" component={ActionPage} />
         <Route exact path="/password-recovery/" component={PasswordRecoveryPage} />
         <Route exact path="/password-recovery/email-sent" component={ActionPage} />
         <Route exact path="/user/profile/" component={ProfilePage} />
+        
       </BrowserRouter>
     </AuthProvider>
   );

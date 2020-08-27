@@ -4,11 +4,12 @@ import api from '../services/api'
 
 interface UserProps {
   id: string;
-  name: string;
   avatar: string;
+  name: string;
+  surname: string;
   email: string;
-  bio: string;
   whatsapp: string;
+  bio: string;
 }
 
 interface AuthContextProps{  
@@ -68,43 +69,49 @@ export const AuthProvider: React.FC = ({ children }) => {
     })
 
     if(response.data.user){
-      const { user, token } = response.data    
+      const { token, user } = response.data    
   
       setUser(user)
-      setSigned(true)
+      setSigned(true)     
       
+      /* 
+        Implementar um sistema de ExpireIn para o token visando não permitir 
+        que a aplicação persista dados no localStorage por determinado tempo se a opção de rememberMe não for marcada
+        pelo usuário.
+      */
+     
+      localStorage.setItem('@ProffyAuth:token', token)        
 
+      api.defaults.headers.Authorization = `Bearer ${token}`
+      
       localStorage.setItem('@ProffyAuth:user', JSON.stringify(user))
-      localStorage.setItem('@ProffyAuth:token', token)
 
-      if(rememberMe){
-        localStorage.setItem('@ProffyAuth:remember', 'true')
-        localStorage.setItem('@ProffyAuth:email', JSON.stringify(email))
-        localStorage.setItem('@ProffyAuth:password', JSON.stringify(password))
-      } else {
-        localStorage.setItem('@ProffyAuth:remember', 'false')
-      }      
+      rememberMe ?         
+        localStorage.setItem('@ProffyAuth:remember', 'true')        
+      :
+        localStorage.setItem('@ProffyAuth:remember', 'false')        
   
-      return { status: true }    
+      return { 
+        status: true 
+      }    
 
     } else {
       setSigned(false)
       setUser({} as UserProps)      
 
-      return {status: false}
+      return {
+        status: false
+      }
     }
     
   }
 
   async function signOut() {
-    setUser(null)
+    setUser({} as UserProps)
     localStorage.removeItem('@ProffyAuth:user')
     localStorage.removeItem('@ProffyAuth:token')
     localStorage.removeItem('@ProffyAuth:remember')
   }
-
-
-
 
   return(
     <AuthContext.Provider value={{ 

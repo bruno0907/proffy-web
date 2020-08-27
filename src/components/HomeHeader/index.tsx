@@ -15,26 +15,18 @@ import {
 
 const HomeHeader: React.FC = () => {
   const history = useHistory()
-  const { signOut } = useContext(AuthContext)
+  const { signed, signOut, user } = useContext(AuthContext)
 
   const [ avatar, setAvatar ] = useState(avatarPlaceholder)
   const [ name, setName ] = useState('')  
-
-  useEffect(() => {
-    function loadStoragedUserData(){
-      const storagedUser = localStorage.getItem('@ProffyAuth:user')  
-
-      if(storagedUser){
-        const data = JSON.parse(storagedUser)
-        
-        setAvatar(data.avatar || avatarPlaceholder)
-        setName(data.name)          
-      }  
+  
+  useState(() => {
+    if(signed){
+      
+      setAvatar(user?.avatar || avatarPlaceholder)
+      setName(user?.name || '')   
     }
-
-    loadStoragedUserData()
-  },[])
-
+  })
 
   function handleSignOut(){
     signOut()

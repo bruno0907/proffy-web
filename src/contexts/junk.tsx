@@ -63,34 +63,34 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     console.log(email, password, rememberMe)
 
-    // const response = await api.post<ResponseSignInUser>('proffy/sign-in', {
-    //   email,
-    //   password
-    // })
+    const response = await api.post<ResponseSignInUser>('proffy/sign-in', {
+      email,
+      password
+    })
 
-    // if(response.data.user){
-    //   const { user, token } = response.data
+    if(response.data.user){
+      const { user, token } = response.data
 
-    //   localStorage.setItem('@AuthProffy:user', JSON.stringify(user))
-    //   localStorage.setItem('@AuthProffy:token', token)
+      localStorage.setItem('@AuthProffy:user', JSON.stringify(user))
+      localStorage.setItem('@AuthProffy:token', token)
 
-    //   rememberMe 
-    //     ? localStorage.setItem('@AuthProffy:remember', 'true')
-    //     : localStorage.setItem('@AuthProffy:remember', 'false')
+      rememberMe 
+        ? localStorage.setItem('@AuthProffy:remember', 'true')
+        : localStorage.setItem('@AuthProffy:remember', 'false')
         
-    //   setUser(user)
-    //   setSigned(true)
-    //   setData({user, token, rememberMe})    
+      setUser(user)
+      setSigned(true)
+      setData({user, token, rememberMe})    
       
       return {status: true }
 
-    // } else {
-    //   setSigned(false)
-    //   setUser({} as UserProps)
-    //   setData({} as ResponseSignInUser)
+    } else {
+      setSigned(false)
+      setUser({} as UserProps)
+      setData({} as ResponseSignInUser)
 
-      // return {status: false}
-    // }    
+      return {status: false}
+    }    
   }
 
 

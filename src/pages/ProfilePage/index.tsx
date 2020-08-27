@@ -1,4 +1,5 @@
-import React, { useState, FormEvent, useCallback, useContext, ChangeEvent } from 'react';
+import React, { useState, useEffect, FormEvent, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom'
 
 import PageContainer from '../../components/PageContainer'
 import NavBar from '../../components/NavBar'
@@ -26,12 +27,25 @@ import {
   ScheduleItem,  
   ScheduleContentTimeRow,
   ScheduleItemRemoveButton,
- } from './styles';
+} from './styles';
 
- import options from '../../utils/options'
+import AuthContext from '../../contexts/auth'
+import options from '../../utils/options'
 
+import api from '../../services/api'
+
+// interface UserProps{  
+//     avatar: string;
+//     name: string;
+//     surname: string;
+//     email: string;
+//     whatsapp: string;
+//     bio: string;
+// }
 
 function TeacherProfilePage (){    
+  const history = useHistory()
+  const { signed, user } = useContext(AuthContext)  
 
   const [ avatar, setAvatar] = useState(avatarPlaceholder)
   const [ name, setName ] = useState('')
@@ -42,6 +56,21 @@ function TeacherProfilePage (){
   const [ subject, setSubject ] = useState('')
   const [ cost, setCost ] = useState('')
   const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
+
+  useEffect(() => {
+    if(signed){
+      const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)      
+
+      setAvatar(user.avatar || avatarPlaceholder)
+      setName(user.name)
+      setSurname(user.surname)
+      setEmail(user.email)
+      setWhatsapp(user.whatsapp)
+      setBio(user.bio) 
+      setSubject(user.subject)    
+      setCost(user.cost) 
+    }
+  }, [signed])
   
   // setScheduleItemValue(0, 'week_day', '2)
   function setScheduleItemValue(position: number, field: string, value: string){
@@ -93,7 +122,7 @@ function TeacherProfilePage (){
 
   // }, [updateUser, user.id])
 
-  function handleSubmit(event: FormEvent){
+  async function handleSubmit(event: FormEvent){
     event.preventDefault()
 
     const data = {
@@ -104,10 +133,20 @@ function TeacherProfilePage (){
       bio,
       subject,
       cost,
-      scheduleItems,
+      // scheduleItems,
     }
 
-    console.log( data )
+    try {
+
+      await api.put(`/proffy/profile/${user?.id}/update`, data)
+      localStorage.setItem('@ProffyAuth:user', JSON.stringify(data))
+
+      history.push('/')
+    } catch (error) {
+
+      alert('Houve um erro na sua solicitação')
+      console.log(error)
+    }    
   }
 
   return (
