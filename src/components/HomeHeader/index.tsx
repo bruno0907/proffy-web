@@ -18,24 +18,23 @@ const HomeHeader: React.FC = () => {
   const { signOut } = useContext(AuthContext)
 
   const [ avatar, setAvatar ] = useState(avatarPlaceholder)
-  const [ name, setName ] = useState('')
-  const [ id, setId ] = useState('')
+  const [ name, setName ] = useState('')  
 
   useEffect(() => {
-    async function loadStoragedUserData(){
-      const storagedUser = localStorage.getItem('@AuthProffy:user')  
+    function loadStoragedUserData(){
+      const storagedUser = localStorage.getItem('@ProffyAuth:user')  
 
       if(storagedUser){
-        const userData = JSON.parse(storagedUser)
-
-        setId(userData.id)
-        setName(userData.name)  
-        setAvatar(userData.avatar)
+        const data = JSON.parse(storagedUser)
+        
+        setAvatar(data.avatar || avatarPlaceholder)
+        setName(data.name)          
       }  
     }
 
     loadStoragedUserData()
   },[])
+
 
   function handleSignOut(){
     signOut()
@@ -44,7 +43,7 @@ const HomeHeader: React.FC = () => {
 
   return (
     <Wrapper>
-    <Link to={`/user/profile?=${id}`}>
+    <Link to={`/user/profile`}>
         <Avatar src={avatar} />
         <Username>{name}</Username>
     </Link>

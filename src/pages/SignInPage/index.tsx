@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useContext } from 'react'
+import React, { useState, useEffect, FormEvent, useContext } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -29,40 +29,31 @@ function SignInPage() {
   const [ rememberMe, setRememberMe ] = useState(false)
   const [ loading, /*setLoading*/ ] = useState(false)  
 
-  const { signed, user, signIn } = useContext(AuthContext)  
+  const { signIn } = useContext(AuthContext)  
 
   const handleChecked = () => setRememberMe(!rememberMe)
   const hasValue = Boolean(password.length <= 0)
   
-  console.log({signed, user})
+  useEffect(() => {
+    const remember = localStorage.getItem('@ProffyAuth:remember')   
+    remember === 'true' && history.push('/')  
+
+    const email = localStorage.getItem('@ProffyAuth:email')
+    const password = localStorage.getItem('@ProffyAuth:password')
+
+    if(email && password){
+      setEmail(JSON.parse(email))
+      setPassword(JSON.parse(password))
+    }
+  }, [])
 
   async function handleSignIn(event: FormEvent){
     event.preventDefault()
 
-    await signIn()  
-    history.push('/')  
+    const status = await signIn( email, password, rememberMe )     
+    status ? history.push('/') : alert('Ocorreu um erro')
   }
-
-  // useEffect(() => {
-  //   remember && history.push('/')
-  // })
   
-  // const handleSignIn = useCallback((event: FormEvent) => {
-  //   event.preventDefault()
-    
-  //     signIn(email, password, rememberMe)
-  //       .then(response => {
-  //         response.status ? history.push('/') : alert('Usuário ou senha incorretos')
-  //       })
-  //       .catch(error => {
-  //         console.log('Error: ', error)
-  //         alert('Houve um erro na sua solicitação.')
-  //       })
-
-  // }, [])
-
-  
-
   return (    
     <PageWrapper>      
       <LogoAside />

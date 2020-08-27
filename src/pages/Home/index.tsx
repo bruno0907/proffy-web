@@ -26,7 +26,7 @@ import api from '../../services/api'
 
 const Landing: React.FC = () => {
     const [ totalConnections, setTotalConnections] = useState(0)        
-    const { signed } = useContext(AuthContext)
+    const { signed } = useContext(AuthContext)    
 
     useEffect(() => {
         async function getConnections(){
