@@ -58,7 +58,10 @@ export const Avatar = styled.div`
 
     >input[type=file]{
       position: absolute;
-      width: 25rem;
+      width: 18rem;
+      height: 18rem;
+      bottom: 0;
+      right: -5px;           
       opacity: 0;                 
       z-index: 1;
       cursor: pointer;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent, useCallback, useContext } from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent} from 'react';
 import { useHistory } from 'react-router-dom'
 
 import PageContainer from '../../components/PageContainer'
@@ -29,25 +29,16 @@ import {
   ScheduleItemRemoveButton,
 } from './styles';
 
-import AuthContext from '../../contexts/auth'
+import { useAuth } from '../../contexts/auth'
 import options from '../../utils/options'
 
 import api from '../../services/api'
 
-// interface UserProps{  
-//     avatar: string;
-//     name: string;
-//     surname: string;
-//     email: string;
-//     whatsapp: string;
-//     bio: string;
-// }
-
 function TeacherProfilePage (){    
   const history = useHistory()
-  const { signed, user } = useContext(AuthContext)  
+  const { signed, user } = useAuth() 
 
-  const [ avatar, setAvatar] = useState(avatarPlaceholder)
+  const [ avatar, setAvatar] = useState(null)
   const [ name, setName ] = useState('')
   const [ surname, setSurname ] = useState('')
   const [ email, setEmail ] = useState('')
@@ -58,20 +49,40 @@ function TeacherProfilePage (){
   const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
 
   useEffect(() => {
-    if(signed){
-      const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)      
-
-      setAvatar(user.avatar || avatarPlaceholder)
+    if(!signed){      
+      history.push('/sign-in')
+    } else {
+      const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)   
+      
+      setAvatar(user.avatar !== null ? user.avatar : avatarPlaceholder)
       setName(user.name)
       setSurname(user.surname)
       setEmail(user.email)
-      setWhatsapp(user.whatsapp)
-      setBio(user.bio) 
-      setSubject(user.subject)    
-      setCost(user.cost) 
+      setWhatsapp(user?.whatsapp)
+      setBio(user?.bio) 
+      setSubject(user?.subject)    
+      // setCost(user?.cost)       
     }
-  }, [signed])
+  }, [signed, history])
   
+  async function handleUpdateAvatar(event: ChangeEvent<HTMLInputElement>){
+    if(event.target.files){
+      const avatar = event.target.files[0]
+      const formData = new FormData()     
+      const id = user?.id 
+
+      formData.append('file', avatar)    
+
+      await api.patch('/proffy/profile/update-avatar', formData, {
+        headers: {
+          id
+        }
+      })
+      .then(response => console.log(response.data.newAvatar))
+      .catch(e => console.log(e))    
+    }
+  }
+
   // setScheduleItemValue(0, 'week_day', '2)
   function setScheduleItemValue(position: number, field: string, value: string){
       const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
@@ -99,33 +110,12 @@ function TeacherProfilePage (){
     setScheduleItems(
       scheduleItems.filter( item => item.id !== id) 
     )
-  }
-
-  // useEffect(() => {
-  //   setAvatar(user.avatar !== null ? user.avatar : avatarPlaceholder)
-
-  //   const handleUpdateAvatar = useCallback((event: ChangeEvent<HTMLInputElement>)) => {
-  //     if(event.target.files) {
-  //       const avatar = event.target.files[0]
-  //       const formData = newFormData()
-  //       formData.append('file', avatar)
-  
-  //       api.patch('uploadImages', formData, {
-  //         headers: {
-  //           userId: Number(user.id)
-  //         }
-  //       }).then(
-  //         response => updatedUser(userUpdated)
-  //       )
-  //     }
-  //   }
-
-  // }, [updateUser, user.id])
+  } 
 
   async function handleSubmit(event: FormEvent){
     event.preventDefault()
 
-    const data = {
+    const data = {      
       name,
       surname,
       email,
@@ -155,12 +145,12 @@ function TeacherProfilePage (){
       <ProfileHeader>
 
       <Avatar>
-        <img src={avatar} alt={`${name}_${avatar}`}/>
+        <img src={avatar || avatarPlaceholder} alt={`${name}_${avatar}`}/>
         <div>
           <input 
             type="file" 
             id="upload"
-            onChange={event => setAvatar(event.target.value)}
+            onChange={handleUpdateAvatar}
           />
           <CameraIcon />
         </div>

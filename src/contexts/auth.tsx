@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 
 import api from '../services/api'
 
@@ -10,6 +10,8 @@ interface UserProps {
   email: string;
   whatsapp: string;
   bio: string;
+  subject: string;
+  cost: string;
 }
 
 interface AuthContextProps{  
@@ -124,4 +126,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     }}>{children}</AuthContext.Provider>
 )}
 
-export default AuthContext
+export function useAuth(){
+  const context = useContext(AuthContext)
+
+  return context
+}

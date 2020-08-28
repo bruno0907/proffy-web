@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import AuthContext from '../../contexts/auth'
+import { useAuth } from '../../contexts/auth'
 
 import power from '../../assets/images/icons/power.svg'
 import avatarPlaceholder from '../../assets/images/icons/user.svg'
@@ -15,7 +15,7 @@ import {
 
 const HomeHeader: React.FC = () => {
   const history = useHistory()
-  const { signed, signOut, user } = useContext(AuthContext)
+  const { signed, signOut, user } = useAuth()
 
   const [ avatar, setAvatar ] = useState(avatarPlaceholder)
   const [ name, setName ] = useState('')  

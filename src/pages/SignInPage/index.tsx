@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent, useContext } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ import {
   PageWrapper, FormWrapper 
 } from './styles'
 
-import AuthContext from '../../contexts/auth'
+import { useAuth } from '../../contexts/auth'
 
 
 function SignInPage() {  
@@ -29,7 +29,7 @@ function SignInPage() {
   const [ rememberMe, setRememberMe ] = useState(false)
   const [ loading, /*setLoading*/ ] = useState(false)  
 
-  const { signIn } = useContext(AuthContext)  
+  const { signIn } = useAuth()
 
   const handleChecked = () => setRememberMe(!rememberMe)
   const hasValue = Boolean(password.length <= 0)

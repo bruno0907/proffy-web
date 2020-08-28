@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import AuthContext from '../../contexts/auth'
+import { useAuth } from '../../contexts/auth'
 
 import landingImg from '../../assets/images/landing.svg'
 import studyIcon from '../../assets/images/icons/study.svg'
@@ -26,7 +26,7 @@ import api from '../../services/api'
 
 const Landing: React.FC = () => {
     const [ totalConnections, setTotalConnections] = useState(0)        
-    const { signed } = useContext(AuthContext)    
+    const { signed } = useAuth()
 
     useEffect(() => {
         async function getConnections(){
