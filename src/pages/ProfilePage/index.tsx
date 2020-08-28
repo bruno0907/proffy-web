@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent} from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent, useCallback} from 'react';
 import { useHistory } from 'react-router-dom'
 
 import PageContainer from '../../components/PageContainer'
@@ -30,15 +30,17 @@ import {
 } from './styles';
 
 import { useAuth } from '../../contexts/auth'
+
 import options from '../../utils/options'
 
 import api from '../../services/api'
 
-function TeacherProfilePage (){    
-  const history = useHistory()
-  const { signed, user } = useAuth() 
+import { UserProps } from '../../services/auth';
 
-  const [ avatar, setAvatar] = useState(null)
+function TeacherProfilePage (){    
+  const history = useHistory() 
+
+  const [ avatar, setAvatar] = useState<UserProps | null>(null)
   const [ name, setName ] = useState('')
   const [ surname, setSurname ] = useState('')
   const [ email, setEmail ] = useState('')
@@ -48,40 +50,25 @@ function TeacherProfilePage (){
   const [ cost, setCost ] = useState('')
   const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
 
+  const { signed, user, updateUser } = useAuth() 
+
   useEffect(() => {
     if(!signed){      
       history.push('/sign-in')
-    } else {
-      const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)   
-      
-      setAvatar(user.avatar !== null ? user.avatar : avatarPlaceholder)
-      setName(user.name)
-      setSurname(user.surname)
-      setEmail(user.email)
-      setWhatsapp(user?.whatsapp)
-      setBio(user?.bio) 
-      setSubject(user?.subject)    
-      // setCost(user?.cost)       
-    }
-  }, [signed, history])
-  
-  async function handleUpdateAvatar(event: ChangeEvent<HTMLInputElement>){
-    if(event.target.files){
-      const avatar = event.target.files[0]
-      const formData = new FormData()     
-      const id = user?.id 
+    } 
 
-      formData.append('file', avatar)    
-
-      await api.patch('/proffy/profile/update-avatar', formData, {
-        headers: {
-          id
-        }
-      })
-      .then(response => console.log(response.data.newAvatar))
-      .catch(e => console.log(e))    
-    }
-  }
+    // const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)   
+    
+    setAvatar(user?.avatar!) 
+    setName(user?.name!)
+    setSurname(user?.surname!)
+    setEmail(user?.email!)
+    setWhatsapp(user?.whatsapp!)
+    setBio(user?.bio!) 
+    setSubject(user?.subject!)    
+    // setCost(user?.cost!)            
+    
+  }, [signed, history, avatar, user])
 
   // setScheduleItemValue(0, 'week_day', '2)
   function setScheduleItemValue(position: number, field: string, value: string){
@@ -112,6 +99,27 @@ function TeacherProfilePage (){
     )
   } 
 
+  const handleUpdateAvatar = useCallback( async (event: ChangeEvent<HTMLInputElement>) => {
+    if(event.target.files){
+      const avatar = event.target.files[0]
+      const formData = new FormData()     
+      const id = user?.id 
+
+      formData.append('file', avatar)    
+
+      await api.patch('/proffy/profile/update-avatar', formData, {
+        headers: {
+          id
+        }
+      })
+      .then(response => {        
+        const userUpdated = response.data.user
+        updateUser(userUpdated)
+      })
+      .catch(e => alert('Houve um erro ao atualizar seu avatar'))    
+    }
+  }, [user, updateUser])
+
   async function handleSubmit(event: FormEvent){
     event.preventDefault()
 
@@ -128,7 +136,13 @@ function TeacherProfilePage (){
 
     try {
 
-      await api.put(`/proffy/profile/${user?.id}/update`, data)
+      // await api.put(`/proffy/profile/${user?.id}/update`, data)
+      await api.put(`/proffy/profile/update`, data, {
+        headers:{
+          id: user?.id,
+          token: localStorage.getItem('@ProffyAuth:token')
+        }
+      })
       localStorage.setItem('@ProffyAuth:user', JSON.stringify(data))
 
       history.push('/')
@@ -145,7 +159,7 @@ function TeacherProfilePage (){
       <ProfileHeader>
 
       <Avatar>
-        <img src={avatar || avatarPlaceholder} alt={`${name}_${avatar}`}/>
+        <img src={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } alt={`${name}_${avatar}`}/>
         <div>
           <input 
             type="file" 

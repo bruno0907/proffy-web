@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from 'react'
+import React, { createContext, useState, useContext, useCallback } from 'react'
 
 import api from '../services/api'
 
 interface UserProps {
   id: string;
-  avatar: string;
+  avatar: null;
   name: string;
   surname: string;
   email: string;
@@ -23,6 +23,8 @@ interface AuthContextProps{
     remember: boolean,
   ): Promise<SignedResult>;
   signOut(): void;
+  updateUser(user: UserProps): void;
+  remember: boolean;
 }
 
 interface ResponseSignInUser {
@@ -42,24 +44,45 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [ user, setUser ] = useState<UserProps | null>(null)
   const [ signed, setSigned ] = useState(false)
 
-  useEffect(() => {
-    function loadStoragedData() {
-      const storagedUser = localStorage.getItem('@ProffyAuth:user')
-      const storagedToken = localStorage.getItem('@ProffyAuth:token')
-      const remember = (localStorage.getItem('@AuthProffy:remember')) ? true : false
+  const [ data, setData ] = useState(() => {
+    const storagedUser = localStorage.getItem('@ProffyAuth:user')
+    const storagedToken = localStorage.getItem('@ProffyAuth:token')
+    const remember = (localStorage.getItem('@ProffyAuth:remember')) ? true : false
 
-      if(storagedUser && storagedToken){        
-        api.defaults.headers.Authorization = `Bearer ${storagedToken}`          
-        setUser(JSON.parse(storagedUser))
-        
-        return{
-          rememberMe: remember        
-        }
+    if(storagedUser && storagedToken){        
+      api.defaults.headers.Authorization = `Bearer ${storagedToken}`          
+      // setUser(JSON.parse(storagedUser))
+      
+      return{        
+        user: JSON.parse(storagedUser),
+        token: storagedToken,
+        rememberMe: remember        
       }
     }
 
-    loadStoragedData()
-  }, [])
+    return {} as ResponseSignInUser
+
+  })
+
+
+  // useEffect(() => {
+  //   function loadStoragedData() {
+  //     const storagedUser = localStorage.getItem('@ProffyAuth:user')
+  //     const storagedToken = localStorage.getItem('@ProffyAuth:token')
+  //     const remember = (localStorage.getItem('@AuthProffy:remember')) ? true : false
+
+  //     if(storagedUser && storagedToken){        
+  //       api.defaults.headers.Authorization = `Bearer ${storagedToken}`          
+  //       setUser(JSON.parse(storagedUser))
+        
+  //       return{
+  //         rememberMe: remember        
+  //       }
+  //     }
+  //   }
+
+  //   loadStoragedData()
+  // }, [])
 
   async function signIn(
     email: string, password: string, rememberMe: boolean
@@ -72,9 +95,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     if(response.data.user){
       const { token, user } = response.data    
-  
-      setUser(user)
-      setSigned(true)     
       
       /* 
         Implementar um sistema de ExpireIn para o token visando não permitir 
@@ -82,27 +102,32 @@ export const AuthProvider: React.FC = ({ children }) => {
         pelo usuário.
       */
      
-      localStorage.setItem('@ProffyAuth:token', token)        
-
+      localStorage.setItem('@ProffyAuth:token', token)
       api.defaults.headers.Authorization = `Bearer ${token}`
-      
       localStorage.setItem('@ProffyAuth:user', JSON.stringify(user))
+
+      setUser(user)
+      setSigned(true)   
+      setData({
+        user, token, rememberMe
+      })
 
       rememberMe ?         
         localStorage.setItem('@ProffyAuth:remember', 'true')        
       :
-        localStorage.setItem('@ProffyAuth:remember', 'false')        
-  
+        localStorage.setItem('@ProffyAuth:remember', 'false')      
+
       return { 
         status: true 
       }    
 
     } else {
       setSigned(false)
-      setUser({} as UserProps)      
+      setUser({} as UserProps)  
+      setData({} as ResponseSignInUser)    
 
       return {
-        status: false
+        status: false        
       }
     }
     
@@ -110,19 +135,32 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function signOut() {
     setUser({} as UserProps)
+    setSigned(false)
+    setData({} as ResponseSignInUser)
     localStorage.removeItem('@ProffyAuth:user')
     localStorage.removeItem('@ProffyAuth:token')
     localStorage.removeItem('@ProffyAuth:remember')
   }
 
+  const updateUser = useCallback((user: UserProps) => {
+    localStorage.setItem('@ProffyAuth:user', JSON.stringify(user))
+
+    setData({
+      token: data.token,
+      user,
+      rememberMe: data.rememberMe
+    })
+  }, [data.rememberMe, data.token])
+
   return(
     <AuthContext.Provider value={{ 
 
-      signed: Boolean(user), 
-      user, 
+      signed: !!data.user, 
+      user: data.user, 
       signIn, 
       signOut,        
-
+      updateUser,
+      remember: !!data.rememberMe
     }}>{children}</AuthContext.Provider>
 )}
 

@@ -13,18 +13,20 @@ import {
   SignOutButton
 } from './styles'
 
+import { UserProps } from '../../services/auth';
+
 const HomeHeader: React.FC = () => {
   const history = useHistory()
   const { signed, signOut, user } = useAuth()
 
-  const [ avatar, setAvatar ] = useState(avatarPlaceholder)
+  const [ avatar, setAvatar] = useState<UserProps | null>(null)
   const [ name, setName ] = useState('')  
   
   useState(() => {
     if(signed){
       
-      setAvatar(user?.avatar || avatarPlaceholder)
-      setName(user?.name || '')   
+      setAvatar(user?.avatar!)
+      setName(user?.name!)   
     }
   })
 
@@ -36,7 +38,7 @@ const HomeHeader: React.FC = () => {
   return (
     <Wrapper>
     <Link to={`/user/profile`}>
-        <Avatar src={avatar} />
+        <Avatar src={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } />
         <Username>{name}</Username>
     </Link>
     <SignOutButton onClick={handleSignOut}>
