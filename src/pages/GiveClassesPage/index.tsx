@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
 
@@ -33,18 +33,34 @@ import options from "../../utils/options";
 
 import api from '../../services/api'
 
+import { useAuth } from "../../contexts/auth";
+import { UserProps } from "../../services/auth";
+
 function GiveClassesPage() {
   const history = useHistory();
 
-  const [avatar, setAvatar] = useState(avatarPlaceholder);
-  const [name, setName] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [bio, setBio] = useState("");
-  const [subject, setSubject] = useState("");
-  const [cost, setCost] = useState("");
+  const [avatar, setAvatar] = useState<UserProps | null>(null);
+  const [name, setName] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [bio, setBio] = useState('');
+  const [subject, setSubject] = useState('');
+  const [cost, setCost] = useState('');
   const [scheduleItems, setScheduleItems] = useState([
-    { id: 0, week_day: 0, from: "", to: "" },
+    { id: 0, week_day: 0, from: '', to: '' },
   ]);
+
+
+  const { user, updateUser } = useAuth()
+
+  useEffect(() => {
+    setAvatar(user?.avatar!)
+    setName(user?.name!)
+    setWhatsapp(user?.whatsapp!)
+    setBio(user?.bio!)
+    setSubject(user?.subject!)
+    // setCost(user?.cost!)
+    // setScheduleItems(user?.scheduleItems!)
+  }, [user])
 
   function addNewScheduleItem() {
     let a = scheduleItems.length;
@@ -117,12 +133,11 @@ function GiveClassesPage() {
           <FormContainer>
             <FormSection title="Seus dados">
               <InputRow>
-                <UserInfo>
-                  <Avatar src={avatar} />
+                <UserInfo>                
+                  <Avatar src={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } alt={`${name}_${avatar}`} />
                   <UserName>{name}</UserName>
                 </UserInfo>
-                <InputMedium
-                  type="number"
+                <InputMedium                  
                   name="whatsapp"
                   label="Whatsapp"
                   value={whatsapp}
@@ -148,8 +163,7 @@ function GiveClassesPage() {
                   value={subject}
                   onChange={(event) => setSubject(event.target.value)}
                 />
-                <InputMedium
-                  type="number"
+                <InputMedium                  
                   label="Custo da sua hora/aula"
                   name="cost"
                   value={cost}

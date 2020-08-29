@@ -55,9 +55,7 @@ function TeacherProfilePage (){
   useEffect(() => {
     if(!signed){      
       history.push('/sign-in')
-    } 
-
-    // const user = JSON.parse(localStorage.getItem('@ProffyAuth:user')!)   
+    }
     
     setAvatar(user?.avatar!) 
     setName(user?.name!)
@@ -66,11 +64,10 @@ function TeacherProfilePage (){
     setWhatsapp(user?.whatsapp!)
     setBio(user?.bio!) 
     setSubject(user?.subject!)    
-    // setCost(user?.cost!)            
+    setCost(user?.cost! || '')            
     
   }, [signed, history, avatar, user])
-
-  // setScheduleItemValue(0, 'week_day', '2)
+  
   function setScheduleItemValue(position: number, field: string, value: string){
       const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
           if(index === position) {
@@ -99,7 +96,7 @@ function TeacherProfilePage (){
     )
   } 
 
-  const handleUpdateAvatar = useCallback( async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateAvatar = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if(event.target.files){
       const avatar = event.target.files[0]
       const formData = new FormData()     
@@ -107,7 +104,7 @@ function TeacherProfilePage (){
 
       formData.append('file', avatar)    
 
-      await api.patch('/proffy/profile/update-avatar', formData, {
+      api.patch('/proffy/profile/update-avatar', formData, {
         headers: {
           id
         }
@@ -123,7 +120,12 @@ function TeacherProfilePage (){
   async function handleSubmit(event: FormEvent){
     event.preventDefault()
 
-    const data = {      
+    const id = user?.id
+    const token = localStorage.getItem('@ProffyAuth:token')
+
+    const data = {  
+      id,          
+      avatar, 
       name,
       surname,
       email,
@@ -131,26 +133,23 @@ function TeacherProfilePage (){
       bio,
       subject,
       cost,
-      // scheduleItems,
+      scheduleItems,
+    } 
+
+    // await api.put(`/proffy/profile/${user?.id}/update`, data)
+    const response = await api.put(`/proffy/profile/${id}/update`, data, {
+      headers:{          
+        token 
+      }
+    })
+    if(response){
+      console.log(response)
+      updateUser(response.data)
+      history.push('/')
+    } else {
+      alert('erro')
     }
 
-    try {
-
-      // await api.put(`/proffy/profile/${user?.id}/update`, data)
-      await api.put(`/proffy/profile/update`, data, {
-        headers:{
-          id: user?.id,
-          token: localStorage.getItem('@ProffyAuth:token')
-        }
-      })
-      localStorage.setItem('@ProffyAuth:user', JSON.stringify(data))
-
-      history.push('/')
-    } catch (error) {
-
-      alert('Houve um erro na sua solicitação')
-      console.log(error)
-    }    
   }
 
   return (
