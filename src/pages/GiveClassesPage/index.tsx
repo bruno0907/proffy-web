@@ -11,6 +11,7 @@ import InputMedium from "../../components/InputMedium";
 import InputSmall from "../../components/InputSmall";
 import Textarea from "../../components/Textarea";
 import Select from "../../components/Select";
+import FormButton from "../../components/FormButton";
 import Footer from "../../components/Footer";
 
 import rocketIcon from "../../assets/images/icons/rocket.svg";
@@ -134,7 +135,7 @@ function GiveClassesPage() {
             <FormSection title="Seus dados">
               <InputRow>
                 <UserInfo>                
-                  <Avatar src={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } alt={`${name}_${avatar}`} />
+                  <Avatar img={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } />
                   <UserName>{name}</UserName>
                 </UserInfo>
                 <InputMedium                  
@@ -234,7 +235,9 @@ function GiveClassesPage() {
               </ScheduleList>
             </FormSection>
           </FormContainer>
-          <Footer />
+          <Footer>
+            <FormButton>Cadastrar Aulas</FormButton>
+          </Footer>
         </Form>
       </Profile>
     </PageContainer>

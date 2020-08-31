@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface AvatarProps{
+  img: string;
+}
+
 export const Profile = styled.div`
   width: 100%;
   max-width: 80rem;
@@ -47,11 +51,13 @@ export const UserInfo = styled.div`
   align-items: center;
   justify-content: flex-start;  
 `
-export const Avatar = styled.img`
+export const Avatar = styled.div<AvatarProps>`
   width: 9rem;
   height: 9rem;
   border-radius: 4.5rem;
   margin-right: 2.5rem;
+  background: url(${props => props.img});
+  background-size: cover;
 `
 export const UserName = styled.h1`
   font-family: Archivo;

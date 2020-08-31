@@ -11,6 +11,7 @@ import InputSmall from '../../components/InputSmall'
 import InputMedium from '../../components/InputMedium'
 import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
+import FormButton from '../../components/FormButton'
 
 import avatarPlaceholder from '../../assets/images/icons/user.svg'
 
@@ -22,7 +23,8 @@ import {
   Subject,
   CameraIcon,
   FormContainer,
-  InputRow,        
+  InputRow,       
+  NewPassword, 
   ScheduleList,
   ScheduleItem,  
   ScheduleContentTimeRow,
@@ -50,13 +52,13 @@ function TeacherProfilePage (){
   const [ cost, setCost ] = useState('')
   const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
 
-  const { signed, user, updateUser } = useAuth() 
-
+  const { signed, user, updateUser } = useAuth()   
+  
   useEffect(() => {
     if(!signed){      
       history.push('/sign-in')
     }
-    
+
     setAvatar(user?.avatar!) 
     setName(user?.name!)
     setSurname(user?.surname!)
@@ -66,11 +68,7 @@ function TeacherProfilePage (){
     setSubject(user?.subject! || '')    
     setCost(user?.cost! || '')         
     
-    console.log(user)
-    
   }, [signed, history, avatar, user])
-  
-  
 
   function setScheduleItemValue(position: number, field: string, value: string){
       const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
@@ -162,8 +160,7 @@ function TeacherProfilePage (){
       <NavBar title="Meu Perfil" />
       <ProfileHeader>
 
-      <Avatar>
-        <img src={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } alt={`${name}_${avatar}`}/>
+      <Avatar img={avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder}>        
         <div>
           <input 
             type="file" 
@@ -172,15 +169,16 @@ function TeacherProfilePage (){
           />
           <CameraIcon />
         </div>
-      </Avatar>
+      </Avatar>      
       <Name>{name || 'Nome do Proffy'}</Name>
-      <Subject>{subject || 'Matéria do Proffy'}</Subject>
+      <Subject>{subject || 'Matéria do Proffy'}</Subject>      
 
       </ProfileHeader>
       <Profile as="main">
         <Form onSubmit={handleSubmit}>
-          <FormContainer>
-            <FormSection title="Seus dados">
+          <FormContainer>            
+            <FormSection title="Seus dados">            
+              <NewPassword to="/password-reset">Alterar senha</NewPassword>
               <InputRow>
                 <Input
                   label="Nome"
@@ -224,13 +222,12 @@ function TeacherProfilePage (){
                 autoComplete='off'
                 value={bio}
                 onChange={(event) => setBio(event.target.value)}
-              />
-            </InputRow>
-
-            </FormSection>
-
-            <FormSection title="Sobre a aula">              
-
+              />              
+            </InputRow>            
+            
+            </FormSection>            
+            
+              <FormSection title="Sobre a aula"> 
               <InputRow>
                 <Select
                   label="Matéria"
@@ -246,7 +243,6 @@ function TeacherProfilePage (){
                   onChange={event => setCost(event.target.value)}
                 />
               </InputRow>
-
             </FormSection>
 
             <FormSection 
@@ -254,7 +250,6 @@ function TeacherProfilePage (){
               addSchedule 
               onClick={addNewScheduleItem}
             >
-
               <ScheduleList>
                 { scheduleItems.map((scheduleItem, index) => {
                   return (
@@ -269,33 +264,34 @@ function TeacherProfilePage (){
                           />                                        
                       </InputRow>
                       <ScheduleContentTimeRow>
-                          <InputSmall 
-                            type="time"
-                            name="from"
-                            label="De"
-                            value={scheduleItem.from}
-                            onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
-                          />
-                          <InputSmall 
-                            type="time"
-                            name="to"
-                            label="Até"
-                            value={scheduleItem.to}
-                            onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
-                          />
-                        </ScheduleContentTimeRow>
+                        <InputSmall 
+                          type="time"
+                          name="from"
+                          label="De"
+                          value={scheduleItem.from}
+                          onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
+                        />
+                        <InputSmall 
+                          type="time"
+                          name="to"
+                          label="Até"
+                          value={scheduleItem.to}
+                          onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
+                        />
+                      </ScheduleContentTimeRow>
                       <ScheduleItemRemoveButton                         
                         onClick={() => 
                         removeScheduleItem(scheduleItem.id)}
                       >X</ScheduleItemRemoveButton>
                     </ScheduleItem>
                   )  
-                })}      
-                  
-              </ScheduleList>
-            </FormSection>
+                })}   
+              </ScheduleList>            
+            </FormSection>            
           </FormContainer>
-        <Footer />
+        <Footer>
+          <FormButton>Atualizar Perfil</FormButton>
+        </Footer>
         </Form>
       </Profile>
     </PageContainer>

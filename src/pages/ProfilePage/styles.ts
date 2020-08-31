@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
+import { Link } from 'react-router-dom'
+
 import profileBackground from '../../assets/images/background-profile.svg'
 import { Camera } from 'styled-icons/bootstrap'
+
+interface AvatarProps{
+  img: string;
+}
 
 export const Profile = styled.div`
   width: 100%;
@@ -33,16 +39,16 @@ export const ProfileHeader = styled.div`
     }
 `
 
-export const Avatar = styled.div`
+export const Avatar = styled.div<AvatarProps>`
   position: relative;
   margin-bottom: 1rem;
-  object-fit: cover;
-
-  >img{
-    width: 18rem;
-    height: 18rem;
-    border-radius: 9rem;   
-  }
+  object-fit: contain;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 9rem;      
+  background: url(${props => props.img});  
+  background-size: cover;
+    
 
   >div{    
     position: absolute;
@@ -60,7 +66,7 @@ export const Avatar = styled.div`
       position: absolute;
       width: 18rem;
       height: 18rem;
-      bottom: 0;
+      bottom: -5px;
       right: -5px;           
       opacity: 0;                 
       z-index: 1;
@@ -69,9 +75,9 @@ export const Avatar = styled.div`
   }
 `
 
-export const CameraIcon = styled(Camera)`   
-  width: 2.4rem;
+export const CameraIcon = styled(Camera)`     
   height: 2.4rem;
+  margin-left: 0.1rem;
 
     >path{
       fill: #fff;
@@ -131,6 +137,19 @@ export const InputRow = styled.div`
     }
   }
 `;
+
+export const NewPassword = styled(Link)`
+  color: var(--color-primary-dark);
+  font-size: 1.8rem;  
+  font-family: Archivo;
+  font-weight: bold;
+  transition: color 0.2s;  
+  text-decoration: none;  
+
+    &:hover{
+      color: var(--color-primary-darker)
+    }
+`
 
 export const ScheduleList = styled.ul`
   list-style: none;

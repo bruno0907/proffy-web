@@ -32,10 +32,10 @@ function PasswordRecoveryPage() {
     
     api.post('proffy/password-recovery', {email}).then( () => {      
       
-      history.push('/password-recovery/email-sent', {            
+      history.push('/success', {            
         title: 'Redefinição enviada!',
         description: 'Boa, agora é só checar o e-mail que foi enviado para você, Seguir as orientações e voltar aos estudos.' ,
-        buttonText: 'Voltar ao Sign In',
+        buttonText: 'Entrar',
         link: '/sign-in',
       })
 

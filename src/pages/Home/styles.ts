@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom'
 
+interface AvatarProps{
+  img: string;
+}
+
 export const HomeWrapper = styled.div`
     width: 100vw;
     min-width: 40rem;
@@ -63,6 +67,57 @@ export const HomeGrid = styled.div`
       'buttons'
       'connections';  
   }
+`
+
+export const Username = styled.span`
+    font-size: 1.4rem;
+    color: var(--color-text-in-primary);
+`
+export const HeaderWrapper = styled.div`
+  grid-area: profile-header;
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+  align-self: center;
+  padding: 0 2rem;
+
+  > a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover > ${Username}{
+      opacity: .8;
+    }
+  }
+`
+export const Avatar = styled.div<AvatarProps>`
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 2.5rem;
+  margin-right: 1.5rem;  
+  background: url(${props => props.img});  
+  background-size: cover;
+`
+
+export const SignOutButton = styled.div`
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 0.8rem;
+    background: var(--color-primary-dark);    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .2s;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover{
+      background: var(--color-primary-darker);
+    }
 `
 
 export const LogoAside = styled.div`

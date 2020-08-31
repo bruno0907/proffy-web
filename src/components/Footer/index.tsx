@@ -1,11 +1,11 @@
 import React from 'react';
 
 import warningIcon from '../../assets/images/icons/warning.svg'
-import FormButton from '../FormButton'
+// import FormButton from '../FormButton'
 
 import { FooterWrapper, Warning } from './styles'
 
-const Footer: React.FC = () => {
+const Footer: React.FC = ({ children }) => {
   return (
     <FooterWrapper>
       <Warning>
@@ -15,7 +15,8 @@ const Footer: React.FC = () => {
           <span>Preencha todos os dados corretamente.</span>
         </div>
       </Warning>
-      <FormButton>Salvar cadastro</FormButton>
+      {/* <FormButton>Salvar cadastro</FormButton> */}
+      {children}
     </FooterWrapper>
   );
 }

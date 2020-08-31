@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useEffect } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
@@ -13,20 +13,25 @@ import FormBackButton from '../../components/FormBackButton'
 
 import { PageWrapper, FormWrapper } from './styles'
 
+import { useAuth } from '../../contexts/auth'
+
 import api from '../../services/api'
 
-function SignUpPage() {  
+function ResetPasswordPage() {  
   const history = useHistory()
 
-  const [ name, setName ] = useState('')
-  const [ surname, setSurname ] = useState('')
+  const { user, signOut } = useAuth()
+  
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ passwordConfirm, setPasswordConfirm ] = useState('') 
     
   const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)    
   const hasValue = !Boolean( password.length > 0 && passwordConfirm.length > 0 && email.match(emailRegex))  
-  console.log(hasValue)
+  
+  useEffect(() => {
+    setEmail(user?.email!)
+  }, [user])
 
   async function handleForm(event: FormEvent<HTMLFormElement>){
     event.preventDefault()      
@@ -36,24 +41,22 @@ function SignUpPage() {
         return
 
       } else {
-        await api.post('proffy/sign-up',{
-          name,
-          surname,
+        await api.patch('proffy/password-reset',{          
           email,
           password,
           'password_confirm': passwordConfirm
-        }).then(() => {              
+        }).then(() => {   
+            signOut()
             history.push('/success', {
-              title: 'Cadastro concluído',
-              description: 'Agora você faz parte da plataforma Proffy. Tenha uma ótima experiência.',
+              title: 'Senha Alterada com Sucesso!',
+              description: 'Faça seu Login Novamente e retorna à plataforma',
               buttonText: 'Entrar',
               link: '/sign-in'
             })
     
         }).catch((e) => {
-            alert('Houve um erro no seu cadastro!')
-            console.log('Erro: ', e)
-    
+            alert('Houve um erro ao alterar sua senha!')
+            console.log('Erro: ', e)    
         })      
       } 
   }
@@ -66,38 +69,23 @@ function SignUpPage() {
           <FormBackButton />
         <FormWrapper>
           <Form 
-            label="Cadastro" 
-            description="Preencha os dados abaixo para começar" 
+            label="Nova senha" 
+            description="Preencha os campos abaixo" 
             onSubmit={handleForm}
-          >            
-            <LoginInput 
-              label="Nome"            
-              name="name"
-              autoComplete={'off'}
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-              first                       
-            />
-            <LoginInput 
-              label="Sobrenome"            
-              name="surname"
-              autoComplete={'off'}            
-              value={surname}
-              onChange={(event) => setSurname(event.target.value)}
-              required                     
-            />
+          > 
             <LoginInput 
               label="E-mail"            
               name="email"
               type="email"
+              disabled
               autoComplete={'off'}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              required          
+              required      
+              first    
             />
             <LoginInput 
-              label="Senha"
+              label="Nova senha"
               name="password"
               type="password"
               autoComplete={'off'}
@@ -107,7 +95,7 @@ function SignUpPage() {
               password          
             />        
             <LoginInput 
-              label="Repita sua senha"
+              label="Repita sua nova senha"
               name="password_confirm"
               type="password"
               autoComplete={'off'}
@@ -121,11 +109,11 @@ function SignUpPage() {
               type="submit" 
               style={{ marginTop: '4rem' }} 
               disabled={hasValue}
-            >Concluir cadastro</FormButton>
+            >Alterar Senha</FormButton>
           </Form>
         </FormWrapper>
       </FormAside>
     </PageWrapper>
   )
 }
-export default SignUpPage
+export default ResetPasswordPage
