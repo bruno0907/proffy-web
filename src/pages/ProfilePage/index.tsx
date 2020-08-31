@@ -61,13 +61,17 @@ function TeacherProfilePage (){
     setName(user?.name!)
     setSurname(user?.surname!)
     setEmail(user?.email!)
-    setWhatsapp(user?.whatsapp!)
-    setBio(user?.bio!) 
-    setSubject(user?.subject!)    
-    setCost(user?.cost! || '')            
+    setWhatsapp(user?.whatsapp! || '')
+    setBio(user?.bio! || '') 
+    setSubject(user?.subject! || '')    
+    setCost(user?.cost! || '')         
+    
+    console.log(user)
     
   }, [signed, history, avatar, user])
   
+  
+
   function setScheduleItemValue(position: number, field: string, value: string){
       const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
           if(index === position) {
@@ -111,6 +115,7 @@ function TeacherProfilePage (){
       })
       .then(response => {        
         const userUpdated = response.data.user
+        console.log('Update Avatar', response.data.user)
         updateUser(userUpdated)
       })
       .catch(e => alert('Houve um erro ao atualizar seu avatar'))    
@@ -143,7 +148,7 @@ function TeacherProfilePage (){
       }
     })
     if(response){
-      console.log(response)
+      console.log('Update proffy', response)
       updateUser(response.data)
       history.push('/')
     } else {

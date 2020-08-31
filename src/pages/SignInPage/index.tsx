@@ -32,7 +32,9 @@ function SignInPage() {
   const { signIn } = useAuth()
 
   const handleChecked = () => setRememberMe(!rememberMe)
-  const hasValue = Boolean(password.length <= 0)
+
+  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)    
+  const hasValue = !Boolean( password.length > 0 && email.match(emailRegex))    
   
   useEffect(() => {
     const remember = localStorage.getItem('@ProffyAuth:remember')   

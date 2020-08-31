@@ -23,11 +23,10 @@ function SignUpPage() {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ passwordConfirm, setPasswordConfirm ] = useState('') 
-  
-  const hasValue = Boolean(passwordConfirm.length <= 0)
-  // const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
-  // const hasValue = !Boolean( email.match(emailRegex) )
-
+    
+  const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)    
+  const hasValue = !Boolean( password.length > 0 && passwordConfirm.length > 0 && email.match(emailRegex))  
+  console.log(hasValue)
 
   async function handleForm(event: FormEvent<HTMLFormElement>){
     event.preventDefault()      
@@ -122,7 +121,7 @@ function SignUpPage() {
               type="submit" 
               style={{ marginTop: '4rem' }} 
               disabled={hasValue}
-            >Concluir cadastro</FormButton> 
+            >Concluir cadastro</FormButton>
           </Form>
         </FormWrapper>
       </FormAside>

@@ -13,6 +13,8 @@ import FormBackButton from '../../components/FormBackButton'
 
 import FormButton from '../../components/FormButton'
 
+import api from '../../services/api'
+
 import { 
   PageWrapper, FormWrapper 
 } from './styles'
@@ -22,20 +24,26 @@ function PasswordRecoveryPage() {
   const [ email, setEmail ] = useState('')  
   const [ loading, /*setLoading */] = useState(false)
 
-  // const hasValue = Boolean( email.length <= 0)
-
   const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
   const hasValue = Boolean( email.match(emailRegex) )
 
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault()    
     
-    history.push('/password-recovery/email-sent', {            
-      title: 'Redefinição enviada!',
-      description: 'Boa, agora é só checar o e-mail que foi enviado para você, redefinir sua senha e aproveitar os estudos.' ,
-      buttonText: 'Voltar ao Login',
-      link: '/sign-in',
-    })
+    api.post('proffy/password-recovery', {email}).then( () => {      
+      
+      history.push('/password-recovery/email-sent', {            
+        title: 'Redefinição enviada!',
+        description: 'Boa, agora é só checar o e-mail que foi enviado para você, Seguir as orientações e voltar aos estudos.' ,
+        buttonText: 'Voltar ao Sign In',
+        link: '/sign-in',
+      })
+
+    }).catch( (err) => {
+        console.log(err)
+        alert('Email não encontrado.')
+      })
+    
   }
 
   return (    

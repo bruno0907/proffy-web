@@ -64,26 +64,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   })
 
-
-  // useEffect(() => {
-  //   function loadStoragedData() {
-  //     const storagedUser = localStorage.getItem('@ProffyAuth:user')
-  //     const storagedToken = localStorage.getItem('@ProffyAuth:token')
-  //     const remember = (localStorage.getItem('@AuthProffy:remember')) ? true : false
-
-  //     if(storagedUser && storagedToken){        
-  //       api.defaults.headers.Authorization = `Bearer ${storagedToken}`          
-  //       setUser(JSON.parse(storagedUser))
-        
-  //       return{
-  //         rememberMe: remember        
-  //       }
-  //     }
-  //   }
-
-  //   loadStoragedData()
-  // }, [])
-
   async function signIn(
     email: string, password: string, rememberMe: boolean
   ): Promise<SignedResult>{   

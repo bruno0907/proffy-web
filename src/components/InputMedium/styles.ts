@@ -47,9 +47,9 @@ export const InputBlock = styled.div`
     position: relative;
     border-radius: 0.8rem;
 
-    
-    -webkit-inner-spin-button: none;
-    -webkit-outer-spin-button: none
+    &:disabled{
+      filter: grayscale(80%)    
+    }
 
   }
 `

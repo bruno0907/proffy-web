@@ -42,5 +42,9 @@ position: relative;
     background: var(--color-input-background);
     position: relative;
     border-radius: 0.8rem;
+
+    &:disabled{
+      filter: grayscale(80%)    
+    }
   }
 `;
