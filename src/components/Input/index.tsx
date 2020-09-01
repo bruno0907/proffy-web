@@ -6,14 +6,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     subLabel?: string;
     name: string;
-    type?: string;
+    type?: string;    
 }
 
 const Input: React.FC<InputProps> = ({ 
     label, 
     subLabel, 
     name, 
-    type,       
+    type,           
     ...rest 
 }) => {
     

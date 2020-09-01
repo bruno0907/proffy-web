@@ -3,25 +3,26 @@ import styled from "styled-components";
 export const NavWrapper = styled.nav`
   width: 100%;    
   background: var(--color-primary-dark);
+  border-bottom: solid 1px var(--color-primary-darker);
 `
 
 export const Container = styled.div`
   margin: auto;
   width: 100%;  
   max-width: 80rem;
-  padding: 1.2rem 0;  
+  padding: 2rem;  
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-    @media(max-width: 65rem){
-      padding: 1.2rem 2rem;
+    @media(min-width: 65rem){
+      padding: 2rem 0;
     }
 `
 
 export const GoBackArrow = styled.img`
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s;  
 
     :hover{
       opacity: 0.8;

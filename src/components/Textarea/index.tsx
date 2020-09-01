@@ -5,13 +5,13 @@ import { InputBlock } from './styles'
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label: string;
     subLabel?: string;
-    name: string;    
+    name: string;     
 }
 
 const Textarea: React.FC<TextareaProps> = ({ 
     label, 
     subLabel, 
-    name,     
+    name,        
     ...rest   
 }) => {
 

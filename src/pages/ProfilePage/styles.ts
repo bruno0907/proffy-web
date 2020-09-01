@@ -1,76 +1,81 @@
 import styled from "styled-components";
 
-import { Link } from 'react-router-dom'
-
-import profileBackground from '../../assets/images/background-profile.svg'
+import mobileBackground from '../../assets/images/profile-background-mobile.svg'
+import desktopBackground from '../../assets/images/profile-background-desktop.svg'
 import { Camera } from 'styled-icons/bootstrap'
 
 interface AvatarProps{
   img: string;
 }
 
-export const Profile = styled.div`
-  width: 100%;
-  max-width: 80rem;
-  background: var(--color-box-base);
-  border-radius: 0.8rem;
-  margin-top: -6rem;
-  margin-bottom: 6rem;
-
-  @media(max-width: 65rem){
-      width: 95%;
-    }
-`;
-
-export const ProfileHeader = styled.div`
-  width: 100%;
-  height: 95rem;
-  padding: 5rem 0;
+export const Header = styled.div`
+  width: 100%;  
+  padding: 4rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary) url(${profileBackground}) no-repeat center;
-  background-size: 100rem;
+  background: var(--color-primary) url(${mobileBackground}) no-repeat;
+  background-position: center 2rem;
+  background-size: 30rem;  
 
-    @media(max-width: 50rem){
-      padding: 3rem 0;
-      background-size: 85rem;
+    @media(min-width: 50rem){
+      background: var(--color-primary) url(${desktopBackground}) no-repeat;
+      background-position: center 2rem;
+      background-size: 110rem;  
     }
+  
 `
 
 export const Avatar = styled.div<AvatarProps>`
-  position: relative;
-  margin-bottom: 1rem;
-  object-fit: contain;
-  width: 18rem;
-  height: 18rem;
+  position: relative;    
+  width: 14rem;
+  height: 14rem;
+  margin-bottom: 3rem;
   border-radius: 9rem;      
   background: url(${props => props.img});  
   background-size: cover;
-    
+  flex-shrink: 0;
+
+    @media(min-width: 50rem){
+      width: 18rem;
+      height: 18rem;
+    }
 
   >div{    
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 0.5rem;
-    right: 0.5rem;
+    bottom: -0.5rem;
+    right: -0.5rem;
     width: 4.8rem;
     height: 4.8rem;
     background: var(--color-secundary);
-    border-radius: 2.4rem;    
+    border-radius: 2.4rem;   
+
+      @media(min-width: 50rem){
+        bottom: 0.5rem;
+        right: 0.5rem;
+      } 
 
     >input[type=file]{
       position: absolute;
-      width: 18rem;
-      height: 18rem;
-      bottom: -5px;
-      right: -5px;           
+      width: 15rem;
+      height: 15rem;
+      bottom: -2px;
+      right: 0px;           
       opacity: 0;                 
       z-index: 1;
       cursor: pointer;
+      
+
+        @media(min-width: 50rem){
+          width: 18rem;
+          height: 18rem;
+          bottom: -5px;
+          right: -5px;   
+        }
     }
   }
 `
@@ -89,8 +94,9 @@ export const Name = styled.h1`
     font-family: Archivo;
     font-size: 3.6rem;
     color: var(--color-line-in-white);
+    margin-bottom: 0.5rem;
 
-      @media(max-width: 50rem){
+      @media(max-width: 65rem){
         font-size: 2.4rem;
       }
 `
@@ -101,97 +107,156 @@ export const Subject = styled.span`
   font-weight: 400;
   margin-bottom: 6rem;
 
-    @media(max-width: 50rem){
+    @media(max-width: 65rem){
       font-size: 1.6rem;
     }
 `
 
+export const Profile = styled.div`
+  width: 95%;
+  max-width: 80rem;
+  background: var(--color-box-base);
+  border-radius: 0.8rem;
+  margin-top: -4rem;
+  margin-bottom: 6rem;
+
+    @media(min-width: 50rem){
+      width: 100%;
+      margin-top: -6rem;
+    }
+`;
+
 export const Form = styled.form`
-  width: 100%;
+  width: 100%;  
 `;
 
 export const FormContainer = styled.div`
   width: 100%;
-  padding: 0 5rem;
+  padding: 0 2rem;  
 
-    @media(max-width: 65rem){
-      padding: 0 2rem;      
+    @media(min-width: 50rem){
+      padding: 2rem 5rem;
     }
 `;
 
-export const InputRow = styled.div`  
-  display: flex;
-  width: 100%;
-  margin-top: 3rem;  
+export const FormSection = styled.fieldset`
+  width: 100%;  
 
-  > div + div {
-    margin-left: 3rem;
-  }
-
-  @media(max-width: 790px){
-    flex-direction: column;
-
-    >div + div {
-      margin-left: 0;
-      margin-top: 3rem;
+  >div{    
+    margin-bottom: 2rem;
+    >div + div{
+      margin-top: 2rem;
     }
-  }
-`;
 
-export const NewPassword = styled(Link)`
-  color: var(--color-primary-dark);
-  font-size: 1.8rem;  
-  font-family: Archivo;
-  font-weight: bold;
-  transition: color 0.2s;  
-  text-decoration: none;  
-
-    &:hover{
-      color: var(--color-primary-darker)
-    }
-`
-
-export const ScheduleList = styled.ul`
-  list-style: none;
-`;
-
-export const ScheduleItem = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: Center;
-  border-bottom: solid 0.1rem var(--color-line-in-white);
-  position: relative;
-  padding-bottom: 3rem;
-
-  > div + div {
-    margin-left: 3rem;
-  }
-
-  @media(max-width: 790px){
-    flex-direction: column;
-
-    > div + div {
-      margin-left: 0;
-      margin-top: 3rem;
-    }
-  }
-`;
-
-export const ScheduleContentTimeRow = styled.div`
-  width: 100%;
-  display: flex;
-  margin-top: 3rem;
-
-    > div + div {
-        margin-left: 2rem;
+    @media(min-width: 50rem){
+      display: flex;
+      >div + div {
+        margin-left: 3rem;
+        margin-top: 0;
       }
-
-  @media(max-width: 50rem){
-    margin-bottom: 2rem;    
+    }
   }
+
+  >legend{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2.5rem;
+        
+    >h2{      
+      margin: 0;
+      font-size: 2.4rem;
+      font-weight: 600; 
+      line-height: 150%;         
+      color: var(--color-text-title);                  
+    }
+
+    >a{
+      color: var(--color-primary);
+      font-size: 1.6rem;
+      font-family: Archivo;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.5s;
+
+        &:hover{
+          color: var(--color-primary-darker);
+        }
+    }
+  }   
 `
 
-export const ScheduleItemRemoveButton = styled.span`
+export const Divider = styled.hr`
+  margin: 1rem 0 3rem;
+  width: 100%; 
+  height: 1px; 
+  background: var(--color-line-in-white);  
+
+    @media(min-width: 50rem){
+      margin: 3rem 0;
+    }
+
+  >p{
+    width: 25rem;
+    font-size: 1.6rem;
+    color: var(--color-text-base);      
+    text-align: left;
+    margin: 2rem 0;
+  }  
+`
+
+export const ScheduleList = styled.ul`  
+  list-style: none;  
+
+  >li{
+    border-bottom: solid 0.1rem var(--color-line-in-white);    
+    position: relative;
+    padding-bottom: 3rem;
+    display: grid;   
+    align-items: flex-end;
+    justify-content: center;     
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    grid-template-areas:
+      'week_day week_day'
+      'from to';
+
+      @media(min-width: 50rem){        
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 2fr 2fr;            
+        grid-template-areas:
+          'week_day week_day from to';
+      }
+  }
+`;
+
+
+export const WhatsApp = styled.div`
+  @media(min-width: 50rem){
+    width: 35rem;  
+  }
+`
+export const Cost = styled.div`
+  @media(min-width: 50rem){
+    width: 35rem;  
+  }
+`
+export const WeekDay = styled.div`
+  width: 100%;
+  grid-area: week_day;
+`
+export const From = styled.div`
+  width: 100%;
+  grid-area: from;
+`
+export const To = styled.div`
+  width: 100%;
+  grid-area: to;
+`
+
+export const RemoveButton = styled.span`
   position: absolute;
   display: flex;
   align-items: center;
@@ -200,8 +265,8 @@ export const ScheduleItemRemoveButton = styled.span`
   height: 3rem;
   border: solid 1px var(--color-line-in-white);
   border-radius: 0.8rem;
-  right: 0rem;
-  top: 1.5rem;
+  right: 2rem;
+  top: -1.5rem;
   font-size: 1.4rem;
   font-weight: bold;
   font-family: Archivo;
@@ -211,5 +276,9 @@ export const ScheduleItemRemoveButton = styled.span`
 
     &:hover{
       opacity: 0.7;
+    }
+
+    @media(min-width: 50rem){
+      right: 0;
     }
 `
