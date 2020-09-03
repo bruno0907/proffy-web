@@ -25,8 +25,7 @@ function SignUpPage() {
   const [ passwordConfirm, setPasswordConfirm ] = useState('') 
     
   const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)    
-  const hasValue = !Boolean( password.length > 0 && passwordConfirm.length > 0 && email.match(emailRegex))  
-  console.log(hasValue)
+  const hasValue = !Boolean( password.length > 0 && passwordConfirm.length > 0 && email.match(emailRegex))    
 
   async function handleForm(event: FormEvent<HTMLFormElement>){
     event.preventDefault()      

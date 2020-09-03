@@ -4,11 +4,9 @@ import { useHistory } from 'react-router-dom'
 
 import LogoAside from '../../components/LogoAside'
 import FormAside from '../../components/FormAside'
-
 import Form from '../../components/Form'
 import LoginInput from '../../components/LoginInput'
 import FormButton from '../../components/FormButton'
-
 import FormBackButton from '../../components/FormBackButton'
 
 import { PageWrapper, FormWrapper } from './styles'

@@ -1,14 +1,14 @@
 const subjects = [
   { value: '0', label: 'Selecione aqui...'},
-  { value: 'matematica', label: 'Matemática'},
-  { value: 'ingles', label: 'Inglês'},
-  { value: 'quimica', label: 'Química'},
-  { value: 'fisica', label: 'Física'},
+  { value: 'Matemática', label: 'Matemática'},
+  { value: 'Inglês', label: 'Inglês'},
+  { value: 'Química', label: 'Química'},
+  { value: 'Física', label: 'Física'},
 ];
-
 
 const weekDay = [                          
     { value: '', label: 'Selecione aqui...' },    
+    { value: '0', label: 'Domingo' },
     { value: '1', label: 'Segunda-feira' },
     { value: '2', label: 'Terça-feira' },
     { value: '3', label: 'Quarta-feira' },

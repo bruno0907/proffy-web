@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface AvatarProps{
+  img: string;
+}
+
 export const TeacherCard = styled.article`
     background: var(--color-box-base);
     border: solid 1px var(--color-line-in-white);
@@ -14,10 +18,13 @@ export const CardHeader = styled.header`
     align-items: center;
 `
 
-export const Avatar = styled.img`
+export const Avatar = styled.div<AvatarProps>`
     width: 8rem;
     height: 8rem;
     border-radius: 50%;
+    background-image: url(${(props: AvatarProps) => props.img});
+    background-size: cover;
+    flex-shrink: 0;
 `
 
 export const Profile = styled.div`
@@ -81,10 +88,14 @@ export const ScheduleList = styled.ul`
     @media(min-width: 50rem){
       padding: 3.2rem 2rem;
       align-items: center;
-      justify-content: space-evenly;
+      justify-content: flex-start;
 
       >div{
         display: none;
+      }
+
+      > li + li {
+        margin-left: 1rem;
       }
     }
   `

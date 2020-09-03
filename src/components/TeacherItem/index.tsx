@@ -21,14 +21,30 @@ import {
     WhatsappButton,
 } from './styles'
 
+interface ClassesProps{  
+  id: number;
+  week_day: number;
+  from: number;
+  to: number;
+  class_id: number;
+}
+
 export interface Teacher {
   id: number;
   avatar: string;
   name: string;
+  surname: string;
   subject: string;
   bio: string;
   cost: number;
   whatsapp: string;
+  classes: Array<{
+    id: number;
+    week_day: number;
+    from: number;
+    to: number;
+    class_id: number; 
+  }>;
 }
 
 interface TeacherItemProps {
@@ -44,13 +60,14 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
     });
   }
 
+  const availableClasses = teacher.classes
 
   return (
     <TeacherCard>
       <CardHeader>
-        <Avatar src={teacher.avatar} alt={teacher.name} />
+        <Avatar img={`http://localhost:3333/img/${teacher.avatar}`} />
         <Profile>
-          <Name>{teacher.name}</Name>
+          <Name>{teacher.name} {teacher.surname}</Name>
           <Subject>{teacher.subject}</Subject>
         </Profile>
       </CardHeader>
@@ -58,37 +75,18 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <ScheduleList>
         
         <div><span>Dia</span><span>Horário</span></div>
+
+        {availableClasses.map((availability: ClassesProps) => (
+            
+          <ScheduleItem key={availability.id}>                
+            <strong><span>Dia</span>{availability.week_day}</strong>
+            <img src={arrow} alt="Arrow-icon"/>
+            <strong><span>Horário</span>{availability.from} - {availability.to}</strong>
+          </ScheduleItem> 
+
+        ))}
         
-        <ScheduleItem>                
-            <strong><span>Dia</span>Segunda</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>
-        </ScheduleItem> 
-        <ScheduleItem>
-            <strong><span>Dia</span>Terça</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>                
-        </ScheduleItem> 
-        <ScheduleItem>
-            <strong><span>Dia</span>Quarta</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>                
-        </ScheduleItem> 
-        <ScheduleItem>                
-            <strong><span>Dia</span>Quinta</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>
-        </ScheduleItem> 
-        <ScheduleItem>
-            <strong><span>Dia</span>Sexta</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>                
-        </ScheduleItem> 
-        <ScheduleItem>
-            <strong><span>Dia</span>Sábado</strong>
-            <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>8h - 18h</strong>                
-        </ScheduleItem> 
+        
 
       </ScheduleList>
       <CardFooter>

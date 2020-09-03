@@ -150,6 +150,7 @@ export const FormSection = styled.fieldset`
 
     @media(min-width: 50rem){
       display: flex;
+      margin-bottom: 3rem;
       >div + div {
         margin-left: 3rem;
         margin-top: 0;
@@ -211,8 +212,9 @@ export const ScheduleList = styled.ul`
 
   >li{
     border-bottom: solid 0.1rem var(--color-line-in-white);    
-    position: relative;
-    padding-bottom: 3rem;
+    position: relative;   
+    margin: 2rem 0;
+    padding: 3rem 0; 
     display: grid;   
     align-items: flex-end;
     justify-content: center;     
@@ -265,8 +267,8 @@ export const RemoveButton = styled.span`
   height: 3rem;
   border: solid 1px var(--color-line-in-white);
   border-radius: 0.8rem;
-  right: 2rem;
-  top: -1.5rem;
+  right: 0rem;
+  top: 2rem;
   font-size: 1.4rem;
   font-weight: bold;
   font-family: Archivo;

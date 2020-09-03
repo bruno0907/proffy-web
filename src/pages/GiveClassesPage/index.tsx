@@ -5,10 +5,7 @@ import { useHistory } from "react-router-dom";
 import PageContainer from "../../components/PageContainer";
 import PageHeader from "../../components/PageHeader";
 import NavBar from "../../components/NavBar";
-import Form from "../../components/Form";
-import FormSection from "../../components/FormSection";
-import InputMedium from "../../components/InputMedium";
-import InputSmall from "../../components/InputSmall";
+import Input from "../../components/Input";
 import Textarea from "../../components/Textarea";
 import Select from "../../components/Select";
 import FormButton from "../../components/FormButton";
@@ -17,17 +14,23 @@ import Footer from "../../components/Footer";
 import rocketIcon from "../../assets/images/icons/rocket.svg";
 import avatarPlaceholder from "../../assets/images/icons/user.svg";
 
-import {
-  Profile,
-  FormContainer,
-  InputRow,
+import {  
   UserInfo,
+  AvatarSection,
   Avatar,
   UserName,
+  Profile,
+  Form,
+  FormContainer,
+  FormSection,
+  Divider,
+  WhatsApp,
+  Cost,
   ScheduleList,
-  ScheduleItem,
-  ScheduleContentTimeRow,
-  ScheduleItemRemoveButton,
+  WeekDay,
+  From,
+  To,
+  RemoveButton,  
 } from "./styles";
 
 import options from "../../utils/options";
@@ -42,6 +45,7 @@ function GiveClassesPage() {
 
   const [avatar, setAvatar] = useState<UserProps | null>(null);
   const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [bio, setBio] = useState('');
   const [subject, setSubject] = useState('');
@@ -56,6 +60,7 @@ function GiveClassesPage() {
   useEffect(() => {
     setAvatar(user?.avatar!)
     setName(user?.name!)
+    setSurname(user?.surname!)
     setWhatsapp(user?.whatsapp!)
     setBio(user?.bio!)
     setSubject(user?.subject!)
@@ -98,19 +103,19 @@ function GiveClassesPage() {
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
     
-    await api.post('/classes',{
-        whatsapp,
-        bio,
+    const id = user?.id
+
+    await api.post(`/proffy/${id}/classes`,{        
         subject,
         cost: Number(cost),
         schedule: scheduleItems
-    }).then(() => {
-        alert('Cadastro realizado com sucesso!')
-        history.push('/')
-
-    }).catch((e) => {
-        alert('Houve um erro no seu cadastro!')
-
+    }).then(response => {
+      alert('Cadastro realizado com sucesso!')
+      console.log(response.data)
+      history.push('/')
+    }).catch((error) => {
+      alert('Houve um erro no seu cadastro!')
+      console.log(error.message)
     })
 
   }
@@ -132,112 +137,104 @@ function GiveClassesPage() {
       <Profile>
         <Form onSubmit={handleCreateClass}>
           <FormContainer>
-            <FormSection title="Seus dados">
-              <InputRow>
-                <UserInfo>                
-                  <Avatar img={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } />
-                  <UserName>{name}</UserName>
-                </UserInfo>
-                <InputMedium                  
-                  name="whatsapp"
-                  label="Whatsapp"
-                  value={whatsapp}
-                  onChange={(event) => setWhatsapp(event.target.value)}
-                />
-              </InputRow>
-              <InputRow>
-                <Textarea
-                  name="bio"
-                  label="Biografia"
-                  subLabel="(Máximo de 300 caracteres)"
-                  value={bio}
-                  onChange={(event) => setBio(event.target.value)}
-                />
-              </InputRow>
+            <FormSection>
+              <legend>
+                <h2>Seus Dados</h2>                              
+              </legend>
+              <Divider/>              
+              <UserInfo>
+                <AvatarSection>
+                  <Avatar img={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } />                  
+                  <UserName>{name} {surname}</UserName>
+                </AvatarSection>                 
+                <WhatsApp>
+                  <Input 
+                    label="Whatsapp"
+                    name="whatsapp"                  
+                    autoComplete='off'
+                    value={whatsapp}
+                    onChange={event => setWhatsapp(event.target.value)}
+                  /> 
+                </WhatsApp>              
+              </UserInfo>                
+              <Textarea 
+                label="Biografia"
+                subLabel="(Máximo de 300 caracteres)"
+                name="bio"
+                autoComplete='off'
+                value={bio}
+                onChange={(event) => setBio(event.target.value)}
+              />           
             </FormSection>
-            <FormSection title="Sobre a aula">
-              <InputRow>
+            <FormSection>
+              <legend>
+                <h2>Sobre a aula</h2>                
+              </legend>
+              <Divider/>
+              <div>
                 <Select
-                  name="subject"
-                  label="Matéria"
-                  options={options.subjects}
-                  value={subject}
-                  onChange={(event) => setSubject(event.target.value)}
-                />
-                <InputMedium                  
-                  label="Custo da sua hora/aula"
-                  name="cost"
-                  value={cost}
-                  onChange={(event) => setCost(event.target.value)}
-                />
-              </InputRow>
+                    label="Matéria"
+                    name="subject"                  
+                    options={options.subjects}      
+                    value={subject}            
+                    onChange={event => setSubject(event.target.value)}
+                  />
+                  <Cost>
+                    <Input
+                      label="Custo da hora/aula"
+                      name="cost"                  
+                      value={cost}
+                      onChange={event => setCost(event.target.value)}
+                    />
+                  </Cost>
+              </div>
             </FormSection>
-            <FormSection
-              title="Horários disponíveis"
-              addSchedule
-              onClick={addNewScheduleItem}
-            >
+            <FormSection>
+              <legend>
+                <h2>Horários disponíveis</h2>
+                <p onClick={addNewScheduleItem}>+ Novo <span>horário</span></p>
+              </legend>
+              <Divider/>
               <ScheduleList>
-                {scheduleItems.map((scheduleItem, index) => {
-                  return (
-                    <ScheduleItem key={scheduleItem.id}>
-                      <InputRow>
-                        <Select
-                          name="week_day"
-                          label="Dia da semana"
-                          options={options.weekDay}
-                          value={scheduleItem.week_day}
-                          onChange={(event) =>
-                            setScheduleItemValue(
-                              index,
-                              "week_day",
-                              event.target.value
-                            )
-                          }
-                        />
-                      </InputRow>
-                      <ScheduleContentTimeRow>
-                        <InputSmall
-                          type="time"
-                          name="from"
-                          label="De"
-                          value={scheduleItem.from}
-                          onChange={(event) =>
-                            setScheduleItemValue(
-                              index,
-                              "from",
-                              event.target.value
-                            )
-                          }
-                        />
-                        <InputSmall
-                          type="time"
-                          name="to"
-                          label="Até"
-                          value={scheduleItem.to}
-                          onChange={(event) =>
-                            setScheduleItemValue(
-                              index,
-                              "to",
-                              event.target.value
-                            )
-                          }
-                        />
-                      </ScheduleContentTimeRow>
-                      <ScheduleItemRemoveButton
-                        onClick={() => removeScheduleItem(scheduleItem.id)}
-                      >
-                        X
-                      </ScheduleItemRemoveButton>
-                    </ScheduleItem>
-                  );
-                })}
-              </ScheduleList>
+                { scheduleItems.map((scheduleItem, index) => (
+                  <li key={scheduleItem.id}> 
+                    <WeekDay>                    
+                      <Select                         
+                        name="week_day"
+                        label="Dia da semana"                      
+                        options={options.weekDay}
+                        value={scheduleItem.week_day}
+                        onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}
+                      />  
+                    </WeekDay>  
+                    <From>
+                      <Input 
+                        type="time"
+                        name="from"
+                        label="De"                      
+                        value={scheduleItem.from}
+                        onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
+                      />
+                    </From>  
+                    <To>
+                      <Input 
+                        type="time"
+                        name="to"
+                        label="Até"                      
+                        value={scheduleItem.to}
+                        onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
+                      />                    
+                    </To>
+                    <RemoveButton onClick={() => removeScheduleItem(scheduleItem.id)}>X</RemoveButton>
+                  </li>
+                )  
+                )}   
+              </ScheduleList>   
             </FormSection>
           </FormContainer>
-          <Footer>
-            <FormButton>Cadastrar Aulas</FormButton>
-          </Footer>
+        <Footer>
+          <FormButton>Atualizar Perfil</FormButton>
+        </Footer>
         </Form>
       </Profile>
     </PageContainer>

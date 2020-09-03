@@ -23,8 +23,7 @@ import {
   FormSection,
   Divider,    
   ScheduleList,
-  WhatsApp,
-  Cost,
+  WhatsApp,  
   WeekDay,
   From,
   To,   
@@ -49,10 +48,16 @@ function TeacherProfilePage (){
   const [ whatsapp, setWhatsapp ] = useState('')
   const [ bio, setBio ] = useState('')
   const [ subject, setSubject ] = useState('')
-  const [ cost, setCost ] = useState('')
-  const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: 0, from: '', to: ''} ])  
+  // const [ cost, setCost ] = useState('')
+  const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: '0', from: '', to: ''} ])  
 
   const { signed, user, updateUser } = useAuth()   
+
+  const classes = [ 
+    { id: 0, week_day: '0', from: '08:00', to: '18:00'}, 
+    { id: 1, week_day: '2', from: '08:00', to: '16:00'}, 
+    { id: 2, week_day: '5', from: '10:00', to: '20:00'}, 
+  ]
   
   useEffect(() => {
     if(!signed){      
@@ -66,7 +71,8 @@ function TeacherProfilePage (){
     setWhatsapp(user?.whatsapp! || '')
     setBio(user?.bio! || '') 
     setSubject(user?.subject! || '')    
-    setCost(user?.cost! || '')         
+    // setCost(user?.cost! || '')
+    setScheduleItems(classes)         
     
   }, [signed, history, avatar, user])
 
@@ -80,17 +86,6 @@ function TeacherProfilePage (){
 
       setScheduleItems(updatedScheduleItems)  
   }  
-
-  // function addNewScheduleItem(){    
-  //   let a = scheduleItems.length
-  //   const nid = a++
-
-  //   setScheduleItems([
-  //       ...scheduleItems,
-  //       { id: nid, week_day: 0, from: '', to: '' }
-        
-  //   ])        
-  // }
 
   function removeScheduleItem(id: number) {        
     setScheduleItems(
@@ -133,10 +128,8 @@ function TeacherProfilePage (){
       surname,
       email,
       whatsapp,
-      bio,
-      subject,
-      cost,
-      scheduleItems,
+      bio,      
+      // scheduleItems,
     } 
 
     // await api.put(`/proffy/profile/${user?.id}/update`, data)
@@ -226,7 +219,7 @@ function TeacherProfilePage (){
                 onChange={(event) => setBio(event.target.value)}
               />           
             </FormSection>
-            <FormSection>
+            {/* <FormSection>
               <legend>
                 <h2>Sobre a aula</h2>                
               </legend>
@@ -248,10 +241,10 @@ function TeacherProfilePage (){
                     />
                   </Cost>
               </div>
-            </FormSection>
+            </FormSection> */}
             <FormSection>
               <legend>
-                <h2>Horários disponíveis</h2>
+                <h2>Aulas Cadastradas</h2>
               </legend>
               <Divider/>
               <ScheduleList>
@@ -262,7 +255,7 @@ function TeacherProfilePage (){
                         name="week_day"
                         label="Dia da semana"                      
                         options={options.weekDay}
-                        value={scheduleItem.week_day}
+                        value={scheduleItem.week_day}                        
                         onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}
                       />  
                     </WeekDay>  

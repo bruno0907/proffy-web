@@ -3,14 +3,10 @@ import React, { useState, FormEvent } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import LogoAside from '../../components/LogoAside'
-
 import FormAside from '../../components/FormAside'
-
 import Form from '../../components/Form'
 import LoginInput from '../../components/LoginInput'
-
 import FormBackButton from '../../components/FormBackButton'
-
 import FormButton from '../../components/FormButton'
 
 import api from '../../services/api'

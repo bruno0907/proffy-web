@@ -19,7 +19,7 @@ const Select: React.FC<SelectProps> = ({ label, options, subLabel, name, ...rest
             <select id={name} {...rest} placeholder="Olá">
             
                 {options.map(option => {
-                  return <option key={`id_${option.value}`} defaultValue={option.value}>{option.label}</option>
+                  return <option key={`id_${option.value}`} value={option.value}>{option.label}</option>
                 })}
 
             </select>            
