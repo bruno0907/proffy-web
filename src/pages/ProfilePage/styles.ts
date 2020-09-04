@@ -35,6 +35,7 @@ export const Avatar = styled.div<AvatarProps>`
   border-radius: 9rem;      
   background: url(${props => props.img});  
   background-size: cover;
+  background-position: center;
   flex-shrink: 0;
 
     @media(min-width: 50rem){

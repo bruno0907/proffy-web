@@ -5,6 +5,8 @@ import api from "../../services/api";
 import whatsappIcon from "../../assets/images/icons/whatsapp.svg";
 import arrow from "../../assets/images/icons/arrow-grey.svg";
 
+import getWeekDay from '../../utils/convertWeekDay'
+import convertMinutesToHours from '../../utils/convertMinutesToHours'
 
 import {
     TeacherCard,
@@ -62,6 +64,8 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 
   const availableClasses = teacher.classes
 
+  
+
   return (
     <TeacherCard>
       <CardHeader>
@@ -79,9 +83,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
         {availableClasses.map((availability: ClassesProps) => (
             
           <ScheduleItem key={availability.id}>                
-            <strong><span>Dia</span>{availability.week_day}</strong>
+            <strong><span>Dia</span>{getWeekDay(availability.week_day)}</strong>
             <img src={arrow} alt="Arrow-icon"/>
-            <strong><span>Horário</span>{availability.from} - {availability.to}</strong>
+            <strong><span>Horário</span>{convertMinutesToHours(availability.from)} - {convertMinutesToHours(availability.to)}</strong>
           </ScheduleItem> 
 
         ))}
@@ -91,7 +95,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       </ScheduleList>
       <CardFooter>
         <Price>
-          <span>Preço da hora/aula:</span><strong>R$ {teacher.cost} reais</strong>
+          <span>Preço da hora/aula:</span><strong>R$ {Number(teacher.cost).toFixed(2).replace('.', ',')} </strong>
         </Price>
         <WhatsappButton
           href={whatsAppMessage}

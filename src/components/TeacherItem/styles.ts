@@ -24,6 +24,7 @@ export const Avatar = styled.div<AvatarProps>`
     border-radius: 50%;
     background-image: url(${(props: AvatarProps) => props.img});
     background-size: cover;
+    background-position: center;
     flex-shrink: 0;
 `
 
@@ -121,11 +122,11 @@ export const ScheduleItem = styled.li`
   
     >strong{
       font-family: Archivo;
-      font-size: 1.6rem; 
+      font-size: 1.5rem; 
       line-height: 1.8rem;
       color: var(--color-text-base);
       text-align: left;      
-      width: 7rem;      
+      width: 9rem;      
 
       >span{
         display: none;
@@ -133,28 +134,31 @@ export const ScheduleItem = styled.li`
     }
 
     >img{
-      margin: auto;
+      /* margin: auto; */
       width: 8rem;      
     }
 
   @media(min-width: 50rem){    
-    width: 11rem;
-    height: 13rem;    
+    width: 11.8rem;
+    height: 14rem;    
     flex-direction: column;
     align-items: flex-start;    
     justify-content: space-between;
-    padding: 1.8rem 1.2rem;
+    padding: 1.6rem 1rem;
     margin: 0;
+    
 
       >strong{                
         display: flex;
         flex-direction: column;
+        width: initial;
 
         >span{
           display: block;
-          font-size: 1.2rem;
+          font-size: 1.4rem;
+          line-height: 3rem;
           font-weight: 300;
-          color: var(--color-text-complement);
+          color: var(--color-text-complement);          
         }
       }
 

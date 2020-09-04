@@ -24,20 +24,25 @@ function TeacherListPage() {
     const [ time, setTime ] = useState('')
     const [ teachers, setTeachers ] = useState([] as any)
 
+    const [ ourTeachers, setOurTeachers ] = useState()
+
     useEffect(() => {
         api.get('/classes').then(response => { 
             
-            setTeachers(response.data)
-
-            
+            setTeachers(response.data)    
 
         }).catch(error => {
             alert('Houve um erro muito louco!')
             console.log(error.message)
-        })    
-    },[])    
+        }) 
 
-    // teachers.map((teacher: Teacher) => console.log(teacher.classes))
+        // levar essa caralha pro context
+        api.get('/proffy').then(response =>             
+            setOurTeachers(response.data))
+            .catch(error => console.log(error.message))
+        
+    },[])  
+
 
     return (
         <PageContainer>
@@ -47,7 +52,7 @@ function TeacherListPage() {
                 description= "Utilize das opções abaixo para filtrar sua busca."
             >
             <img src={smile} alt="Rocket" />
-            <span>Nós temos 200 professores.</span>
+            <span>Nós temos {ourTeachers} professores.</span>
             </PageHeader>
             <FilterBox>
                 <InputRow>
