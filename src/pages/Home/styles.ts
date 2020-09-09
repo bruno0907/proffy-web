@@ -101,6 +101,7 @@ export const Avatar = styled.div<AvatarProps>`
   margin-right: 1.5rem;  
   background: url(${props => props.img});  
   background-size: cover;
+  background-position: center;
 `
 
 export const SignOutButton = styled.div`

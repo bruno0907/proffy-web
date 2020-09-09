@@ -9,11 +9,12 @@ export const SelectBlock = styled.div`
     &:focus-within::after {
         position: absolute;
         content: '';
-        height: 0.3rem;
+        height: 0.32rem;
         width: calc(100% - 4rem);        
         background: var(--color-primary);
-        bottom: calc(100% - 9.5rem);
+        bottom: 0rem;
         left: 18px;
+        
     }
 
         &::before {
@@ -24,12 +25,11 @@ export const SelectBlock = styled.div`
             border: solid 2px var(--color-text-complement);
             border-radius: 2px;
             border-left: none;
-            border-bottom: none;
-            top: 5.5rem;
-            right: 1.5rem;
-            -webkit-transform: rotate(50deg);
-            -ms-transform: rotate(50deg);
-            transform: rotate(135deg);
+            border-bottom: none;            
+            -webkit-transform: translateY(5.1rem) rotate(135deg);
+            -ms-transform: translateY(5.1rem) rotate(135deg);            
+            right: 15px;
+            transform: translateY(5.1rem) rotate(135deg);
             z-index: 1;
             transition: transform 0.1s;
         }
@@ -55,7 +55,7 @@ export const SelectBlock = styled.div`
     >select{    
         width: 100%;
         margin-top: 1rem;
-        padding: 2rem 3rem;  
+        padding: 1.8rem 2.5rem;  
         border: solid 1px var(--color-line-in-white);
         background: var(--color-input-background);
         position: relative;        

@@ -7,13 +7,13 @@ export const InputBlock = styled.div`
   width: 100%;     
 
   &:focus-within::after {
-    position: absolute;
     content: "";
-    height: 0.3rem;
+    position: absolute;
+    height: 0.32rem;
     width: calc(100% - 4rem);
     background: var(--color-primary);
     bottom: 0;
-    left: 2rem;
+    left: 2rem;    
   }
 
   > label {
@@ -36,15 +36,16 @@ export const InputBlock = styled.div`
 
   > input {
     width: 100%;
-    margin-top: 1rem;
-    padding: 2rem 3rem;
+    margin-top: 0.5rem;
+    padding: 1.5rem 2.8rem;
     border: solid 1px var(--color-line-in-white);
     background: var(--color-input-background);
     position: relative;
     border-radius: 0.8rem;
 
     &:disabled{
-      filter: grayscale(80%)    
+      filter: grayscale(50%);      
+      cursor: not-allowed;
     }
   }
 `;

@@ -95,22 +95,11 @@ export const Name = styled.h1`
     font-family: Archivo;
     font-size: 3.6rem;
     color: var(--color-line-in-white);
-    margin-bottom: 0.5rem;
+    margin-bottom: 6rem;
 
       @media(max-width: 65rem){
         font-size: 2.4rem;
       }
-`
-
-export const Subject = styled.span`
-  font-size: 2.4rem;
-  color: var(--color-line-in-white);
-  font-weight: 400;
-  margin-bottom: 6rem;
-
-    @media(max-width: 65rem){
-      font-size: 1.6rem;
-    }
 `
 
 export const Profile = styled.div`
@@ -216,46 +205,100 @@ export const ScheduleList = styled.ul`
     position: relative;   
     margin: 2rem 0;
     padding: 3rem 0; 
-    display: grid;   
-    align-items: flex-end;
-    justify-content: center;     
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    grid-template-areas:
-      'week_day week_day'
-      'from to';
+    display: flex;   
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
 
       @media(min-width: 50rem){        
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr 2fr 2fr;            
-        grid-template-areas:
-          'week_day week_day from to';
+        
       }
   }
-`;
 
+`
+
+export const SubjectCost = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  div + div{
+    margin-left: 2rem;
+  }
+
+  @media(min-width: 50rem){
+  }
+`
+
+export const ScheduleItems = styled.div`
+  width: 100%;
+  display: grid;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  grid-template-rows: 1fr 1fr 3rem;        
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1rem 3rem;           
+  grid-template-areas:      
+    'week_day week_day'
+    'from to'
+    'remove remove';  
+
+  @media(min-width: 50rem){
+    margin-bottom: 3rem;
+    grid-template-rows: 1fr 3rem;        
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1rem 3rem;           
+    grid-template-areas:      
+      'week_day week_day week_day from to '
+      'remove remove remove remove remove';
+    }
+  }
+`
+
+export const Remove = styled.span`
+  grid-area: remove;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-family: Archivo;      
+  cursor: pointer;
+  color: red;
+`
 
 export const WhatsApp = styled.div`
   @media(min-width: 50rem){
     width: 35rem;  
   }
 `
+
 export const Cost = styled.div`
+  grid-area: cost; 
+  width: 16rem;
+
   @media(min-width: 50rem){
-    width: 35rem;  
+    width: 35rem;
   }
+
 `
-export const WeekDay = styled.div`
+
+export const Subject = styled.div`
+  grid-area: subject;  
   width: 100%;
+`
+
+export const WeekDay = styled.div`  
   grid-area: week_day;
 `
-export const From = styled.div`
-  width: 100%;
+
+export const From = styled.div`  
   grid-area: from;
 `
-export const To = styled.div`
-  width: 100%;
+
+export const To = styled.div`  
   grid-area: to;
 `
 

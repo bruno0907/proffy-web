@@ -1,10 +1,11 @@
-export default function convertMinutesToHours(time: number){ 
+export default function convertMinutesToHours(time: number | any){ 
   
-  let hours = (Math.floor(time / 60)).toString()  
-  let min = (time % 60).toString()
-  hours = hours < '10' ? '0' + hours : hours
-  min = min < '10' ? '0' + min : min
+  let hours = Math.floor(time / 60).toString()
+  let minutes = (time % 60).toString()
+  
+  hours = Number(hours) < 10 ? hours = `0${hours}` : hours
+  minutes = Number(minutes) < 10 ? minutes = `0${minutes}` : minutes
 
-  return `${hours}:${min}`
+  return `${hours}:${minutes}`
 }
 

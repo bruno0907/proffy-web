@@ -105,17 +105,24 @@ function GiveClassesPage() {
     
     const id = user?.id
 
-    await api.post(`/proffy/${id}/classes`,{        
+    await api.post(`/proffy/classes`,{        
         subject,
         cost: Number(cost),
         schedule: scheduleItems
+        
+    }, {
+      headers: {
+        id
+      }
     }).then(response => {
       alert('Cadastro realizado com sucesso!')
       console.log(response.data)
       history.push('/')
+
     }).catch((error) => {
       alert('Houve um erro no seu cadastro!')
       console.log(error.message)
+      
     })
 
   }
