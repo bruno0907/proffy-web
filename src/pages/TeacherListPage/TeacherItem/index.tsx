@@ -1,12 +1,12 @@
 import React from "react";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
-import whatsappIcon from "../../assets/images/icons/whatsapp.svg";
-import arrow from "../../assets/images/icons/arrow-grey.svg";
+import whatsappIcon from "../../../assets/images/icons/whatsapp.svg";
+import arrow from "../../../assets/images/icons/arrow-grey.svg";
 
-import getWeekDay from '../../utils/convertWeekDay'
-import convertMinutesToHours from '../../utils/convertMinutesToHours'
+import getWeekDay from '../../../utils/convertWeekDay'
+import convertMinutesToHours from '../../../utils/convertMinutesToHours'
 
 import {
     TeacherCard,

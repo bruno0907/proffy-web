@@ -6,43 +6,44 @@ import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import Input from '../../components/Input'
 import Textarea from '../../components/Textarea'
-import Select from '../../components/Select'
 import FormButton from '../../components/FormButton'
 
 import avatarPlaceholder from '../../assets/images/icons/user.svg'
+
+// import ClassesItem from './ClassesItem'
 
 import {   
   Profile,  
   Header,
   Avatar,
-  Name,
-  Subject,
+  Name,  
   CameraIcon,
   Form,
   FormContainer,
   FormSection,
   Divider,    
-  ScheduleList,
-  SubjectCost,
-  ScheduleItems,
-  Remove,
-  WhatsApp,  
-  Cost,
-  WeekDay,
-  From,
-  To,   
-  RemoveButton,
+  ScheduleList,  
+  WhatsApp,    
 } from './styles';
 
 import { useAuth } from '../../contexts/auth'
 
-import options from '../../utils/options'
-
+import api from '../../services/api'
+import convertWeekDay from '../../utils/convertWeekDay'
 import convertMinutesToHours from '../../utils/convertMinutesToHours'
 
-import api from '../../services/api'
 
 import { UserProps } from '../../services/auth';
+
+import { Classes } from './ClassesItem'
+
+interface ClassesProps{  
+  id: number;
+  week_day: number;
+  from: number;
+  to: number;
+  class_id: number;
+}
 
 function TeacherProfilePage (){    
   const history = useHistory() 
@@ -53,58 +54,32 @@ function TeacherProfilePage (){
   const [ email, setEmail ] = useState('')
   const [ whatsapp, setWhatsapp ] = useState('')
   const [ bio, setBio ] = useState('')  
-  const [ subject, setSubject ] = useState('')
-  const [ cost, setCost ] = useState('')
-  const [ scheduleItems, setScheduleItems ] = useState([ { id: 0, week_day: '0', from: '', to: ''} ])  
-
+  const [ classes, setClasses ] = useState([])
   const { signed, user, updateUser } = useAuth()   
 
   useEffect(() => {
     if(!signed){      
       history.push('/sign-in')
     }   
-
-    const id = user?.id
-    const getUserClasses = async () => {    
-      const response = await api.get('proffy/classes', {
-        headers: {
-          id
-        }
-      })            
-      const { data } = response   
-      data.map((i: any) => {
-        console.log(i)
-      })
-
-    }  
-    getUserClasses()        
-
+    
+    api.get('proffy/classes', {
+      headers: {
+        id: user?.id
+      }
+    }).then(
+      response => setClasses(response.data)      
+    ).catch(error => console.log(error))
+    
     setAvatar(user?.avatar!) 
     setName(user?.name!)
     setSurname(user?.surname!)
     setEmail(user?.email!)
     setWhatsapp(user?.whatsapp! || '')
-    setBio(user?.bio! || '')          
-    // [{ id: 0, week_day: '0', from: '08:00', to: '18:00'}]
+    setBio(user?.bio! || '')       
     
   }, [signed, history, avatar, user])
 
-  function setScheduleItemValue(position: number, field: string, value: string){
-      const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
-          if(index === position) {
-              return { ...scheduleItem, [field]: value}
-          }
-          return scheduleItem
-      })      
-
-      setScheduleItems(updatedScheduleItems)  
-  }  
-
-  function removeScheduleItem(id: number) {        
-    setScheduleItems(
-      scheduleItems.filter( item => item.id !== id) 
-    )
-  } 
+  
 
   const handleUpdateAvatar = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if(event.target.files){
@@ -130,8 +105,7 @@ function TeacherProfilePage (){
 
   async function handleSubmit(event: FormEvent){
     event.preventDefault()
-
-    const id = user?.id
+    
     const token = localStorage.getItem('@ProffyAuth:token')
 
     const data = {        
@@ -145,7 +119,7 @@ function TeacherProfilePage (){
 
     const response = await api.put(`/proffy/profile/update`, data, {
       headers:{   
-        id,       
+        id: user?.id,       
         token 
       }
     })
@@ -158,7 +132,7 @@ function TeacherProfilePage (){
       alert('Erro ao atualizar o seu usuário.')
 
     }
-  }
+  }  
 
   return (
     <PageContainer>
@@ -231,101 +205,49 @@ function TeacherProfilePage (){
                 value={bio}
                 onChange={(event) => setBio(event.target.value)}
               />           
-            </FormSection>
-            {/* <FormSection>
-              <legend>
-                <h2>Sobre a aula</h2>                
-              </legend>
-              <Divider/>
-              <div>
-                <Select
-                    label="Matéria"
-                    name="subject"                  
-                    options={options.subjects}      
-                    value={subject}            
-                    onChange={event => setSubject(event.target.value)}
-                  />
-                  <Cost>
-                    <Input
-                      label="Custo da hora/aula"
-                      name="cost"                  
-                      value={cost}
-                      onChange={event => setCost(event.target.value)}
-                    />
-                  </Cost>
-              </div>
-            </FormSection> */}
+            </FormSection>            
             <FormSection>
               <legend>
                 <h2>Aulas Cadastradas</h2>
               </legend>
               <Divider/>
-              <ScheduleList>
-
-                {/* 
-                { classes?.map((scheduledClass: any) => {                  
+              <ScheduleList>                
+                { classes.map((scheduledClass: Classes) => {                  
                   return(
                     <li key={scheduledClass.id}>
-                    <SubjectCost>
-                      <Subject>
-                        <Select
-                          label="Matéria"
-                          name="subject"                  
-                          options={options.subjects}      
-                          value={scheduledClass.subject}            
-                          onChange={event => setSubject(event.target.value)}
-                        />
-                      </Subject>
-                      <Cost>
-                        <Input
-                          label="Custo da hora/aula"
-                          name="cost"                  
-                          value={scheduledClass.cost}
-                          onChange={event => setCost(event.target.value)}
-                        />
-                      </Cost> 
-                    </SubjectCost>
-                    
-                    { scheduledClass.classes.map((i: any, index: any) => (
-
-                      <ScheduleItems key={i.id}>
-                        <WeekDay>                    
-                        <Select                         
-                          name="week_day"
-                          label="Dia da semana"                      
-                          options={options.weekDay}
-                          value={i.week_day}                        
-                          onChange={event => setScheduleItemValue(index, 'week_day', event.target.value)}
-                        />  
-                      </WeekDay>  
-                      <From>
-                        <Input 
-                          type="time"
-                          name="from"
-                          label="De"                      
-                          value={convertMinutesToHours(i.from)}
-                          onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
-                        />
-                      </From>  
-                      <To>
-                        <Input 
-                          type="time"
-                          name="to"
-                          label="Até"                      
-                          value={convertMinutesToHours(i.to)}
-                          onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
-                        />                    
-                      </To>
-                      <Remove>Excluir dia</Remove>
-                      </ScheduleItems>
-                    ))}
-
-                    <RemoveButton onClick={() => removeScheduleItem(scheduledClass.id)}>X</RemoveButton>
+                      <div>
+                        <strong>Matéria: </strong>                      
+                        {scheduledClass.subject}
+                        <strong>Valor: </strong>
+                        {scheduledClass.cost}
+                      </div>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Dia</th>
+                            <th>De</th>
+                            <th>Até</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                          </tr>  
+                        </thead>
+                        {scheduledClass.classes.map((i: ClassesProps) => {
+                          return(
+                            <tbody key={i.id}>
+                              <tr>
+                                <td>{convertWeekDay(i.week_day)}</td>
+                                <td>{convertMinutesToHours(i.from)}</td>
+                                <td>{convertMinutesToHours(i.to)}</td>
+                                <td>*</td>
+                                <td>X</td>
+                              </tr>
+                            </tbody>
+                          )
+                        })}
+                      </table>                      
                     </li>
                   )
-                })}
-                */}
-
+                })}       
               </ScheduleList>   
             </FormSection>
           </FormContainer>
