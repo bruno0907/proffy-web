@@ -1,5 +1,5 @@
 const subjects = [
-  { value: '0', label: 'Selecione aqui...'},
+  // { value: '0', label: 'Selecione aqui...'},
   { value: 'Matemática', label: 'Matemática'},
   { value: 'Inglês', label: 'Inglês'},
   { value: 'Química', label: 'Química'},
@@ -7,7 +7,7 @@ const subjects = [
 ];
 
 const weekDay = [                          
-    { value: '', label: 'Selecione aqui...' },    
+    // { value: '', label: 'Selecione aqui...' },    
     { value: '0', label: 'Domingo' },
     { value: '1', label: 'Segunda-feira' },
     { value: '2', label: 'Terça-feira' },

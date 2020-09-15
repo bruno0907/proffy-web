@@ -15,6 +15,7 @@ import api from "../../services/api";
 import { TeacherList, FilterBox, InputRow } from "./styles";
 
 import options from "../../utils/options";
+import convertWeekDay from '../../utils/convertWeekDay'
 
 import { Class } from "./TeacherItem";
 
@@ -23,39 +24,63 @@ function TeacherListPage() {
   const [week_day, setWeekDay] = useState("");
   const [time, setTime] = useState("");
   
-  const [ourTeachers, setOurTeachers] = useState("");
+  const [totalProffys, setTotalProffys] = useState("");
 
-  const [getClasses, setGetClasses] = useState([] as any);
+  const [totalClassesList, setTotalClassesList] = useState([] as any);
   const [classes, setClasses] = useState([] as any);
 
   useEffect(() => {
-    const getProffysCount = async () => {
+    const getTotalProffys = async () => {
         await api
           .get("/proffy")
-          .then((response) => setOurTeachers(response.data))
+          .then((response) => setTotalProffys(response.data))
           .catch((error) => console.log(error));
       };
-    getProffysCount();
+    getTotalProffys();
 
-    const getClassesList = async () => {
+    const getClasses = async () => {
         const response = await api.get('classes')
         const { data } = response
-        setGetClasses(data)
+        setTotalClassesList(data)
         setClasses(data)
-        console.log(data)
+        
       };
-    getClassesList();
+    getClasses();
 
   }, []);
 
-  const searchFilter = (value: any) => {
-    const a = [...getClasses];
-    const b = a.filter((i: any) => i.subject === value);
-    setSubject(value);
-    setClasses(b);
-    console.log(b);
-    return;
+  const subjectFilterHandler = (filterOption: string) => {
+    if(filterOption === 'default'){
+        return setClasses(totalClassesList)
+    }    
+    const classesList = [...totalClassesList]
+    const subjectFilterResult = classesList.filter(
+
+      (classesItem: Class) => classesItem.subject === filterOption
+
+    )
+    setSubject(filterOption)       
+    return setClasses(subjectFilterResult)
   };  
+
+
+  // Filtro para trabalhar
+  const weekDayfilterHandler = (filterOption: string) => {
+    if(filterOption === 'default'){
+        return setClasses(totalClassesList)
+    }
+    const classesList = [...classes]      
+    const weekDayFilterResult = classesList.filter(      
+      (classesItem: Class) => classesItem.classes.some(
+        (classWeekDay: any) => classWeekDay.week_day === filterOption
+      )
+    )    
+    setClasses(weekDayFilterResult)
+    setWeekDay(filterOption)
+    
+  };  
+  
+
 
   return (
     <PageContainer>
@@ -65,7 +90,7 @@ function TeacherListPage() {
         description="Utilize das opções abaixo para filtrar sua busca."
       >
         <img src={smile} alt="Rocket" />
-        <span>Nós temos {ourTeachers} professores.</span>
+        <span>Nós temos {totalProffys} professores.</span>
       </PageHeader>
       <FilterBox>
         <InputRow>
@@ -74,16 +99,25 @@ function TeacherListPage() {
             label="Matéria"
             options={options.subjects}
             value={subject}
-            onChange={(event) => searchFilter(event.target.value)}
+            onChange={(event) => subjectFilterHandler(event.target.value)}
           />
         </InputRow>
+        
         <InputRow>
           <Select
             name="week_day"
             label="Dia da semana"
             options={options.weekDay}
+            value={week_day}
+            onChange={event => weekDayfilterHandler(event.target.value)}
           />
-          <Input type="time" name="time" label="Horário" />
+          <Input 
+          type="time" 
+          name="time" 
+          label="Horário" 
+          value={time}
+          onChange={event => setTime(event.target.value)}
+          />
         </InputRow>
       </FilterBox>
       <TeacherList>
