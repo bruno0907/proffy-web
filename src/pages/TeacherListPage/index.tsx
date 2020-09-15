@@ -51,36 +51,35 @@ function TeacherListPage() {
 
   const subjectFilterHandler = (filterOption: string) => {
     if(filterOption === 'default'){
-        return setClasses(totalClassesList)
+      setClasses(totalClassesList)
+      setSubject('') 
+
     }    
     const classesList = [...totalClassesList]
     const subjectFilterResult = classesList.filter(
-
       (classesItem: Class) => classesItem.subject === filterOption
-
     )
+    setClasses(subjectFilterResult)
     setSubject(filterOption)       
-    return setClasses(subjectFilterResult)
-  };  
 
-
-  // Filtro para trabalhar
+  };
+  
   const weekDayfilterHandler = (filterOption: string) => {
     if(filterOption === 'default'){
-        return setClasses(totalClassesList)
-    }
-    const classesList = [...classes]      
+      setClasses(totalClassesList)
+      setWeekDay('')
+
+    }    
+    const classesList = [...classes]  
     const weekDayFilterResult = classesList.filter(      
       (classesItem: Class) => classesItem.classes.some(
-        (classWeekDay: any) => classWeekDay.week_day === filterOption
+        (classWeekDay: any) => classWeekDay.week_day === Number(filterOption)
       )
     )    
-    setClasses(weekDayFilterResult)
-    setWeekDay(filterOption)
-    
-  };  
-  
+    setClasses(weekDayFilterResult)    
+    setWeekDay(filterOption)   
 
+  };    
 
   return (
     <PageContainer>
@@ -120,11 +119,16 @@ function TeacherListPage() {
           />
         </InputRow>
       </FilterBox>
+      { classes.length <= 0 
+        ? 
+          <h1>Nenhum registro encontrado</h1> 
+        :
       <TeacherList>
         {classes.map((classItem: Class) => {
           return <TeacherItem key={classItem.id} teacher={classItem} />;
-        })}
-      </TeacherList>
+        })}      
+      </TeacherList>      
+      }
     </PageContainer>
   );
 }
