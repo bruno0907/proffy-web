@@ -50,8 +50,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const remember = (localStorage.getItem('@ProffyAuth:remember')) ? true : false
 
     if(storagedUser && storagedToken){        
-      api.defaults.headers.Authorization = `Bearer ${storagedToken}`          
-      // setUser(JSON.parse(storagedUser))
+      api.defaults.headers.Authorization = `Bearer ${storagedToken}`                
       
       return{        
         user: JSON.parse(storagedUser),

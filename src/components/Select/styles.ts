@@ -26,10 +26,12 @@ export const SelectBlock = styled.div`
             border-radius: 2px;
             border-left: none;
             border-bottom: none;            
-            -webkit-transform: translateY(5.1rem) rotate(135deg);
-            -ms-transform: translateY(5.1rem) rotate(135deg);            
+
+            -webkit-transform: translateY(4.6rem) rotate(135deg);
+            -ms-transform: translateY(4.6rem) rotate(135deg);            
+            transform: translateY(4.6rem) rotate(135deg);
+            
             right: 15px;
-            transform: translateY(5.1rem) rotate(135deg);
             z-index: 1;
             transition: transform 0.1s;
         }
@@ -54,7 +56,7 @@ export const SelectBlock = styled.div`
 
     >select{    
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         padding: 1.8rem 2.5rem;  
         border: solid 1px var(--color-line-in-white);
         background: var(--color-input-background);

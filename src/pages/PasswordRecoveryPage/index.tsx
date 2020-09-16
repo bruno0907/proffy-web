@@ -26,15 +26,15 @@ function PasswordRecoveryPage() {
   const handleForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()    
     
-    api.post('proffy/password-recovery', {email}).then( () => {      
-      
+    api.post('proffy/password-recovery', {
+      email
+    }).then( () => {   
       history.push('/success', {            
         title: 'Redefinição enviada!',
         description: 'Boa, agora é só checar o e-mail que foi enviado para você, Seguir as orientações e voltar aos estudos.' ,
         buttonText: 'Entrar',
         link: '/sign-in',
       })
-
     }).catch( (err) => {
         console.log(err)
         alert('Email não encontrado.')

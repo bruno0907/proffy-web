@@ -34,10 +34,14 @@ export const InputBlock = styled.div`
       }
   }
 
+  > input[type="time"]{
+      padding: 1.55rem 2.5rem;
+    }
+
   > input {
     width: 100%;
-    margin-top: 0.5rem;
-    padding: 1.5rem 2.8rem;
+    margin-top: 0.5rem;    
+    padding: 1.8rem 2.5rem;  
     border: solid 1px var(--color-line-in-white);
     background: var(--color-input-background);
     position: relative;
@@ -47,5 +51,6 @@ export const InputBlock = styled.div`
       filter: grayscale(50%);      
       cursor: not-allowed;
     }
+    
   }
 `;

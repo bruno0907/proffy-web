@@ -15,7 +15,6 @@ import api from "../../services/api";
 import { TeacherList, FilterBox, InputRow } from "./styles";
 
 import options from "../../utils/options";
-import convertWeekDay from '../../utils/convertWeekDay'
 
 import { Class } from "./TeacherItem";
 
@@ -39,7 +38,7 @@ function TeacherListPage() {
     getTotalProffys();
 
     const getClasses = async () => {
-        const response = await api.get('classes')
+        const response = await api.get('classes')        
         const { data } = response
         setTotalClassesList(data)
         setClasses(data)

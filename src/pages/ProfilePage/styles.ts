@@ -197,12 +197,49 @@ export const Divider = styled.hr`
   }  
 `
 
-export const ScheduleList = styled.ul`  
-  list-style: none; 
-`
-
 export const WhatsApp = styled.div`
   @media(min-width: 50rem){
     width: 35rem;  
   }
+`
+
+export const ScheduledClasses = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: row;  
+
+  >li {
+
+    > a {
+      text-decoration: none;
+      color: var(--color-text-base);
+      border: solid 1px var(--color-line-in-white);
+      border-radius: 0.8rem;
+      padding: 2.2rem 1.5rem;
+      margin: 1rem;
+      width: 13rem;
+      height: 14rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;    
+      cursor: pointer;
+      transition: all 0.2s;
+
+        > p {          
+          font-size: 1.2rem;          
+
+          > span {
+            font-size: 1.4rem;
+            display: block;
+            color: var(--color-primary);
+            font-weight: 700;
+          }
+        }
+
+        &:hover{
+          filter: brightness(90%);
+        }
+    }
+  }
+
 `

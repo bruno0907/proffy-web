@@ -6,25 +6,16 @@ import PageContainer from "../../components/PageContainer";
 import PageHeader from "../../components/PageHeader";
 import NavBar from "../../components/NavBar";
 import Input from "../../components/Input";
-import Textarea from "../../components/Textarea";
 import Select from "../../components/Select";
 import FormButton from "../../components/FormButton";
 import Footer from "../../components/Footer";
 
-import rocketIcon from "../../assets/images/icons/rocket.svg";
-import avatarPlaceholder from "../../assets/images/icons/user.svg";
-
 import {  
-  UserInfo,
-  AvatarSection,
-  Avatar,
-  UserName,
   Profile,
   Form,
   FormContainer,
   FormSection,
-  Divider,
-  WhatsApp,
+  Divider,  
   Cost,
   ScheduleList,
   WeekDay,
@@ -34,37 +25,47 @@ import {
 } from "./styles";
 
 import options from "../../utils/options";
+import convertMinutesToHours from '../../utils/convertMinutesToHours'
 
+import { useAuth } from '../../contexts/auth'
 import api from '../../services/api'
 
-import { useAuth } from "../../contexts/auth";
-import { UserProps } from "../../services/auth";
-
-function GiveClassesPage() {
+function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
   const history = useHistory();
-
-  const [avatar, setAvatar] = useState<UserProps | null>(null);
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [bio, setBio] = useState('');
+  const { id } = route.match.params
+  
   const [subject, setSubject] = useState('');
   const [cost, setCost] = useState('');
   const [scheduleItems, setScheduleItems] = useState([
     { id: 0, week_day: 0, from: '', to: '' },
   ]);
 
-
-  const { user } = useAuth()
-
+  const { signed } = useAuth()   
+ 
   useEffect(() => {
-    setAvatar(user?.avatar!)
-    setName(user?.name!)
-    setSurname(user?.surname!)
-    setWhatsapp(user?.whatsapp!)
-    setBio(user?.bio!)
-    setSubject(user?.subject!)    
-  }, [user])
+
+    if(!signed){      
+      history.push('/sign-in')
+    }   
+    
+    const getClass = async () => {
+      await api.get('proffy/class', {
+        headers: {
+          id
+        }
+      }).then(response => {
+          setSubject(response.data[0].subject)
+          setCost(response.data[0].cost)
+          setScheduleItems(response.data[0].classes)
+          console.log(response.data[0])
+
+        }
+      ).catch(error => console.log(error.message))
+
+    }
+    getClass()
+
+  }, [history, id, signed])
 
   function addNewScheduleItem() {
     let a = scheduleItems.length;
@@ -94,82 +95,46 @@ function GiveClassesPage() {
     });
 
     setScheduleItems(updatedScheduleItems);
-  }  
-
+  }
+  
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
-    
-    await api.post(`/proffy/classes`,{        
+
+    await api.put(`/proffy/class`,{        
         subject,
         cost: Number(cost),
-        schedule: scheduleItems
-        
+        schedule: scheduleItems        
     }, {
       headers: {
-        id: user?.id
+        id
       }
     }).then(response => {
       alert('Cadastro realizado com sucesso!')
       console.log(response.data)
-      history.push('/')
+      history.push('/user/profile')
 
     }).catch((error) => {
       alert('Houve um erro no seu cadastro!')
-      console.log(error.message)
-      
+      console.log(error.message)      
     })
 
   }
 
   return (
     <PageContainer>
-      <NavBar title="Dar aulas" />
+      <NavBar title="Editar aula" />
       <PageHeader
-        title="Que incrível que você quer dar aulas."
-        description="O primeiro passo, é preencher esse formulário de inscrição."
-      >
-        <img src={rocketIcon} alt="Rocket" />
-        <span>
-          Prepare-se!
-          <br />
-          Vai ser o máximo
-        </span>
+        title="Aqui você pode editar a sua aula."
+        description="Utilize das opções baixo para adicionar/remove ou editar as suas aulas."
+      >        
       </PageHeader>
       <Profile>
         <Form onSubmit={handleCreateClass}>
           <FormContainer>
+            
             <FormSection>
               <legend>
-                <h2>Seus Dados</h2>                              
-              </legend>
-              <Divider/>              
-              <UserInfo>
-                <AvatarSection>
-                  <Avatar img={ avatar ? `http://localhost:3333/img/${avatar}` : avatarPlaceholder } />                  
-                  <UserName>{name} {surname}</UserName>
-                </AvatarSection>                 
-                <WhatsApp>
-                  <Input 
-                    label="Whatsapp"
-                    name="whatsapp"                  
-                    autoComplete='off'
-                    value={whatsapp}
-                    onChange={event => setWhatsapp(event.target.value)}
-                  /> 
-                </WhatsApp>              
-              </UserInfo>                
-              <Textarea 
-                label="Biografia"
-                subLabel="(Máximo de 300 caracteres)"
-                name="bio"
-                autoComplete='off'
-                value={bio}
-                onChange={(event) => setBio(event.target.value)}
-              />           
-            </FormSection>
-            <FormSection>
-              <legend>
-                <h2>Sobre a aula</h2>                
+                <h2>Aula cadastrada</h2>                
               </legend>
               <Divider/>
               <div>
@@ -192,7 +157,7 @@ function GiveClassesPage() {
             </FormSection>
             <FormSection>
               <legend>
-                <h2>Horários disponíveis</h2>
+                <h2>Horários cadastrados</h2>
                 <p onClick={addNewScheduleItem}>+ Novo <span>horário</span></p>
               </legend>
               <Divider/>
@@ -213,7 +178,7 @@ function GiveClassesPage() {
                         type="time"
                         name="from"
                         label="De"                      
-                        value={scheduleItem.from}
+                        value={convertMinutesToHours(scheduleItem.from)}
                         onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
                       />
                     </From>  
@@ -222,7 +187,7 @@ function GiveClassesPage() {
                         type="time"
                         name="to"
                         label="Até"                      
-                        value={scheduleItem.to}
+                        value={convertMinutesToHours(scheduleItem.to)}
                         onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
                       />                    
                     </To>
@@ -234,7 +199,7 @@ function GiveClassesPage() {
             </FormSection>
           </FormContainer>
         <Footer>
-          <FormButton>Atualizar Perfil</FormButton>
+          <FormButton>Salvar Alterações</FormButton>
         </Footer>
         </Form>
       </Profile>
@@ -242,4 +207,4 @@ function GiveClassesPage() {
   );
 }
 
-export default GiveClassesPage;
+export default ClassesListPage;

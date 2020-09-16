@@ -44,7 +44,7 @@ const Landing: React.FC = () => {
       setName(user?.name!);
     }
 
-    async function getConnections() {
+    const getConnections = async() => {
       const response = await api.get("/connections");
       const { total } = response.data;
       setTotalConnections(total);

@@ -21,29 +21,16 @@ import {
   Form,
   FormContainer,
   FormSection,
-  Divider,    
-  ScheduleList,  
+  Divider, 
   WhatsApp,    
+  ScheduledClasses
 } from './styles';
 
 import { useAuth } from '../../contexts/auth'
 
 import api from '../../services/api'
-import convertWeekDay from '../../utils/convertWeekDay'
-import convertMinutesToHours from '../../utils/convertMinutesToHours'
-
 
 import { UserProps } from '../../services/auth';
-
-import { Classes } from './ClassesItem'
-
-interface ClassesProps{  
-  id: number;
-  week_day: number;
-  from: number;
-  to: number;
-  class_id: number;
-}
 
 function TeacherProfilePage (){    
   const history = useHistory() 
@@ -62,13 +49,18 @@ function TeacherProfilePage (){
       history.push('/sign-in')
     }   
     
-    api.get('proffy/classes', {
-      headers: {
-        id: user?.id
-      }
-    }).then(
-      response => setClasses(response.data)      
-    ).catch(error => console.log(error))
+    const getClasses = async() => {
+      api.get('proffy/classes', {
+        headers: {
+          id: user?.id
+        }
+      }).then(
+        response => setClasses(response.data)
+        ).catch(
+          error => console.log(error)
+        )
+    }
+    getClasses()
     
     setAvatar(user?.avatar!) 
     setName(user?.name!)
@@ -148,8 +140,7 @@ function TeacherProfilePage (){
             <CameraIcon />
           </div>
         </Avatar>      
-        <Name>{`${name} ${surname}`|| 'Nome do Proffy'}</Name>
-        {/* <Subject>{subject || 'Matéria do Proffy'}</Subject>  */}
+        <Name>{`${name} ${surname}`|| 'Nome do Proffy'}</Name>        
       </Header>
       <Profile>
         <Form onSubmit={handleSubmit}>
@@ -211,44 +202,22 @@ function TeacherProfilePage (){
                 <h2>Aulas Cadastradas</h2>
               </legend>
               <Divider/>
-              <ScheduleList>                
-                { classes.map((scheduledClass: Classes) => {                  
-                  return(
-                    <li key={scheduledClass.id}>
-                      <div>
-                        <strong>Matéria: </strong>                      
-                        {scheduledClass.subject}
-                        <strong>Valor: </strong>
-                        {scheduledClass.cost}
-                      </div>
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Dia</th>
-                            <th>De</th>
-                            <th>Até</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
-                          </tr>  
-                        </thead>
-                        {scheduledClass.classes.map((i: ClassesProps) => {
-                          return(
-                            <tbody key={i.id}>
-                              <tr>
-                                <td>{convertWeekDay(i.week_day)}</td>
-                                <td>{convertMinutesToHours(i.from)}</td>
-                                <td>{convertMinutesToHours(i.to)}</td>
-                                <td>*</td>
-                                <td>X</td>
-                              </tr>
-                            </tbody>
-                          )
-                        })}
-                      </table>                      
-                    </li>
-                  )
-                })}       
-              </ScheduleList>   
+                <ScheduledClasses>
+                  { classes.map((i: any) =>                     
+                    <li key={i.id}>
+                      <Link to={`/user/profile/${i.id}/classes`}>
+                        <p>
+                          Matéria
+                          <span>{i.subject}</span>
+                        </p>
+                        <p>
+                          Hora/aula
+                          <span>R$ {i.cost}</span>
+                        </p>
+                      </Link>
+                    </li>                    
+                  )}              
+                </ScheduledClasses>
             </FormSection>
           </FormContainer>
         <Footer>
