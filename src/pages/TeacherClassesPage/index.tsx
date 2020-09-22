@@ -26,24 +26,26 @@ import {
 
 import options from "../../utils/options";
 import convertMinutesToHours from '../../utils/convertMinutesToHours'
+import convertHourToMinutes from '../../utils/convertHourToMinutes'
 
 import { useAuth } from '../../contexts/auth'
 import api from '../../services/api'
 
 function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
+
   const history = useHistory();
   const { id } = route.match.params
   
   const [subject, setSubject] = useState('');
-  const [cost, setCost] = useState('');
+  const [cost, setCost] = useState('');  
   const [scheduleItems, setScheduleItems] = useState([
-    { id: 0, week_day: 0, from: '', to: '' },
+    { id: 0, week_day: '', from: '', to: '' },
   ]);
 
   const { signed } = useAuth()   
  
   useEffect(() => {
-
+  
     if(!signed){      
       history.push('/sign-in')
     }   
@@ -57,8 +59,6 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
           setSubject(response.data[0].subject)
           setCost(response.data[0].cost)
           setScheduleItems(response.data[0].classes)
-          console.log(response.data[0])
-
         }
       ).catch(error => console.log(error.message))
 
@@ -67,18 +67,26 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
 
   }, [history, id, signed])
 
-  function addNewScheduleItem() {
-    let a = scheduleItems.length;
-    const nid = a++;
+  function addNewScheduleItem() {    
+    const newId = Math.random() * 10
 
     setScheduleItems([
       ...scheduleItems,
-      { id: nid, week_day: 0, from: "", to: "" },
+      { id: newId, week_day: '', from: '', to: '' },
     ]);
   }
 
-  function removeScheduleItem(id: number) {
-    setScheduleItems(scheduleItems.filter((item) => item.id !== id));
+  // TRATAR JANELA DE CONFIRMAÇÃO TROCAR ALERT POR UM MODAL
+  async function removeScheduleItem(id: number) {
+    setScheduleItems(scheduleItems.filter((item) => item?.id !== id));
+
+    window.confirm('Deseja remover esta aula?')
+
+    await api.delete('/proffy/class/remove-class', {
+      headers: {
+        id
+      }
+    })
   }
 
   // setScheduleItemValue(0, 'week_day', '2)
@@ -100,8 +108,7 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
 
-    await api.put(`/proffy/class`,{        
-        subject,
+    await api.put(`/proffy/class`,{                
         cost: Number(cost),
         schedule: scheduleItems        
     }, {
@@ -163,7 +170,7 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
               <Divider/>
               <ScheduleList>
                 { scheduleItems.map((scheduleItem, index) => (
-                  <li key={scheduleItem.id}> 
+                  <li key={scheduleItem?.id}> 
                     <WeekDay>                    
                       <Select                         
                         name="week_day"
@@ -179,16 +186,24 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
                         name="from"
                         label="De"                      
                         value={convertMinutesToHours(scheduleItem.from)}
-                        onChange={event => setScheduleItemValue(index, 'from', event.target.value)}
+                        onChange={
+                          event => setScheduleItemValue(
+                            index, 'from', convertHourToMinutes(event.target.value)
+                          )
+                        }
                       />
                     </From>  
                     <To>
                       <Input 
-                        type="time"
+                        type="time" 
                         name="to"
                         label="Até"                      
                         value={convertMinutesToHours(scheduleItem.to)}
-                        onChange={event => setScheduleItemValue(index, 'to', event.target.value)}
+                        onChange={
+                          event => setScheduleItemValue(
+                            index, 'to', convertHourToMinutes(event.target.value)
+                          )
+                        }
                       />                    
                     </To>
                     <RemoveButton onClick={() => removeScheduleItem(scheduleItem.id)}>X</RemoveButton>

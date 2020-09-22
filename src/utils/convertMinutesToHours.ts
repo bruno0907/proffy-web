@@ -1,5 +1,5 @@
-export default function convertMinutesToHours(time: number | any){ 
-  
+export default function convertMinutesToHours(time: number | any){
+
   let hours = Math.floor(time / 60).toString()
   let minutes = (time % 60).toString()
   

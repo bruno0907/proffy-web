@@ -48,5 +48,10 @@ export const InputBlock = styled.div`
     &::placeholder {
       opacity: 0;
     }
+
+    &:disabled{
+      filter: grayscale(50%);      
+      cursor: not-allowed;
+    }
   }
 `;

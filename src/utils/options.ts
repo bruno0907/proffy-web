@@ -6,8 +6,7 @@ const subjects = [
   { value: 'Física', label: 'Física'},
 ];
 
-const weekDay = [                          
-    // { value: '', label: 'Selecione aqui...' },    
+const weekDay = [                              
     { value: '0', label: 'Domingo' },
     { value: '1', label: 'Segunda-feira' },
     { value: '2', label: 'Terça-feira' },

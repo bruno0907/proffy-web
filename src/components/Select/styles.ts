@@ -65,6 +65,11 @@ export const SelectBlock = styled.div`
 
         appearance: none;
         -webkit-appearance: none;
-        -moz-appearance: none;     
+        -moz-appearance: none;    
+
+        &:disabled{
+            filter: grayscale(50%);      
+            cursor: not-allowed;
+        } 
     }
 `

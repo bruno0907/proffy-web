@@ -51,7 +51,7 @@ function GiveClassesPage() {
   const [subject, setSubject] = useState('');
   const [cost, setCost] = useState('');
   const [scheduleItems, setScheduleItems] = useState([
-    { id: 0, week_day: 0, from: '', to: '' },
+    { id: 0, week_day: '', from: '', to: '' },
   ]);
 
 
@@ -67,12 +67,12 @@ function GiveClassesPage() {
   }, [user])
 
   function addNewScheduleItem() {
-    let a = scheduleItems.length;
-    const nid = a++;
+    // let a = scheduleItems.length;
+    const newId = Math.random() * 10;
 
     setScheduleItems([
       ...scheduleItems,
-      { id: nid, week_day: 0, from: "", to: "" },
+      { id: newId, week_day: '', from: "", to: "" },
     ]);
   }
 
@@ -99,10 +99,11 @@ function GiveClassesPage() {
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
     
-    await api.post(`/proffy/classes`,{        
-        subject,
-        cost: Number(cost),
-        schedule: scheduleItems
+    await api.post(`/proffy/classes`,{    
+      bio,    
+      subject,
+      cost: Number(cost),
+      schedule: scheduleItems
         
     }, {
       headers: {
@@ -155,6 +156,7 @@ function GiveClassesPage() {
                     autoComplete='off'
                     value={whatsapp}
                     onChange={event => setWhatsapp(event.target.value)}
+                    disabled
                   /> 
                 </WhatsApp>              
               </UserInfo>                
@@ -165,6 +167,7 @@ function GiveClassesPage() {
                 autoComplete='off'
                 value={bio}
                 onChange={(event) => setBio(event.target.value)}
+                disabled
               />           
             </FormSection>
             <FormSection>
