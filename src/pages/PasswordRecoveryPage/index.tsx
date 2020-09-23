@@ -23,23 +23,21 @@ function PasswordRecoveryPage() {
   const emailRegex = (/^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/)
   const hasValue = Boolean( email.match(emailRegex) )
 
-  const handleForm = (event: FormEvent<HTMLFormElement>) => {
+  const handleForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()    
     
-    api.post('proffy/password-recovery', {
+    await api.post('proffy/password-recovery', {
       email
-    }).then( () => {   
+    }).then(() => {   
       history.push('/success', {            
         title: 'Redefinição enviada!',
         description: 'Boa, agora é só checar o e-mail que foi enviado para você, Seguir as orientações e voltar aos estudos.' ,
         buttonText: 'Entrar',
         link: '/sign-in',
       })
-    }).catch( (err) => {
-        console.log(err)
-        alert('Email não encontrado.')
-      })
-    
+    }).catch(() => {        
+        alert('Email não encontrado.')        
+      })    
   }
 
   return (    
@@ -55,7 +53,7 @@ function PasswordRecoveryPage() {
               name="email"
               type="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={event => setEmail(event.target.value)}
               autoComplete={'off'}
               required
               only                        

@@ -20,7 +20,6 @@ import {
 
 import { useAuth } from '../../contexts/auth'
 
-
 function SignInPage() {  
   const history = useHistory()
 

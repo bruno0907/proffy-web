@@ -30,33 +30,30 @@ function SignUpPage() {
   async function handleForm(event: FormEvent<HTMLFormElement>){
     event.preventDefault()      
 
-      if( password !== passwordConfirm ){
-        alert('As senhas não conferem champs!!!! Acerta aí mongolóide!')
-        return
+    if( password !== passwordConfirm ){
+      alert('As senhas não conferem champs!!!! Acerta aí mongolóide!')
+      return
 
-      } else {
-        await api.post('proffy/sign-up',{
-          name,
-          surname,
-          email,
-          password,
-          'password_confirm': passwordConfirm
-        }).then(() => {              
-            history.push('/success', {
-              title: 'Cadastro concluído',
-              description: 'Agora você faz parte da plataforma Proffy. Tenha uma ótima experiência.',
-              buttonText: 'Entrar',
-              link: '/sign-in'
-            })
-    
-        }).catch((e) => {
-            alert('Houve um erro no seu cadastro!')
-            console.log('Erro: ', e)
-    
-        })      
-      } 
-  }
+    } else {
+      await api.post('proffy/sign-up',{
+        name,
+        surname,
+        email,
+        password,
+        'password_confirm': passwordConfirm
+      }).then(() => {              
+          history.push('/success', {
+            title: 'Cadastro concluído',
+            description: 'Agora você faz parte da plataforma Proffy. Tenha uma ótima experiência.',
+            buttonText: 'Entrar',
+            link: '/sign-in'
+          })
   
+      }).catch(() => {
+        alert('Houve um erro no seu cadastro!')
+      })      
+    } 
+  }  
 
   return (    
     <PageWrapper>
@@ -74,7 +71,7 @@ function SignUpPage() {
               name="name"
               autoComplete={'off'}
               value={name}
-              onChange={(event) => setName(event.target.value)}
+              onChange={event => setName(event.target.value)}
               required
               first                       
             />
@@ -83,7 +80,7 @@ function SignUpPage() {
               name="surname"
               autoComplete={'off'}            
               value={surname}
-              onChange={(event) => setSurname(event.target.value)}
+              onChange={event => setSurname(event.target.value)}
               required                     
             />
             <LoginInput 
@@ -92,7 +89,7 @@ function SignUpPage() {
               type="email"
               autoComplete={'off'}
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={event => setEmail(event.target.value)}
               required          
             />
             <LoginInput 
@@ -101,7 +98,7 @@ function SignUpPage() {
               type="password"
               autoComplete={'off'}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={event => setPassword(event.target.value)}
               required
               password          
             />        
@@ -111,7 +108,7 @@ function SignUpPage() {
               type="password"
               autoComplete={'off'}
               value={passwordConfirm}
-              onChange={(event) => setPasswordConfirm(event.target.value)}              
+              onChange={event => setPasswordConfirm(event.target.value)}              
               required
               password
               last

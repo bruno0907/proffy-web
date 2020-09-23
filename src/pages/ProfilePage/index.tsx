@@ -10,8 +10,6 @@ import FormButton from '../../components/FormButton'
 
 import avatarPlaceholder from '../../assets/images/icons/user.svg'
 
-// import ClassesItem from './ClassesItem'
-
 import {   
   Profile,  
   Header,
@@ -50,15 +48,9 @@ function TeacherProfilePage (){
     }   
     
     const getClasses = async() => {
-      api.get('proffy/classes', {
-        headers: {
-          id: user?.id
-        }
-      }).then(
-        response => setClasses(response.data)
-        ).catch(
-          error => console.log(error)
-        )
+      await api.get(`proffy/${user?.id}/classes/`)
+      .then(response => setClasses(response.data))
+      .catch(error => console.log(error))
     }
     getClasses()
     
@@ -69,29 +61,21 @@ function TeacherProfilePage (){
     setWhatsapp(user?.whatsapp! || '')
     setBio(user?.bio! || '')       
     
-  }, [signed, history, avatar, user])
+  }, [signed, history, avatar, user])  
 
-  
-
-  const handleUpdateAvatar = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateAvatar = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
     if(event.target.files){
       const avatar = event.target.files[0]
-      const formData = new FormData()     
-      const id = user?.id 
+      const formData = new FormData()           
 
       formData.append('file', avatar)    
 
-      api.patch('/proffy/profile/update-avatar', formData, {
-        headers: {
-          id
-        }
-      })
+      await api.patch(`/proffy/profile/${user?.id}/update-avatar/`, formData)
       .then(response => {        
         const userUpdated = response.data.user        
         updateUser(userUpdated)
-
       })
-      .catch(e => alert('Houve um erro ao atualizar seu avatar'))    
+      .catch(() => alert('Houve um erro ao atualizar seu avatar'))    
     }
   }, [user, updateUser])
 
@@ -109,21 +93,16 @@ function TeacherProfilePage (){
       bio,            
     } 
 
-    const response = await api.put(`/proffy/profile/update`, data, {
-      headers:{   
-        id: user?.id,       
+    await api.put(`/proffy/profile/${user?.id}/update`, data, {
+      headers:{           
         token 
       }
-    })
-
-    if(response){      
+    }).then(response => {      
       updateUser(response.data)
       history.push('/')
-
-    } else {
+    }).catch(() => {
       alert('Erro ao atualizar o seu usuário.')
-
-    }
+    })
   }  
 
   return (

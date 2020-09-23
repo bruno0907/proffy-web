@@ -1,18 +1,18 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import TeacherListPage from "./pages/TeacherListPage";
-import TeacherClassesPage from "./pages/TeacherClassesPage";
-import GiveClassesPage from "./pages/GiveClassesPage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
-import ActionPage from "./pages/ActionPage";
-import ProfilePage from "./pages/ProfilePage";
-import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
-import PasswordResetPage from "./pages/PasswordResetPage";
+import Home from "../pages/Home";
+import TeacherListPage from "../pages/TeacherListPage";
+import TeacherClassesPage from "../pages/TeacherClassesPage";
+import GiveClassesPage from "../pages/GiveClassesPage";
+import SignInPage from "../pages/SignInPage";
+import SignUpPage from "../pages/SignUpPage";
+import ActionPage from "../pages/ActionPage";
+import ProfilePage from "../pages/ProfilePage";
+import PasswordRecoveryPage from "../pages/PasswordRecoveryPage";
+import PasswordResetPage from "../pages/PasswordResetPage";
 
-import { AuthProvider } from "./contexts/auth";
+import { AuthProvider } from "../contexts/auth";
 
 function Routes() {
   return (

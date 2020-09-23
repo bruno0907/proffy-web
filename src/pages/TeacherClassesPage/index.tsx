@@ -51,11 +51,8 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
     }   
     
     const getClass = async () => {
-      await api.get('proffy/class', {
-        headers: {
-          id
-        }
-      }).then(response => {
+      await api.get(`proffy/${id}/class`)
+        .then(response => {
           setSubject(response.data[0].subject)
           setCost(response.data[0].cost)
           setScheduleItems(response.data[0].classes)
@@ -82,14 +79,9 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
 
     window.confirm('Deseja remover esta aula?')
 
-    await api.delete('/proffy/class/remove-class', {
-      headers: {
-        id
-      }
-    })
+    await api.delete(`/proffy/class/${id}/remove-class`)
   }
-
-  // setScheduleItemValue(0, 'week_day', '2)
+  
   function setScheduleItemValue(
     position: number,
     field: string,
@@ -105,24 +97,17 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
     setScheduleItems(updatedScheduleItems);
   }
   
-  async function handleCreateClass(event: FormEvent) {
+  async function handleUpdateClass(event: FormEvent) {
     event.preventDefault();
 
-    await api.put(`/proffy/class`,{                
+    await api.put(`/proffy/${id}/class`,{                
         cost: Number(cost),
         schedule: scheduleItems        
-    }, {
-      headers: {
-        id
-      }
-    }).then(response => {
-      alert('Cadastro realizado com sucesso!')
-      console.log(response.data)
+    }).then(() => {
+      alert('Cadastro realizado com sucesso!')      
       history.push('/user/profile')
-
-    }).catch((error) => {
-      alert('Houve um erro no seu cadastro!')
-      console.log(error.message)      
+    }).catch(() => {
+      alert('Houve um erro no seu cadastro!')          
     })
 
   }
@@ -136,7 +121,7 @@ function ClassesListPage(route: { match: { params: { id: any; }; }; }) {
       >        
       </PageHeader>
       <Profile>
-        <Form onSubmit={handleCreateClass}>
+        <Form onSubmit={handleUpdateClass}>
           <FormContainer>
             
             <FormSection>

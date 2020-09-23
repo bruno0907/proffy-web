@@ -66,8 +66,7 @@ function GiveClassesPage() {
     setSubject(user?.subject!)    
   }, [user])
 
-  function addNewScheduleItem() {
-    // let a = scheduleItems.length;
+  function addNewScheduleItem() {    
     const newId = Math.random() * 10;
 
     setScheduleItems([
@@ -99,25 +98,17 @@ function GiveClassesPage() {
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
     
-    await api.post(`/proffy/classes`,{    
+    await api.post(`/proffy/classes/${user?.id}`,{    
       bio,    
       subject,
       cost: Number(cost),
-      schedule: scheduleItems
-        
-    }, {
-      headers: {
-        id: user?.id
-      }
-    }).then(response => {
-      alert('Cadastro realizado com sucesso!')
-      console.log(response.data)
+      schedule: scheduleItems        
+    }).then(() => {
+      alert('Cadastro realizado com sucesso!')      
       history.push('/')
 
-    }).catch((error) => {
+    }).catch(() => {
       alert('Houve um erro no seu cadastro!')
-      console.log(error.message)
-      
     })
 
   }
@@ -166,7 +157,7 @@ function GiveClassesPage() {
                 name="bio"
                 autoComplete='off'
                 value={bio}
-                onChange={(event) => setBio(event.target.value)}
+                onChange={event => setBio(event.target.value)}
                 disabled
               />           
             </FormSection>

@@ -34,31 +34,29 @@ function ResetPasswordPage() {
   async function handleForm(event: FormEvent<HTMLFormElement>){
     event.preventDefault()      
 
-      if( password !== passwordConfirm ){
-        alert('As senhas não conferem champs!!!! Acerta aí mongolóide!')
-        return
+    if( password !== passwordConfirm ){
+      alert('As senhas não conferem')
+      return
 
-      } else {
-        await api.patch('proffy/password-reset',{          
-          email,
-          password,
-          'password_confirm': passwordConfirm
-        }).then(() => {   
-            signOut()
-            history.push('/success', {
-              title: 'Senha Alterada com Sucesso!',
-              description: 'Faça seu Login Novamente e retorna à plataforma',
-              buttonText: 'Entrar',
-              link: '/sign-in'
-            })
-    
-        }).catch((e) => {
-            alert('Houve um erro ao alterar sua senha!')
-            console.log('Erro: ', e)    
-        })      
-      } 
-  }
+    } else {
+      await api.patch('proffy/password-reset',{          
+        email,
+        password,
+        'password_confirm': passwordConfirm
+      }).then(() => {   
+          signOut()
+          history.push('/success', {
+            title: 'Senha Alterada com Sucesso!',
+            description: 'Faça seu Login Novamente e retorna à plataforma',
+            buttonText: 'Entrar',
+            link: '/sign-in'
+          })
   
+      }).catch(() => {
+        alert('Houve um erro ao alterar sua senha!')                
+      })      
+    } 
+  }  
 
   return (    
     <PageWrapper>
@@ -78,7 +76,7 @@ function ResetPasswordPage() {
               disabled
               autoComplete={'off'}
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={event => setEmail(event.target.value)}
               required      
               first    
             />
@@ -88,7 +86,7 @@ function ResetPasswordPage() {
               type="password"
               autoComplete={'off'}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={event => setPassword(event.target.value)}
               required
               password          
             />        
@@ -98,7 +96,7 @@ function ResetPasswordPage() {
               type="password"
               autoComplete={'off'}
               value={passwordConfirm}
-              onChange={(event) => setPasswordConfirm(event.target.value)}              
+              onChange={event => setPasswordConfirm(event.target.value)}              
               required
               password
               last
