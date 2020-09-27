@@ -47,10 +47,10 @@ function TeacherProfilePage (){
       history.push('/sign-in')
     }   
     
-    const getClasses = async() => {
-      await api.get(`proffy/${user?.id}/classes/`)
-      .then(response => setClasses(response.data))
-      .catch(error => console.log(error))
+    const getClasses = async() => {      
+      const response = await api.get(`proffy/${user?.id}/classes/`)
+      const { data } = response
+      setClasses(data)
     }
     getClasses()
     
@@ -176,28 +176,39 @@ function TeacherProfilePage (){
                 onChange={(event) => setBio(event.target.value)}
               />           
             </FormSection>            
-            <FormSection>
-              <legend>
-                <h2>Aulas Cadastradas</h2>
-              </legend>
-              <Divider/>
-                <ScheduledClasses>
-                  { classes.map((i: any) =>                     
-                    <li key={i.id}>
-                      <Link to={`/user/profile/${i.id}/classes`}>
-                        <p>
-                          Matéria
-                          <span>{i.subject}</span>
-                        </p>
-                        <p>
-                          Hora/aula
-                          <span>R$ {i.cost}</span>
-                        </p>
-                      </Link>
-                    </li>                    
-                  )}              
-                </ScheduledClasses>
-            </FormSection>
+              <FormSection>
+                <legend>
+                  <h2>Aulas Cadastradas</h2>
+                </legend>
+                <Divider/>
+                  { classes.length > 0 ?
+
+                  <ScheduledClasses>
+                    { classes.map((i: any) =>                     
+                      <li key={i.id}>
+                        <Link to={`/user/profile/${i.id}/classes`}>
+                          <p>
+                            Matéria
+                            <span>{i.subject}</span>
+                          </p>
+                          <p>
+                            Hora/aula
+                            <span>R$ {i.cost}</span>
+                          </p>
+                        </Link>
+                      </li>                    
+                    )}              
+                  </ScheduledClasses>
+                  : 
+
+                  <div>
+                    <h3>Você não possui nenhuma aula cadastrada</h3>
+                    <p>Para começar a dar aulas, complete seu cadastro e na página inicial acesse a opção Dar Aulas.</p>
+                  </div>
+
+                  }            
+              </FormSection>
+
           </FormContainer>
         <Footer>
           <FormButton>Atualizar Perfil</FormButton>

@@ -30,20 +30,20 @@ function TeacherListPage() {
 
   useEffect(() => {
     const getTotalProffys = async () => {
-        await api
-          .get("/proffy")
-          .then((response) => setTotalProffys(response.data))
-          .catch((error) => console.log(error));
-      };
-    getTotalProffys();
+      const response = await api.get('/proffy')
+      const { data } = response
+      setTotalProffys(data)
+
+    }
+    getTotalProffys()
 
     const getClasses = async () => {
-        const response = await api.get('classes')        
-        const { data } = response
-        setTotalClassesList(data)
-        setClasses(data)
-        
-      };
+      const response = await api.get('classes')        
+      const { data } = response
+      setTotalClassesList(data)
+      setClasses(data)
+      
+    };
     getClasses();
 
   }, []);
