@@ -34,7 +34,7 @@ export const InputBlock = styled.div`
         pointer-events: none;
     }
 
-    >img{
+    img{
         position: absolute;
         right: 2rem;
         top: calc(100% - 4.3rem);
@@ -94,4 +94,9 @@ export const InputField = styled.input<InputProps>`
         top: 2.5rem;
         right: 1.5rem;
     }
+
+    &::-ms-reveal,
+    &::-ms-clear {
+        display: none;
+      }
 `

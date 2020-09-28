@@ -40,13 +40,9 @@ function TeacherProfilePage (){
   const [ whatsapp, setWhatsapp ] = useState('')
   const [ bio, setBio ] = useState('')  
   const [ classes, setClasses ] = useState([])
-  const { signed, user, updateUser } = useAuth()   
+  const { user, updateUser } = useAuth()   
 
-  useEffect(() => {
-    if(!signed){      
-      history.push('/sign-in')
-    }   
-    
+  useEffect(() => {    
     const getClasses = async() => {      
       const response = await api.get(`proffy/${user?.id}/classes/`)
       const { data } = response
@@ -61,7 +57,7 @@ function TeacherProfilePage (){
     setWhatsapp(user?.whatsapp! || '')
     setBio(user?.bio! || '')       
     
-  }, [signed, history, avatar, user])  
+  }, [history, avatar, user])  
 
   const handleUpdateAvatar = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
     if(event.target.files){
@@ -69,7 +65,7 @@ function TeacherProfilePage (){
       const formData = new FormData()           
 
       formData.append('file', avatar)    
-
+      
       await api.patch(`/proffy/profile/${user?.id}/update-avatar/`, formData)
       .then(response => {        
         const userUpdated = response.data.user        

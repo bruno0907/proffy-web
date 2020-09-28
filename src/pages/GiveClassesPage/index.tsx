@@ -51,9 +51,8 @@ function GiveClassesPage() {
   const [subject, setSubject] = useState('');
   const [cost, setCost] = useState('');
   const [scheduleItems, setScheduleItems] = useState([
-    { id: 0, week_day: '', from: '', to: '' },
+    { id: (Math.random() * 10), week_day: '', from: '', to: '' },
   ]);
-
 
   const { user } = useAuth()
 
@@ -64,14 +63,12 @@ function GiveClassesPage() {
     setWhatsapp(user?.whatsapp!)
     setBio(user?.bio!)
     setSubject(user?.subject!)    
-  }, [user])
+  }, [history, user])
 
   function addNewScheduleItem() {    
-    const newId = Math.random() * 10;
-
     setScheduleItems([
       ...scheduleItems,
-      { id: newId, week_day: '', from: "", to: "" },
+      { id: (Math.random() * 10), week_day: '', from: "", to: "" },
     ]);
   }
 
@@ -97,8 +94,10 @@ function GiveClassesPage() {
 
   async function handleCreateClass(event: FormEvent) {
     event.preventDefault();
+
+    const id = Number(user?.id)
     
-    await api.post(`/proffy/classes/${user?.id}`,{    
+    await api.post(`/proffy/${id}/classes/`,{    
       bio,    
       subject,
       cost: Number(cost),

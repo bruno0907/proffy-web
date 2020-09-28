@@ -51,6 +51,11 @@ export const InputBlock = styled.div`
       filter: grayscale(50%);      
       cursor: not-allowed;
     }
-    
+
+    &::-ms-reveal,
+    &::-ms-clear {
+      display: none;
+    }
+        
   }
 `;
