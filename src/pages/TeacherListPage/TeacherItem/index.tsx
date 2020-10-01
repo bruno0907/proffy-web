@@ -31,7 +31,7 @@ interface ClassesProps{
   class_id: number;
 }
 
-export interface Class {
+export interface ClassProps {
   id: number;
   avatar: string;
   name: string;
@@ -50,7 +50,7 @@ export interface Class {
 }
 
 interface TeacherItemProps {
-  teacher: Class;
+  teacher: ClassProps;
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {

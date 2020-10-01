@@ -10,11 +10,10 @@ export const SelectBlock = styled.div`
         position: absolute;
         content: '';
         height: 0.32rem;
-        width: calc(100% - 4rem);        
+        width: calc(100% - 40px);        
         background: var(--color-primary);
-        bottom: 0rem;
-        left: 18px;
-        
+        bottom: 0;
+        left: 18px;        
     }
 
         &::before {

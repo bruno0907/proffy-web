@@ -12,42 +12,24 @@ import ProfilePage from "../pages/ProfilePage";
 import PasswordRecoveryPage from "../pages/PasswordRecoveryPage";
 import PasswordResetPage from "../pages/PasswordResetPage";
 
-import { AuthProvider, useAuth } from "../contexts/auth";
+import { AuthProvider } from "../contexts/auth";
 
 
-function Routes() {
-  const { signed } = useAuth()
+function Routes() {  
 
   return (
     <AuthProvider>
       <BrowserRouter>
         <Route exact path="/" component={Home} />
-        <Route exact path="/study" component={TeacherListPage} />
-
-        {!signed ?
-          <Route exact path="/give-classes" component={SignInPage} />     
-          :          
-          <Route exact path="/give-classes" component={GiveClassesPage} />
-        }        
-
+        <Route exact path="/study" component={TeacherListPage} />      
+        <Route exact path="/give-classes" component={GiveClassesPage} />
         <Route exact path="/password-recovery/" component={PasswordRecoveryPage} />
         <Route exact path="/password-reset/" component={PasswordResetPage} />
-        <Route exact path="/success" component={ActionPage} />   
-
-        {!signed ?
-          <Route exact path="/user/profile/" component={SignInPage} />
-          :
-          <Route exact path="/user/profile/" component={ProfilePage} />
-        }
-
-        {!signed ?
-          <Route exact path="/user/profile/:id/classes" component={SignInPage} />   
-          :
-          <Route exact path="/user/profile/:id/classes" component={TeacherClassesPage} />               
-        }
-        
+        <Route exact path="/success" component={ActionPage} /> 
+        <Route exact path="/user/profile/" component={ProfilePage} />        
+        <Route exact path="/user/profile/:id/classes" component={TeacherClassesPage} />               
         <Route exact path="/sign-in" component={SignInPage} />
-        <Route exact path="/sign-up" component={SignUpPage} />        
+        <Route exact path="/sign-up" component={SignUpPage} />           
       </BrowserRouter>
     </AuthProvider>
   );

@@ -30,7 +30,7 @@ import api from '../../services/api'
 
 import { UserProps } from '../../services/auth';
 
-function TeacherProfilePage (){    
+function TeacherProfilePage (){      
   const history = useHistory() 
 
   const [ avatar, setAvatar] = useState<UserProps | null>(null)
@@ -40,7 +40,7 @@ function TeacherProfilePage (){
   const [ whatsapp, setWhatsapp ] = useState('')
   const [ bio, setBio ] = useState('')  
   const [ classes, setClasses ] = useState([])
-  const { user, updateUser } = useAuth()   
+  const { user, updateUser, signed } = useAuth()   
 
   useEffect(() => {    
     const getClasses = async() => {      
@@ -101,6 +101,8 @@ function TeacherProfilePage (){
     })
   }  
 
+  !signed && history.push('/sign-in')
+  
   return (
     <PageContainer>
       <NavBar title="Meu Perfil" />

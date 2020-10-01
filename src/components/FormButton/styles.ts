@@ -13,8 +13,7 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 0.8rem;
   font-size: 1.6rem;
   font-family: Archivo;
-  font-weight: 700;
-  margin: 2rem 0;
+  font-weight: 700;  
   transition: background 0.2s;
 
   ${ (props) => props.disabled ? css`

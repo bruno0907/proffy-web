@@ -4,36 +4,33 @@ import PageHeader from "../../components/PageHeader";
 import NavBar from "../../components/NavBar";
 
 import PageContainer from "../../components/PageContainer";
-import Input from "../../components/Input";
 import Select from "../../components/Select";
+import FormButton from '../../components/FormButton'
 import TeacherItem from "./TeacherItem";
 
 import smile from "../../assets/images/icons/smile.svg";
 
 import api from "../../services/api";
 
-import { TeacherList, FilterBox, InputRow } from "./styles";
+import { TeacherList, FilterBox, FilterToast } from "./styles";
 
 import options from "../../utils/options";
 
-import { Class } from "./TeacherItem";
+import { ClassProps } from "./TeacherItem";
 
 function TeacherListPage() {
-  const [subject, setSubject] = useState("");
-  const [week_day, setWeekDay] = useState("");
-  const [time, setTime] = useState("");
-  
-  const [totalProffys, setTotalProffys] = useState("");
-
+  const [subject, setSubject] = useState('default');
+  const [week_day, setWeekDay] = useState('default');    
+  const [totalProffys, setTotalProffys] = useState(0);
   const [totalClassesList, setTotalClassesList] = useState([] as any);
-  const [classes, setClasses] = useState([] as any);
+  const [classes, setClasses] = useState([] as any); 
+  const [subjectFilter, setSubjectFilter] = useState([] as any)
 
   useEffect(() => {
     const getTotalProffys = async () => {
       const response = await api.get('/proffy')
       const { data } = response
       setTotalProffys(data)
-
     }
     getTotalProffys()
 
@@ -41,44 +38,69 @@ function TeacherListPage() {
       const response = await api.get('classes')        
       const { data } = response
       setTotalClassesList(data)
-      setClasses(data)
-      
+      setClasses(data)      
     };
     getClasses();
 
   }, []);
-
+  
   const subjectFilterHandler = (filterOption: string) => {
     if(filterOption === 'default'){
-      setClasses(totalClassesList)
-      setSubject('') 
+      setClasses(totalClassesList)        
+      setSubject('default')                   
+      return
 
-    }    
-    const classesList = [...totalClassesList]
-    const subjectFilterResult = classesList.filter(
-      (classesItem: Class) => classesItem.subject === filterOption
-    )
-    setClasses(subjectFilterResult)
-    setSubject(filterOption)       
+    } else {
+      const classesList = totalClassesList
+      const subjectFilterResult = classesList.filter(
+        (classesItem: ClassProps) => classesItem.subject === filterOption
+      )
+      setClasses(subjectFilterResult)
+      setSubject(filterOption)      
+      setSubjectFilter(subjectFilterResult)
+      return
 
+    }
   };
   
-  const weekDayfilterHandler = (filterOption: string) => {
-    if(filterOption === 'default'){
+  const weekDayFilterHandler = (filterOption: string) => { 
+    if(filterOption === 'default'){      
       setClasses(totalClassesList)
-      setWeekDay('')
+      setWeekDay('default')        
+      return          
 
-    }    
-    const classesList = [...classes]  
-    const weekDayFilterResult = classesList.filter(      
-      (classesItem: Class) => classesItem.classes.some(
-        (classWeekDay: any) => classWeekDay.week_day === Number(filterOption)
-      )
-    )    
-    setClasses(weekDayFilterResult)    
-    setWeekDay(filterOption)   
+    } else if(subject !== 'default'){      
+      const classesList = subjectFilter
+      const weekDayFilterResult = classesList.filter(      
+        (classesItem: ClassProps) => classesItem.classes.some(
+          (classWeekDay: any) => classWeekDay.week_day === Number(filterOption)
+        )
+      )      
+      setClasses(weekDayFilterResult)    
+      setWeekDay(filterOption)
+      return
 
-  };    
+    } else {      
+      const classesList = totalClassesList
+      const weekDayFilterResult = classesList.filter(      
+        (classesItem: ClassProps) => classesItem.classes.some(
+          (classWeekDay: any) => classWeekDay.week_day === Number(filterOption)
+        )
+      )      
+      setClasses(weekDayFilterResult)    
+      setWeekDay(filterOption)
+      return
+      
+    }
+  }; 
+
+  const clearFilters = () => {
+    setSubject('default')
+    setWeekDay('default')    
+    setClasses(totalClassesList)
+    setSubjectFilter([] as any)
+    return
+  }
 
   return (
     <PageContainer>
@@ -90,44 +112,33 @@ function TeacherListPage() {
         <img src={smile} alt="Rocket" />
         <span>Nós temos {totalProffys} professores.</span>
       </PageHeader>
-      <FilterBox>
-        <InputRow>
+        <FilterBox>
           <Select
             name="subject"
             label="Matéria"
             options={options.subjects}
             value={subject}
-            onChange={(event) => subjectFilterHandler(event.target.value)}
+            onChange={(event) => subjectFilterHandler(event.target.value)}            
           />
-        </InputRow>
-        
-        <InputRow>
           <Select
             name="week_day"
             label="Dia da semana"
             options={options.weekDay}
             value={week_day}
-            onChange={event => weekDayfilterHandler(event.target.value)}
+            onChange={(event) => weekDayFilterHandler(event.target.value)}
           />
-          <Input 
-          type="time" 
-          name="time" 
-          label="Horário" 
-          value={time}
-          onChange={event => setTime(event.target.value)}
-          />
-        </InputRow>
-      </FilterBox>
-      { classes.length <= 0 
-        ? 
-          <h1>Nenhum registro encontrado</h1> 
-        :
-      <TeacherList>
-        {classes.map((classItem: Class) => {
-          return <TeacherItem key={classItem.id} teacher={classItem} />;
-        })}      
-      </TeacherList>      
-      }
+          <FormButton onClick={clearFilters}>Limpar filtros</FormButton>
+        </FilterBox>
+        { classes.length <= 0 
+          ? 
+            <FilterToast>Nenhum professor encontrado em sua pesquisa.</FilterToast> 
+          :
+            <TeacherList>
+              {classes.map((classItem: ClassProps) => {
+                return <TeacherItem key={classItem.id} teacher={classItem} />;
+              })}      
+            </TeacherList>      
+        }
     </PageContainer>
   );
 }

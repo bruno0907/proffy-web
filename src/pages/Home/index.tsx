@@ -36,7 +36,7 @@ const Landing: React.FC = () => {
   const [avatar, setAvatar] = useState<UserProps | null>(null);
   const [name, setName] = useState("");
   const [totalConnections, setTotalConnections] = useState(0);
-  const { signed, signOut, user } = useAuth();
+  const { signed, signOut, user } = useAuth();  
 
   useEffect(() => {
     if (signed) {
@@ -94,7 +94,7 @@ const Landing: React.FC = () => {
             <img src={studyIcon} alt="Study-button" />
             Estudar
           </Study>
-          <GiveClass to="/give-classes">
+          <GiveClass to={!signed ? "/sign-in" : "/give-classes"}>
             <img src={giveClassesIcon} alt="GiveClass-button" />
             Dar Aulas
           </GiveClass>
