@@ -56,8 +56,7 @@ function SignUpPage() {
   }  
 
   return (    
-    <PageWrapper>
-      <LogoAside />
+    <PageWrapper>      
       <FormAside>
           <FormBackButton />
         <FormWrapper>
@@ -121,6 +120,7 @@ function SignUpPage() {
           </Form>
         </FormWrapper>
       </FormAside>
+      <LogoAside />
     </PageWrapper>
   )
 }

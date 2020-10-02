@@ -18,7 +18,7 @@ export interface UserProps{
 
 export function signIn( email: string, password: string ): Promise<UserProps>{
 
-  return new Promise((resolve) => {
+  return new Promise(() => {
     api.post('/proffy/sign-in', {
       email,
       password

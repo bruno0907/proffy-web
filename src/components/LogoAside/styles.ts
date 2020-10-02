@@ -28,7 +28,7 @@ export const Content = styled.div`
   align-items: flex-start;
   justify-content: center;
 
-  >img{        
+  a >img{        
     margin: 0 auto;
     height: 10rem;        
   }

@@ -43,8 +43,32 @@ function SignInPage() {
   async function handleSignIn(event: FormEvent){
     event.preventDefault()
 
-    const status = await signIn( email, password, rememberMe )     
-    status ? history.push('/') : alert('Ocorreu um erro')
+      await signIn(
+        email,
+        password,
+        rememberMe
+      ).then(() => history.push('/'))
+        .catch(
+          (error) => {            
+            if(error.message === 'Network Error'){
+              history.push('/')
+              return alert('Serviço temporariamente indisponível.')              
+            }
+            if(error.message === 'Request failed with status code 400'){ 
+              
+              return alert('Usuário ou senha incorretos')
+            }
+
+            history.push('/')
+          }
+        )
+
+    
+      // const status = await signIn( email, password, rememberMe )     
+      // status ? history.push('/') : alert('Ocorreu um erro')
+      
+    
+
   }
   
   return (    
@@ -58,14 +82,14 @@ function SignInPage() {
             onSubmit={handleSignIn}
           >
             <LoginInput 
-            label="E-mail"            
-            name="email"
-            type="email"
-            value={email}
-            autoComplete={'off'}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-            first                       
+              label="E-mail"            
+              name="email"
+              type="email"
+              value={email}
+              autoComplete={'off'}
+              onChange={event => setEmail(event.target.value)}
+              required
+              first            
             />
             <LoginInput 
               label="Senha"
@@ -73,7 +97,7 @@ function SignInPage() {
               type="password"
               autoComplete={'off'}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={event => setPassword(event.target.value)}
               required
               password
               last

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import logo from '../../assets/images/logo.svg'
 
@@ -8,7 +9,9 @@ const LogoAside: React.FC = () => {
   return(
     <Container>
       <Content>
-        <img src={logo} alt="Proffy"/>
+        <Link to="/">
+          <img src={logo} alt="Proffy"/>
+        </Link>
         <h1>Sua plataforma de estudos online.</h1>        
       </Content>
     </Container> 

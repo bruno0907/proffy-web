@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:3333'
+const local = 'http://localhost:3333'
+const production = 'https://api-proffy.herokuapp.com/'
+
+const URL = local
 
 const api = axios.create({
         baseURL: URL,
