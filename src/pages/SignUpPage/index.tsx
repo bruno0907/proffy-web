@@ -58,7 +58,7 @@ function SignUpPage() {
   return (    
     <PageWrapper>      
       <FormAside>
-          <FormBackButton />
+        <FormBackButton />
         <FormWrapper>
           <Form 
             label="Cadastro" 

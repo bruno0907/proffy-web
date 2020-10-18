@@ -2,8 +2,8 @@ import React, { useState, useEffect, FormEvent } from 'react'
 
 import { useHistory } from 'react-router-dom'
 
+import FormBackButton from '../../components/FormBackButton'
 import LogoAside from '../../components/LogoAside'
-
 import FormAside from '../../components/FormAside'
 
 import Form from '../../components/Form'
@@ -62,19 +62,13 @@ function SignInPage() {
             history.push('/')
           }
         )
-
-    
-      // const status = await signIn( email, password, rememberMe )     
-      // status ? history.push('/') : alert('Ocorreu um erro')
-      
-    
-
   }
   
   return (    
-    <PageWrapper>      
+    <PageWrapper>         
       <LogoAside />
-      <FormAside>       
+      <FormAside>    
+        <FormBackButton />   
         <FormWrapper>
           <Form 
             label="Faça seu login" 
@@ -104,7 +98,7 @@ function SignInPage() {
             />
             <RememberMe checked={rememberMe} onChange={handleChecked} onClick={handleChecked} />  
             <FormButton disabled={hasValue} type="submit">{ loading ? loading : 'Entrar'}</FormButton>      
-          </Form>
+          </Form>          
         </FormWrapper>
         <SignUp />        
       </FormAside>

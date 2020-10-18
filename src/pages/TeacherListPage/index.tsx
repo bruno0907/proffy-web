@@ -26,21 +26,24 @@ function TeacherListPage() {
   const [classes, setClasses] = useState([] as any); 
   const [subjectFilter, setSubjectFilter] = useState([] as any)
 
-  useEffect(() => {
-    const getTotalProffys = async () => {
-      const response = await api.get('/proffy')
-      const { data } = response
-      setTotalProffys(data)
-    }
-    getTotalProffys()
+  const getTotalProffys = async () => {
+    const response = await api.get('/proffy')
+    const { data } = response
+    setTotalProffys(data)
+    return
+  }
+  getTotalProffys()
 
-    const getClasses = async () => {
-      const response = await api.get('classes')        
-      const { data } = response
-      setTotalClassesList(data)
-      setClasses(data)      
-    };
-    getClasses();
+  const getClasses = async () => {
+    const response = await api.get('classes')        
+    const { data } = response
+    setTotalClassesList(data)
+    setClasses(data)  
+    return    
+  };
+  getClasses();
+
+  useEffect(() => {
 
   }, []);
   

@@ -21,7 +21,8 @@ import {
   FormSection,
   Divider, 
   WhatsApp,    
-  ScheduledClasses
+  ScheduledClasses,
+  NoClassesProfile
 } from './styles';
 
 import { useAuth } from '../../contexts/auth'
@@ -43,7 +44,7 @@ function TeacherProfilePage (){
   const { user, updateUser, signed } = useAuth()   
 
   useEffect(() => {    
-    const getClasses = async() => {      
+    const getClasses = async () => {      
       const response = await api.get(`proffy/${user?.id}/classes/`)
       const { data } = response
       setClasses(data)
@@ -171,7 +172,7 @@ function TeacherProfilePage (){
                 name="bio"
                 autoComplete='off'
                 value={bio}
-                onChange={(event) => setBio(event.target.value)}
+                onChange={event => setBio(event.target.value)}
               />           
             </FormSection>            
               <FormSection>
@@ -180,30 +181,23 @@ function TeacherProfilePage (){
                 </legend>
                 <Divider/>
                   { classes.length > 0 ?
-
-                  <ScheduledClasses>
-                    { classes.map((i: any) =>                     
-                      <li key={i.id}>
-                        <Link to={`/user/profile/${i.id}/classes`}>
-                          <p>
-                            Matéria
-                            <span>{i.subject}</span>
-                          </p>
-                          <p>
-                            Hora/aula
-                            <span>R$ {i.cost}</span>
-                          </p>
-                        </Link>
-                      </li>                    
-                    )}              
-                  </ScheduledClasses>
-                  : 
-
-                  <div>
-                    <h3>Você não possui nenhuma aula cadastrada</h3>
-                    <p>Para começar a dar aulas, complete seu cadastro e na página inicial acesse a opção Dar Aulas.</p>
-                  </div>
-
+                    <ScheduledClasses>
+                      { classes.map((i: any) =>                     
+                        <li key={i.id}>
+                          <Link to={`/user/profile/${i.id}/classes`}>
+                            <p>
+                              Matéria
+                              <span>{i.subject}</span>
+                            </p>
+                            <p>
+                              Hora/aula
+                              <span>R$ {i.cost}</span>
+                            </p>
+                          </Link>
+                        </li>                    
+                      )}              
+                    </ScheduledClasses> : 
+                    <NoClassesProfile>Você não possui nenhuma aula cadastrada</NoClassesProfile>
                   }            
               </FormSection>
 

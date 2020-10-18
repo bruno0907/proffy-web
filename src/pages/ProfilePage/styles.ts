@@ -243,3 +243,8 @@ export const ScheduledClasses = styled.ul`
   }
 
 `
+
+export const NoClassesProfile = styled.h3`  
+  font-family: Archivo;
+  color: var(--color-primary);
+`

@@ -227,7 +227,7 @@ function GiveClassesPage() {
             </FormSection>
           </FormContainer>
         <Footer>
-          <FormButton>Atualizar Perfil</FormButton>
+          <FormButton>Cadastrar aula</FormButton>
         </Footer>
         </Form>
       </Profile>
