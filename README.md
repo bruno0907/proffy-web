@@ -32,4 +32,4 @@ This project was idealized and developed from scratch through the NextLevelWeek 
 You can check the figma layout [here](https://www.figma.com/file/SG8o1df81YDNU6mklk5j1J/Proffy-Web-2.0?node-id=2%3A7). Remember: You must have a [Figma](https://www.figma.com/) Account to be able to see it.
 
 ## - License
-Licensed under MIT [License](LINCENSE)
+Licensed under MIT [License](LICENSE)
